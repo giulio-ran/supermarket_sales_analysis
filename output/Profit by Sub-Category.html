@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8"/><style>
+table {border: medium solid #6495ed;border-collapse: collapse;width: 100%;} th{font-family: monospace;border: thin solid #6495ed;padding: 5px;background-color: #D0E3FA;}th{text-align: left;}td{font-family: sans-serif;border: thin solid #6495ed;padding: 5px;text-align: center;}.odd{background:#e8edff;}img{padding:5px; border:solid; border-color: #dddddd #aaaaaa #aaaaaa #dddddd; border-width: 1px 2px 2px 1px; background-color:white;}</style>
+</head>
+<body>
+<table><tr><th colspan="2"><pre><code>/* Total Profit by Sub-Category */<br>SELECT p.sub_category 'Sub-Category', SUM(s.profit) 'Total Profit ($)'<br>FROM sales s<br>INNER JOIN (<br>    SELECT DISTINCT product_id, sub_category <br>    FROM products<br>) p ON s.product_id = p.product_id<br>GROUP BY 1<br>ORDER BY 2 DESC</code></pre></th></tr><tr><th>Sub-Category</th><th>Total Profit ($)</th></tr><tr class="odd"><td>Copiers</td><td>55.617,8249</td></tr>
+<tr><td>Phones</td><td>44.515,7306</td></tr>
+<tr class="odd"><td>Accessories</td><td>41.936,6357</td></tr>
+<tr><td>Paper</td><td>34.053,5693</td></tr>
+<tr class="odd"><td>Binders</td><td>30.221,7633</td></tr>
+<tr><td>Chairs</td><td>26.590,1663</td></tr>
+<tr class="odd"><td>Storage</td><td>21.278,8264</td></tr>
+<tr><td>Appliances</td><td>18.138,0054</td></tr>
+<tr class="odd"><td>Furnishings</td><td>13.059,1436</td></tr>
+<tr><td>Envelopes</td><td>6.964,1767</td></tr>
+<tr class="odd"><td>Art</td><td>6.527,787</td></tr>
+<tr><td>Labels</td><td>5.546,254</td></tr>
+<tr class="odd"><td>Machines</td><td>3.384,7569</td></tr>
+<tr><td>Fasteners</td><td>949,5182</td></tr>
+<tr class="odd"><td>Supplies</td><td>-1.189,0995</td></tr>
+<tr><td>Bookcases</td><td>-3.472,556</td></tr>
+<tr class="odd"><td>Tables</td><td>-17.725,4811</td></tr>
+</table></body></html>

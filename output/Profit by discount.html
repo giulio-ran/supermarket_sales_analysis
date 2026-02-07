@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8"/><style>
+table {border: medium solid #6495ed;border-collapse: collapse;width: 100%;} th{font-family: monospace;border: thin solid #6495ed;padding: 5px;background-color: #D0E3FA;}th{text-align: left;}td{font-family: sans-serif;border: thin solid #6495ed;padding: 5px;text-align: center;}.odd{background:#e8edff;}img{padding:5px; border:solid; border-color: #dddddd #aaaaaa #aaaaaa #dddddd; border-width: 1px 2px 2px 1px; background-color:white;}</style>
+</head>
+<body>
+<table><tr><th colspan="6"><pre><code>/* Average profit by discount percentage */<br>SELECT <br>    discount AS 'Discount (%)',<br>    COUNT(*) AS 'Number of sales',<br>    ROUND(AVG(sales), 2) AS 'Average sale amount ($)',<br>    ROUND(AVG(profit), 2) AS 'Average profit ($)',<br>    ROUND(SUM(profit), 2) AS 'Total profit ($)',<br>    -- Calcoliamo il margine percentuale medio<br>    ROUND((SUM(profit) / SUM(sales)) * 100, 2) AS 'Margin (%)'<br>FROM sales<br>GROUP BY discount<br>ORDER BY discount ASC</code></pre></th></tr><tr><th>Discount (%)</th><th>Number of sales</th><th>Average sale amount ($)</th><th>Average profit ($)</th><th>Total profit ($)</th><th>Margin (%)</th></tr><tr class="odd"><td>0</td><td>4.798</td><td>226,74</td><td>66,9</td><td>320.987,6</td><td>29,51</td></tr>
+<tr><td>0,1</td><td>94</td><td>578,4</td><td>96,06</td><td>9.029,18</td><td>16,61</td></tr>
+<tr class="odd"><td>0,15</td><td>52</td><td>529,97</td><td>27,29</td><td>1.418,99</td><td>5,15</td></tr>
+<tr><td>0,2</td><td>3.657</td><td>209,08</td><td>24,7</td><td>90.337,31</td><td>11,82</td></tr>
+<tr class="odd"><td>0,3</td><td>227</td><td>454,74</td><td>-45,68</td><td>-10.369,28</td><td>-10,05</td></tr>
+<tr><td>0,32</td><td>27</td><td>536,79</td><td>-88,56</td><td>-2.391,14</td><td>-16,5</td></tr>
+<tr class="odd"><td>0,4</td><td>206</td><td>565,13</td><td>-111,93</td><td>-23.057,05</td><td>-19,81</td></tr>
+<tr><td>0,45</td><td>11</td><td>498,63</td><td>-226,65</td><td>-2.493,11</td><td>-45,45</td></tr>
+<tr class="odd"><td>0,5</td><td>66</td><td>892,71</td><td>-310,7</td><td>-20.506,43</td><td>-34,8</td></tr>
+<tr><td>0,6</td><td>138</td><td>48,15</td><td>-43,08</td><td>-5.944,66</td><td>-89,46</td></tr>
+<tr class="odd"><td>0,7</td><td>418</td><td>97,18</td><td>-95,87</td><td>-40.075,36</td><td>-98,66</td></tr>
+<tr><td>0,8</td><td>300</td><td>56,55</td><td>-101,8</td><td>-30.539,04</td><td>-180,03</td></tr>
+</table></body></html>

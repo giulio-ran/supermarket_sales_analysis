@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8"/><style>
+table {border: medium solid #6495ed;border-collapse: collapse;width: 100%;} th{font-family: monospace;border: thin solid #6495ed;padding: 5px;background-color: #D0E3FA;}th{text-align: left;}td{font-family: sans-serif;border: thin solid #6495ed;padding: 5px;text-align: center;}.odd{background:#e8edff;}img{padding:5px; border:solid; border-color: #dddddd #aaaaaa #aaaaaa #dddddd; border-width: 1px 2px 2px 1px; background-color:white;}</style>
+</head>
+<body>
+<table><tr><th colspan="2"><pre><code>select o.state 'State', sum(s.sales) 'Total Sales ($)'<br>from sales s <br>inner join orders o on o.city = s.city<br>group by 1 order by 2 desc limit 30</code></pre></th></tr><tr><th>State</th><th>Total Sales ($)</th></tr><tr class="odd"><td>New York</td><td>235.864.028,274</td></tr>
+<tr><td>California</td><td>199.428.827,6595</td></tr>
+<tr class="odd"><td>Pennsylvania</td><td>58.727.686,571</td></tr>
+<tr><td>Washington</td><td>51.316.583,907</td></tr>
+<tr class="odd"><td>Texas</td><td>30.440.420,02</td></tr>
+<tr><td>Illinois</td><td>15.941.696,185</td></tr>
+<tr class="odd"><td>Ohio</td><td>8.718.097,955</td></tr>
+<tr><td>Michigan</td><td>6.009.839,36</td></tr>
+<tr class="odd"><td>Florida</td><td>4.538.680,704</td></tr>
+<tr><td>Virginia</td><td>3.769.670,729</td></tr>
+<tr class="odd"><td>North Carolina</td><td>3.726.978,359</td></tr>
+<tr><td>Georgia</td><td>3.545.985,057</td></tr>
+<tr class="odd"><td>Indiana</td><td>2.489.452,38</td></tr>
+<tr><td>Kentucky</td><td>1.962.084,028</td></tr>
+<tr class="odd"><td>Delaware</td><td>1.955.490,453</td></tr>
+<tr><td>Missouri</td><td>1.946.450,858</td></tr>
+<tr class="odd"><td>Oregon</td><td>1.866.410,315</td></tr>
+<tr><td>Colorado</td><td>1.367.292,699</td></tr>
+<tr class="odd"><td>Tennessee</td><td>1.347.561,51</td></tr>
+<tr><td>Arizona</td><td>1.215.635,299</td></tr>
+<tr class="odd"><td>Maryland</td><td>1.009.683,607</td></tr>
+<tr><td>Mississippi</td><td>874.963,962</td></tr>
+<tr class="odd"><td>South Carolina</td><td>806.187,35</td></tr>
+<tr><td>Wisconsin</td><td>736.721,463</td></tr>
+<tr class="odd"><td>Massachusetts</td><td>676.609,808</td></tr>
+<tr><td>New Jersey</td><td>639.268,172</td></tr>
+<tr class="odd"><td>Minnesota</td><td>626.973,968</td></tr>
+<tr><td>Rhode Island</td><td>572.715,206</td></tr>
+<tr class="odd"><td>Louisiana</td><td>521.656,958</td></tr>
+<tr><td>Alabama</td><td>333.840,275</td></tr>
+</table></body></html>

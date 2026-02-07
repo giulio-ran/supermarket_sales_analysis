@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8"/><style>
+table {border: medium solid #6495ed;border-collapse: collapse;width: 100%;} th{font-family: monospace;border: thin solid #6495ed;padding: 5px;background-color: #D0E3FA;}th{text-align: left;}td{font-family: sans-serif;border: thin solid #6495ed;padding: 5px;text-align: center;}.odd{background:#e8edff;}img{padding:5px; border:solid; border-color: #dddddd #aaaaaa #aaaaaa #dddddd; border-width: 1px 2px 2px 1px; background-color:white;}</style>
+</head>
+<body>
+<table><tr><th colspan="2"><pre><code>/* Profit by State */<br>select o.state 'State', sum(s.profit) 'Total Profit ($)'<br>from sales s <br>inner join orders o on o.city = s.city<br>group by 1 order by 2 desc limit 30</code></pre></th></tr><tr><th>State</th><th>Total Profit ($)</th></tr><tr class="odd"><td>New York</td><td>57.000.776,923</td></tr>
+<tr><td>California</td><td>33.112.106,4982</td></tr>
+<tr class="odd"><td>Washington</td><td>12.512.953,9712</td></tr>
+<tr><td>Michigan</td><td>1.863.899,4661</td></tr>
+<tr class="odd"><td>Ohio</td><td>906.294,1054</td></tr>
+<tr><td>Georgia</td><td>747.653,9065</td></tr>
+<tr class="odd"><td>Virginia</td><td>698.586,724</td></tr>
+<tr><td>Indiana</td><td>576.774,4627</td></tr>
+<tr class="odd"><td>Delaware</td><td>409.406,9262</td></tr>
+<tr><td>Kentucky</td><td>403.519,6571</td></tr>
+<tr class="odd"><td>Missouri</td><td>301.932,9077</td></tr>
+<tr><td>Mississippi</td><td>266.138,7995</td></tr>
+<tr class="odd"><td>Oregon</td><td>241.852,914</td></tr>
+<tr><td>Maryland</td><td>238.960,3071</td></tr>
+<tr class="odd"><td>Minnesota</td><td>219.776,6336</td></tr>
+<tr><td>Louisiana</td><td>201.493,9822</td></tr>
+<tr class="odd"><td>Rhode Island</td><td>186.509,0215</td></tr>
+<tr><td>South Carolina</td><td>181.707,7772</td></tr>
+<tr class="odd"><td>Wisconsin</td><td>172.307,3947</td></tr>
+<tr><td>Massachusetts</td><td>166.658,0752</td></tr>
+<tr class="odd"><td>New Jersey</td><td>137.319,2455</td></tr>
+<tr><td>Tennessee</td><td>97.849,1287</td></tr>
+<tr class="odd"><td>Oklahoma</td><td>82.153,1047</td></tr>
+<tr><td>Arkansas</td><td>62.766,4471</td></tr>
+<tr class="odd"><td>Alabama</td><td>58.287,9437</td></tr>
+<tr><td>Nevada</td><td>56.166,2028</td></tr>
+<tr class="odd"><td>Nebraska</td><td>53.017,305</td></tr>
+<tr><td>Connecticut</td><td>43.197,2213</td></tr>
+<tr class="odd"><td>Utah</td><td>17.542,6368</td></tr>
+<tr><td>Montana</td><td>13.082,3332</td></tr>
+</table></body></html>

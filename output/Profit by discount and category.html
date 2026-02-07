@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8"/><style>
+table {border: medium solid #6495ed;border-collapse: collapse;width: 100%;} th{font-family: monospace;border: thin solid #6495ed;padding: 5px;background-color: #D0E3FA;}th{text-align: left;}td{font-family: sans-serif;border: thin solid #6495ed;padding: 5px;text-align: center;}.odd{background:#e8edff;}img{padding:5px; border:solid; border-color: #dddddd #aaaaaa #aaaaaa #dddddd; border-width: 1px 2px 2px 1px; background-color:white;}</style>
+</head>
+<body>
+<table><tr><th colspan="4"><pre><code>/* Discount and profit by category */<br>SELECT <br>    p.category AS 'Category',<br>    s.discount AS 'Discount',<br>    ROUND(AVG(s.profit), 2) AS 'Average profit',<br>    CASE <br>        WHEN AVG(s.profit) &gt; 0 THEN 'Positive'<br>        ELSE 'Negative'<br>    END AS 'Profitability status'<br>FROM sales s<br>JOIN products p ON s.product_id = p.product_id<br>GROUP BY 1,2<br>order by 3 desc</code></pre></th></tr><tr><th>Category</th><th>Discount</th><th>Average profit</th><th>Profitability status</th></tr><tr class="odd"><td>Technology</td><td>0,1</td><td>574,41</td><td>Positive</td></tr>
+<tr><td>Technology</td><td>0</td><td>135,3</td><td>Positive</td></tr>
+<tr class="odd"><td>Furniture</td><td>0,1</td><td>92,24</td><td>Positive</td></tr>
+<tr><td>Technology</td><td>0,3</td><td>78,54</td><td>Positive</td></tr>
+<tr class="odd"><td>Furniture</td><td>0</td><td>71,25</td><td>Positive</td></tr>
+<tr><td>Office Supplies</td><td>0,1</td><td>60,06</td><td>Positive</td></tr>
+<tr class="odd"><td>Technology</td><td>0,2</td><td>51,53</td><td>Positive</td></tr>
+<tr><td>Office Supplies</td><td>0</td><td>45,36</td><td>Positive</td></tr>
+<tr class="odd"><td>Furniture</td><td>0,15</td><td>28,79</td><td>Positive</td></tr>
+<tr><td>Office Supplies</td><td>0,2</td><td>18,75</td><td>Positive</td></tr>
+<tr class="odd"><td>Furniture</td><td>0,2</td><td>12,62</td><td>Positive</td></tr>
+<tr><td>Furniture</td><td>0,6</td><td>-36,97</td><td>Negative</td></tr>
+<tr class="odd"><td>Furniture</td><td>0,3</td><td>-45,79</td><td>Negative</td></tr>
+<tr><td>Office Supplies</td><td>0,7</td><td>-46,29</td><td>Negative</td></tr>
+<tr class="odd"><td>Technology</td><td>0,4</td><td>-49,87</td><td>Negative</td></tr>
+<tr><td>Furniture</td><td>0,32</td><td>-81,54</td><td>Negative</td></tr>
+<tr class="odd"><td>Office Supplies</td><td>0,8</td><td>-92,07</td><td>Negative</td></tr>
+<tr><td>Furniture</td><td>0,4</td><td>-203,18</td><td>Negative</td></tr>
+<tr class="odd"><td>Furniture</td><td>0,45</td><td>-217,62</td><td>Negative</td></tr>
+<tr><td>Furniture</td><td>0,5</td><td>-226,08</td><td>Negative</td></tr>
+<tr class="odd"><td>Furniture</td><td>0,7</td><td>-281,41</td><td>Negative</td></tr>
+<tr><td>Technology</td><td>0,5</td><td>-452,32</td><td>Negative</td></tr>
+<tr class="odd"><td>Technology</td><td>0,7</td><td>-1.053,25</td><td>Negative</td></tr>
+</table></body></html>

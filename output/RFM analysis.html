@@ -1,0 +1,801 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8"/><style>
+table {border: medium solid #6495ed;border-collapse: collapse;width: 100%;} th{font-family: monospace;border: thin solid #6495ed;padding: 5px;background-color: #D0E3FA;}th{text-align: left;}td{font-family: sans-serif;border: thin solid #6495ed;padding: 5px;text-align: center;}.odd{background:#e8edff;}img{padding:5px; border:solid; border-color: #dddddd #aaaaaa #aaaaaa #dddddd; border-width: 1px 2px 2px 1px; background-color:white;}</style>
+</head>
+<body>
+<table><tr><th colspan="4"><pre><code>/* RFM analysis (Recency, Frequency, Monetary)<br>*<br>* Recency value = last order within the dataset - last order of the customer<br>* Frequency value = total sum of unique orders by customer<br>* Monetary value = Total sum of sales amount by customer */<br>WITH RFM_Base AS (<br>    SELECT <br>        s.customer_id,<br>        MAX(o.order_date) AS last_order_date,<br>        SUM(s.sales) AS monetary_value,<br>        COUNT(DISTINCT s.order_id) AS frequency_value<br>    FROM sales s<br>    JOIN orders o ON s.order_id = o.order_id AND s.product_id = o.product_id<br>    GROUP BY s.customer_id<br>)<br>SELECT <br>    customer_id,<br>    DATEDIFF((SELECT MAX(order_date) FROM orders), last_order_date) AS 'Recency value',<br>    frequency_value 'Frequency value',<br>    ROUND(monetary_value, 2) AS 'Monetary value'<br>FROM RFM_Base<br>ORDER BY 4 DESC</code></pre></th></tr><tr><th>customer_id</th><th>Recency value</th><th>Frequency value</th><th>Monetary value</th></tr><tr class="odd"><td>SM-20320</td><td>79</td><td>5</td><td>25.043,05</td></tr>
+<tr><td>TC-20980</td><td>399</td><td>5</td><td>19.052,22</td></tr>
+<tr class="odd"><td>RB-19360</td><td>96</td><td>6</td><td>15.117,34</td></tr>
+<tr><td>TA-21385</td><td>69</td><td>4</td><td>14.595,62</td></tr>
+<tr class="odd"><td>AB-10105</td><td>41</td><td>10</td><td>14.473,57</td></tr>
+<tr><td>KL-16645</td><td>47</td><td>12</td><td>14.175,23</td></tr>
+<tr class="odd"><td>SC-20095</td><td>349</td><td>9</td><td>14.142,33</td></tr>
+<tr><td>HL-15040</td><td>43</td><td>6</td><td>12.873,3</td></tr>
+<tr class="odd"><td>SE-20110</td><td>9</td><td>11</td><td>12.209,44</td></tr>
+<tr><td>CC-12370</td><td>43</td><td>5</td><td>12.129,07</td></tr>
+<tr class="odd"><td>TS-21370</td><td>36</td><td>6</td><td>11.891,75</td></tr>
+<tr><td>GT-14710</td><td>36</td><td>11</td><td>11.820,12</td></tr>
+<tr class="odd"><td>BM-11140</td><td>307</td><td>4</td><td>11.789,63</td></tr>
+<tr><td>SV-20365</td><td>101</td><td>10</td><td>11.470,95</td></tr>
+<tr class="odd"><td>CJ-12010</td><td>189</td><td>8</td><td>11.164,97</td></tr>
+<tr><td>CL-12565</td><td>284</td><td>12</td><td>10.880,55</td></tr>
+<tr class="odd"><td>ME-17320</td><td>42</td><td>10</td><td>10.663,73</td></tr>
+<tr><td>KF-16285</td><td>97</td><td>7</td><td>10.604,27</td></tr>
+<tr class="odd"><td>BS-11365</td><td>558</td><td>5</td><td>10.501,65</td></tr>
+<tr><td>EH-13765</td><td>135</td><td>12</td><td>10.310,88</td></tr>
+<tr class="odd"><td>JL-15835</td><td>21</td><td>11</td><td>9.799,92</td></tr>
+<tr><td>BM-11650</td><td>33</td><td>11</td><td>9.471,71</td></tr>
+<tr class="odd"><td>GT-14635</td><td>56</td><td>3</td><td>9.351,21</td></tr>
+<tr><td>HW-14935</td><td>117</td><td>8</td><td>9.300,25</td></tr>
+<tr class="odd"><td>TB-21400</td><td>202</td><td>7</td><td>9.133,99</td></tr>
+<tr><td>PF-19120</td><td>835</td><td>4</td><td>9.062,86</td></tr>
+<tr class="odd"><td>CM-12385</td><td>37</td><td>4</td><td>8.954,02</td></tr>
+<tr><td>JD-16150</td><td>41</td><td>8</td><td>8.828,03</td></tr>
+<tr class="odd"><td>JE-15715</td><td>46</td><td>10</td><td>8.697,84</td></tr>
+<tr><td>LA-16780</td><td>154</td><td>11</td><td>8.673,22</td></tr>
+<tr class="odd"><td>PK-19075</td><td>9</td><td>12</td><td>8.646,93</td></tr>
+<tr><td>DR-12940</td><td>50</td><td>8</td><td>8.350,87</td></tr>
+<tr class="odd"><td>NF-18385</td><td>79</td><td>7</td><td>8.322,83</td></tr>
+<tr><td>KD-16270</td><td>484</td><td>5</td><td>8.282,36</td></tr>
+<tr class="odd"><td>NC-18535</td><td>6</td><td>7</td><td>8.241,74</td></tr>
+<tr><td>HM-14860</td><td>2</td><td>10</td><td>8.236,76</td></tr>
+<tr class="odd"><td>KD-16495</td><td>112</td><td>12</td><td>8.181,26</td></tr>
+<tr><td>SB-20290</td><td>47</td><td>7</td><td>8.057,89</td></tr>
+<tr class="odd"><td>ZC-21910</td><td>54</td><td>13</td><td>8.025,71</td></tr>
+<tr><td>JH-15985</td><td>29</td><td>6</td><td>7.955</td></tr>
+<tr class="odd"><td>NP-18700</td><td>138</td><td>7</td><td>7.903,18</td></tr>
+<tr><td>AH-10690</td><td>410</td><td>12</td><td>7.888,29</td></tr>
+<tr class="odd"><td>AB-10060</td><td>54</td><td>8</td><td>7.829,3</td></tr>
+<tr><td>JE-15610</td><td>48</td><td>7</td><td>7.754,98</td></tr>
+<tr class="odd"><td>JW-15220</td><td>42</td><td>6</td><td>7.721,71</td></tr>
+<tr><td>LC-16885</td><td>16</td><td>12</td><td>7.663,13</td></tr>
+<tr class="odd"><td>JM-15865</td><td>109</td><td>7</td><td>7.625,08</td></tr>
+<tr><td>JD-15895</td><td>394</td><td>11</td><td>7.610,86</td></tr>
+<tr class="odd"><td>PO-18850</td><td>4</td><td>11</td><td>7.473,83</td></tr>
+<tr><td>MS-17365</td><td>273</td><td>10</td><td>7.443,69</td></tr>
+<tr class="odd"><td>RW-19540</td><td>120</td><td>7</td><td>7.397,4</td></tr>
+<tr><td>PP-18955</td><td>97</td><td>10</td><td>7.252,61</td></tr>
+<tr class="odd"><td>NW-18400</td><td>172</td><td>7</td><td>7.234,01</td></tr>
+<tr><td>Dp-13240</td><td>84</td><td>11</td><td>7.198,76</td></tr>
+<tr class="odd"><td>FH-14365</td><td>5</td><td>8</td><td>6.987,2</td></tr>
+<tr><td>RH-19510</td><td>467</td><td>6</td><td>6.979,18</td></tr>
+<tr class="odd"><td>PS-19045</td><td>236</td><td>7</td><td>6.843,63</td></tr>
+<tr><td>BB-11545</td><td>28</td><td>9</td><td>6.765,73</td></tr>
+<tr class="odd"><td>JE-15745</td><td>51</td><td>13</td><td>6.760,82</td></tr>
+<tr><td>YS-21880</td><td>9</td><td>8</td><td>6.720,44</td></tr>
+<tr class="odd"><td>AR-10540</td><td>6</td><td>6</td><td>6.608,45</td></tr>
+<tr><td>DR-12880</td><td>3</td><td>9</td><td>6.528,03</td></tr>
+<tr class="odd"><td>GK-14620</td><td>112</td><td>9</td><td>6.497,27</td></tr>
+<tr><td>JA-15970</td><td>92</td><td>8</td><td>6.491,03</td></tr>
+<tr class="odd"><td>NM-18445</td><td>160</td><td>7</td><td>6.459,34</td></tr>
+<tr><td>VD-21670</td><td>581</td><td>6</td><td>6.442,25</td></tr>
+<tr class="odd"><td>SB-20185</td><td>188</td><td>6</td><td>6.411</td></tr>
+<tr><td>JG-15160</td><td>1</td><td>11</td><td>6.366,39</td></tr>
+<tr class="odd"><td>DM-13015</td><td>57</td><td>7</td><td>6.345,1</td></tr>
+<tr><td>CM-12655</td><td>27</td><td>6</td><td>6.339,56</td></tr>
+<tr class="odd"><td>RB-19795</td><td>32</td><td>8</td><td>6.334,02</td></tr>
+<tr><td>MJ-17740</td><td>22</td><td>7</td><td>6.320,75</td></tr>
+<tr class="odd"><td>BH-11710</td><td>23</td><td>8</td><td>6.255,35</td></tr>
+<tr><td>RL-19615</td><td>121</td><td>8</td><td>6.234,91</td></tr>
+<tr class="odd"><td>WB-21850</td><td>20</td><td>11</td><td>6.160,1</td></tr>
+<tr><td>VW-21775</td><td>28</td><td>10</td><td>6.134,04</td></tr>
+<tr class="odd"><td>SD-20485</td><td>200</td><td>9</td><td>6.121,11</td></tr>
+<tr><td>QJ-19255</td><td>25</td><td>9</td><td>6.108,34</td></tr>
+<tr class="odd"><td>AD-10180</td><td>29</td><td>8</td><td>6.106,88</td></tr>
+<tr><td>CB-12025</td><td>47</td><td>10</td><td>6.076,14</td></tr>
+<tr class="odd"><td>GM-14695</td><td>117</td><td>3</td><td>6.049,97</td></tr>
+<tr><td>SC-20380</td><td>30</td><td>9</td><td>5.992,54</td></tr>
+<tr class="odd"><td>KH-16690</td><td>2</td><td>7</td><td>5.990,8</td></tr>
+<tr><td>RM-19675</td><td>6</td><td>5</td><td>5.979,1</td></tr>
+<tr class="odd"><td>KH-16510</td><td>22</td><td>7</td><td>5.952,86</td></tr>
+<tr><td>BF-11170</td><td>16</td><td>11</td><td>5.907,97</td></tr>
+<tr class="odd"><td>CP-12340</td><td>160</td><td>8</td><td>5.888,28</td></tr>
+<tr><td>BD-11320</td><td>33</td><td>12</td><td>5.718,52</td></tr>
+<tr class="odd"><td>CS-12505</td><td>58</td><td>6</td><td>5.690,06</td></tr>
+<tr><td>AM-10705</td><td>162</td><td>8</td><td>5.664,02</td></tr>
+<tr class="odd"><td>KM-16375</td><td>56</td><td>8</td><td>5.620,19</td></tr>
+<tr><td>AA-10315</td><td>184</td><td>5</td><td>5.563,56</td></tr>
+<tr class="odd"><td>SM-20950</td><td>25</td><td>12</td><td>5.563,39</td></tr>
+<tr><td>LB-16795</td><td>152</td><td>8</td><td>5.548,42</td></tr>
+<tr class="odd"><td>NP-18325</td><td>25</td><td>6</td><td>5.529,62</td></tr>
+<tr><td>AC-10450</td><td>11</td><td>7</td><td>5.527,85</td></tr>
+<tr class="odd"><td>MH-18115</td><td>5</td><td>9</td><td>5.503,09</td></tr>
+<tr><td>DP-13390</td><td>358</td><td>9</td><td>5.480,72</td></tr>
+<tr class="odd"><td>EP-13915</td><td>12</td><td>17</td><td>5.478,06</td></tr>
+<tr><td>YC-21895</td><td>4</td><td>5</td><td>5.454,35</td></tr>
+<tr class="odd"><td>SP-20620</td><td>47</td><td>9</td><td>5.440,32</td></tr>
+<tr><td>LW-17215</td><td>21</td><td>7</td><td>5.420,51</td></tr>
+<tr class="odd"><td>CP-12085</td><td>82</td><td>8</td><td>5.402,25</td></tr>
+<tr><td>TS-21205</td><td>198</td><td>7</td><td>5.371,09</td></tr>
+<tr class="odd"><td>TT-21460</td><td>12</td><td>7</td><td>5.364,81</td></tr>
+<tr><td>MW-18220</td><td>17</td><td>7</td><td>5.341,9</td></tr>
+<tr class="odd"><td>TP-21415</td><td>104</td><td>5</td><td>5.329</td></tr>
+<tr><td>TW-21025</td><td>64</td><td>7</td><td>5.278,83</td></tr>
+<tr class="odd"><td>DW-13480</td><td>217</td><td>5</td><td>5.271,63</td></tr>
+<tr><td>MW-18235</td><td>44</td><td>2</td><td>5.253,88</td></tr>
+<tr class="odd"><td>HR-14830</td><td>159</td><td>7</td><td>5.248,79</td></tr>
+<tr><td>SC-20725</td><td>187</td><td>11</td><td>5.226,21</td></tr>
+<tr class="odd"><td>RP-19390</td><td>33</td><td>12</td><td>5.153,08</td></tr>
+<tr><td>LR-16915</td><td>26</td><td>6</td><td>5.142,89</td></tr>
+<tr class="odd"><td>MP-18175</td><td>16</td><td>9</td><td>5.087,92</td></tr>
+<tr><td>AA-10645</td><td>55</td><td>6</td><td>5.086,94</td></tr>
+<tr class="odd"><td>IL-15100</td><td>142</td><td>7</td><td>5.040,74</td></tr>
+<tr><td>KL-16555</td><td>16</td><td>8</td><td>5.016,49</td></tr>
+<tr class="odd"><td>DH-13075</td><td>277</td><td>6</td><td>4.932,87</td></tr>
+<tr><td>IM-15070</td><td>390</td><td>7</td><td>4.930,47</td></tr>
+<tr class="odd"><td>TT-21070</td><td>31</td><td>7</td><td>4.915,6</td></tr>
+<tr><td>KM-16720</td><td>28</td><td>8</td><td>4.909,47</td></tr>
+<tr class="odd"><td>PO-19180</td><td>160</td><td>9</td><td>4.893,04</td></tr>
+<tr><td>HK-14890</td><td>151</td><td>8</td><td>4.877,78</td></tr>
+<tr class="odd"><td>AJ-10780</td><td>75</td><td>7</td><td>4.867,34</td></tr>
+<tr><td>JK-15730</td><td>84</td><td>10</td><td>4.867,2</td></tr>
+<tr class="odd"><td>AH-10210</td><td>6</td><td>9</td><td>4.805,34</td></tr>
+<tr><td>DK-13225</td><td>10</td><td>9</td><td>4.802,39</td></tr>
+<tr class="odd"><td>RA-19915</td><td>12</td><td>9</td><td>4.793,54</td></tr>
+<tr><td>SA-20830</td><td>63</td><td>10</td><td>4.767,34</td></tr>
+<tr class="odd"><td>JK-15640</td><td>180</td><td>9</td><td>4.760,43</td></tr>
+<tr><td>BW-11110</td><td>121</td><td>8</td><td>4.750,36</td></tr>
+<tr class="odd"><td>TB-21520</td><td>107</td><td>9</td><td>4.737,49</td></tr>
+<tr><td>GB-14575</td><td>13</td><td>5</td><td>4.716,29</td></tr>
+<tr class="odd"><td>RB-19465</td><td>9</td><td>12</td><td>4.715,47</td></tr>
+<tr><td>ES-14080</td><td>28</td><td>9</td><td>4.657,92</td></tr>
+<tr class="odd"><td>DB-13270</td><td>53</td><td>8</td><td>4.655,9</td></tr>
+<tr><td>KT-16480</td><td>100</td><td>10</td><td>4.642,09</td></tr>
+<tr class="odd"><td>SC-20050</td><td>40</td><td>9</td><td>4.624,57</td></tr>
+<tr><td>EM-14140</td><td>48</td><td>6</td><td>4.588,44</td></tr>
+<tr class="odd"><td>DB-13060</td><td>16</td><td>7</td><td>4.531,65</td></tr>
+<tr><td>AR-10825</td><td>58</td><td>8</td><td>4.523,34</td></tr>
+<tr class="odd"><td>AG-10900</td><td>96</td><td>10</td><td>4.510,8</td></tr>
+<tr><td>AJ-10795</td><td>166</td><td>7</td><td>4.501,39</td></tr>
+<tr class="odd"><td>LC-16930</td><td>41</td><td>8</td><td>4.492,95</td></tr>
+<tr><td>SC-20770</td><td>41</td><td>7</td><td>4.492,66</td></tr>
+<tr class="odd"><td>TP-21130</td><td>8</td><td>9</td><td>4.454,06</td></tr>
+<tr><td>MC-17425</td><td>399</td><td>5</td><td>4.432,14</td></tr>
+<tr class="odd"><td>JK-15205</td><td>61</td><td>5</td><td>4.427,14</td></tr>
+<tr><td>KW-16435</td><td>96</td><td>5</td><td>4.416,52</td></tr>
+<tr class="odd"><td>BD-11500</td><td>35</td><td>6</td><td>4.411,24</td></tr>
+<tr><td>AI-10855</td><td>13</td><td>10</td><td>4.375,79</td></tr>
+<tr class="odd"><td>SC-20230</td><td>149</td><td>4</td><td>4.371,96</td></tr>
+<tr><td>EB-13840</td><td>90</td><td>5</td><td>4.358,13</td></tr>
+<tr class="odd"><td>GZ-14470</td><td>7</td><td>9</td><td>4.355,15</td></tr>
+<tr><td>SR-20740</td><td>196</td><td>8</td><td>4.345,89</td></tr>
+<tr class="odd"><td>ND-18370</td><td>27</td><td>9</td><td>4.326,14</td></tr>
+<tr><td>SJ-20125</td><td>95</td><td>12</td><td>4.315,1</td></tr>
+<tr class="odd"><td>MA-17560</td><td>64</td><td>11</td><td>4.299,16</td></tr>
+<tr><td>SP-20860</td><td>79</td><td>10</td><td>4.282,94</td></tr>
+<tr class="odd"><td>DK-12895</td><td>45</td><td>5</td><td>4.282,18</td></tr>
+<tr><td>RD-19480</td><td>72</td><td>8</td><td>4.272,93</td></tr>
+<tr class="odd"><td>TC-21295</td><td>27</td><td>8</td><td>4.266,81</td></tr>
+<tr><td>AS-10225</td><td>22</td><td>5</td><td>4.260,78</td></tr>
+<tr class="odd"><td>FH-14275</td><td>37</td><td>10</td><td>4.256,27</td></tr>
+<tr><td>CB-12535</td><td>197</td><td>8</td><td>4.246,46</td></tr>
+<tr class="odd"><td>TH-21550</td><td>72</td><td>7</td><td>4.234,1</td></tr>
+<tr><td>BE-11335</td><td>119</td><td>5</td><td>4.204,68</td></tr>
+<tr class="odd"><td>JF-15565</td><td>54</td><td>8</td><td>4.198,33</td></tr>
+<tr><td>GH-14425</td><td>50</td><td>4</td><td>4.172,85</td></tr>
+<tr class="odd"><td>RS-19765</td><td>36</td><td>8</td><td>4.159,77</td></tr>
+<tr><td>MY-18295</td><td>71</td><td>11</td><td>4.152,7</td></tr>
+<tr class="odd"><td>PM-19135</td><td>51</td><td>4</td><td>4.115,66</td></tr>
+<tr><td>SV-20785</td><td>320</td><td>9</td><td>4.105,31</td></tr>
+<tr class="odd"><td>DM-13345</td><td>22</td><td>8</td><td>4.074,47</td></tr>
+<tr><td>FP-14320</td><td>23</td><td>8</td><td>4.046,75</td></tr>
+<tr class="odd"><td>SP-20920</td><td>70</td><td>6</td><td>3.990,69</td></tr>
+<tr><td>CM-12715</td><td>1.035</td><td>4</td><td>3.984,45</td></tr>
+<tr class="odd"><td>MP-17965</td><td>72</td><td>9</td><td>3.983,64</td></tr>
+<tr><td>SC-20305</td><td>29</td><td>7</td><td>3.979,07</td></tr>
+<tr class="odd"><td>LF-17185</td><td>22</td><td>7</td><td>3.930,51</td></tr>
+<tr><td>PW-19240</td><td>464</td><td>7</td><td>3.922,42</td></tr>
+<tr class="odd"><td>GA-14515</td><td>149</td><td>8</td><td>3.919,78</td></tr>
+<tr><td>KH-16630</td><td>58</td><td>9</td><td>3.918,97</td></tr>
+<tr class="odd"><td>CC-12220</td><td>20</td><td>12</td><td>3.913,42</td></tr>
+<tr><td>DB-13555</td><td>107</td><td>7</td><td>3.908,8</td></tr>
+<tr class="odd"><td>NP-18670</td><td>58</td><td>5</td><td>3.908,4</td></tr>
+<tr><td>KC-16540</td><td>97</td><td>4</td><td>3.908,26</td></tr>
+<tr class="odd"><td>FC-14335</td><td>184</td><td>7</td><td>3.889,37</td></tr>
+<tr><td>BS-11380</td><td>28</td><td>5</td><td>3.887,83</td></tr>
+<tr class="odd"><td>JS-15880</td><td>534</td><td>5</td><td>3.868,02</td></tr>
+<tr><td>RA-19885</td><td>43</td><td>7</td><td>3.832,31</td></tr>
+<tr class="odd"><td>AT-10735</td><td>13</td><td>10</td><td>3.831,86</td></tr>
+<tr><td>OT-18730</td><td>65</td><td>5</td><td>3.818,62</td></tr>
+<tr class="odd"><td>RO-19780</td><td>35</td><td>7</td><td>3.815,48</td></tr>
+<tr><td>MC-17845</td><td>1</td><td>7</td><td>3.805,71</td></tr>
+<tr class="odd"><td>MM-17920</td><td>7</td><td>11</td><td>3.794,08</td></tr>
+<tr><td>CA-11965</td><td>96</td><td>6</td><td>3.789,72</td></tr>
+<tr class="odd"><td>MG-17650</td><td>29</td><td>7</td><td>3.785,28</td></tr>
+<tr><td>MD-17350</td><td>117</td><td>7</td><td>3.766,38</td></tr>
+<tr class="odd"><td>JK-15625</td><td>61</td><td>7</td><td>3.760,03</td></tr>
+<tr><td>JK-16090</td><td>28</td><td>3</td><td>3.747,67</td></tr>
+<tr class="odd"><td>FM-14290</td><td>36</td><td>9</td><td>3.736,2</td></tr>
+<tr><td>SC-20260</td><td>187</td><td>8</td><td>3.729,79</td></tr>
+<tr class="odd"><td>HG-15025</td><td>6</td><td>7</td><td>3.690,28</td></tr>
+<tr><td>BP-11185</td><td>1</td><td>9</td><td>3.675,86</td></tr>
+<tr class="odd"><td>LP-17095</td><td>9</td><td>7</td><td>3.653,4</td></tr>
+<tr><td>CS-12400</td><td>2</td><td>9</td><td>3.651,86</td></tr>
+<tr class="odd"><td>EB-13705</td><td>48</td><td>9</td><td>3.644,98</td></tr>
+<tr><td>JP-15520</td><td>8</td><td>7</td><td>3.635,59</td></tr>
+<tr class="odd"><td>SZ-20035</td><td>35</td><td>11</td><td>3.625,33</td></tr>
+<tr><td>RH-19495</td><td>32</td><td>5</td><td>3.621,38</td></tr>
+<tr class="odd"><td>TB-21175</td><td>58</td><td>4</td><td>3.589,3</td></tr>
+<tr><td>GM-14440</td><td>83</td><td>7</td><td>3.582,82</td></tr>
+<tr class="odd"><td>DL-13495</td><td>76</td><td>8</td><td>3.539,32</td></tr>
+<tr><td>ES-14020</td><td>40</td><td>5</td><td>3.510,46</td></tr>
+<tr class="odd"><td>RW-19690</td><td>79</td><td>5</td><td>3.495,65</td></tr>
+<tr><td>LC-17140</td><td>13</td><td>9</td><td>3.492,72</td></tr>
+<tr class="odd"><td>AG-10675</td><td>97</td><td>7</td><td>3.489,04</td></tr>
+<tr><td>ED-13885</td><td>135</td><td>8</td><td>3.484,92</td></tr>
+<tr class="odd"><td>PW-19030</td><td>46</td><td>10</td><td>3.454,92</td></tr>
+<tr><td>SF-20200</td><td>59</td><td>9</td><td>3.422,79</td></tr>
+<tr class="odd"><td>FC-14245</td><td>70</td><td>7</td><td>3.418,74</td></tr>
+<tr><td>SH-19975</td><td>29</td><td>13</td><td>3.406,84</td></tr>
+<tr class="odd"><td>SG-20080</td><td>8</td><td>3</td><td>3.406,58</td></tr>
+<tr><td>TS-21655</td><td>238</td><td>5</td><td>3.368,09</td></tr>
+<tr class="odd"><td>SC-20020</td><td>781</td><td>5</td><td>3.362,96</td></tr>
+<tr><td>VP-21760</td><td>75</td><td>7</td><td>3.360,53</td></tr>
+<tr class="odd"><td>DJ-13630</td><td>12</td><td>3</td><td>3.356,4</td></tr>
+<tr><td>DV-13465</td><td>29</td><td>6</td><td>3.341,59</td></tr>
+<tr class="odd"><td>SF-20965</td><td>48</td><td>9</td><td>3.336,54</td></tr>
+<tr><td>DC-12850</td><td>37</td><td>9</td><td>3.336,17</td></tr>
+<tr class="odd"><td>AP-10915</td><td>98</td><td>10</td><td>3.323,56</td></tr>
+<tr><td>DK-13375</td><td>19</td><td>8</td><td>3.318,49</td></tr>
+<tr class="odd"><td>KH-16330</td><td>40</td><td>8</td><td>3.312,86</td></tr>
+<tr><td>RF-19345</td><td>390</td><td>8</td><td>3.309,15</td></tr>
+<tr class="odd"><td>RR-19525</td><td>170</td><td>6</td><td>3.302,26</td></tr>
+<tr><td>BD-11605</td><td>97</td><td>7</td><td>3.288,47</td></tr>
+<tr class="odd"><td>BS-11665</td><td>582</td><td>3</td><td>3.288,11</td></tr>
+<tr><td>RW-19630</td><td>89</td><td>9</td><td>3.279,75</td></tr>
+<tr class="odd"><td>DL-12925</td><td>57</td><td>6</td><td>3.272,2</td></tr>
+<tr><td>DK-12835</td><td>21</td><td>12</td><td>3.256,48</td></tr>
+<tr class="odd"><td>AS-10090</td><td>28</td><td>9</td><td>3.255,31</td></tr>
+<tr><td>JO-15145</td><td>57</td><td>9</td><td>3.254,95</td></tr>
+<tr class="odd"><td>AH-10075</td><td>34</td><td>10</td><td>3.250,34</td></tr>
+<tr><td>HG-14965</td><td>23</td><td>12</td><td>3.247,64</td></tr>
+<tr class="odd"><td>LC-16960</td><td>436</td><td>4</td><td>3.246,63</td></tr>
+<tr><td>CT-11995</td><td>96</td><td>8</td><td>3.241,9</td></tr>
+<tr class="odd"><td>EB-13750</td><td>35</td><td>10</td><td>3.236,31</td></tr>
+<tr><td>SR-20425</td><td>8</td><td>5</td><td>3.233,48</td></tr>
+<tr class="odd"><td>LW-16990</td><td>33</td><td>6</td><td>3.230,31</td></tr>
+<tr><td>RS-19420</td><td>76</td><td>5</td><td>3.221,29</td></tr>
+<tr class="odd"><td>AS-10285</td><td>19</td><td>6</td><td>3.214,24</td></tr>
+<tr><td>MP-17470</td><td>719</td><td>7</td><td>3.206,13</td></tr>
+<tr class="odd"><td>CS-12355</td><td>6</td><td>11</td><td>3.202,16</td></tr>
+<tr><td>BT-11680</td><td>20</td><td>7</td><td>3.196,75</td></tr>
+<tr class="odd"><td>DG-13300</td><td>32</td><td>5</td><td>3.195,82</td></tr>
+<tr><td>JL-15505</td><td>49</td><td>6</td><td>3.173,87</td></tr>
+<tr class="odd"><td>GM-14680</td><td>152</td><td>6</td><td>3.163,63</td></tr>
+<tr><td>JM-15250</td><td>37</td><td>6</td><td>3.159,12</td></tr>
+<tr class="odd"><td>CK-12205</td><td>39</td><td>13</td><td>3.154,86</td></tr>
+<tr><td>KB-16240</td><td>4</td><td>7</td><td>3.152,62</td></tr>
+<tr class="odd"><td>MS-17770</td><td>121</td><td>9</td><td>3.144,68</td></tr>
+<tr><td>RD-19900</td><td>114</td><td>9</td><td>3.133,92</td></tr>
+<tr class="odd"><td>TN-21040</td><td>90</td><td>7</td><td>3.130,22</td></tr>
+<tr><td>SN-20710</td><td>79</td><td>7</td><td>3.127,96</td></tr>
+<tr class="odd"><td>SG-20605</td><td>108</td><td>6</td><td>3.124,83</td></tr>
+<tr><td>KH-16360</td><td>1</td><td>6</td><td>3.100,61</td></tr>
+<tr class="odd"><td>PG-18820</td><td>36</td><td>13</td><td>3.086,91</td></tr>
+<tr><td>EH-14125</td><td>152</td><td>10</td><td>3.082,65</td></tr>
+<tr class="odd"><td>GM-14455</td><td>16</td><td>6</td><td>3.078,62</td></tr>
+<tr><td>EB-14110</td><td>113</td><td>6</td><td>3.071,13</td></tr>
+<tr class="odd"><td>MG-18145</td><td>84</td><td>4</td><td>3.061,54</td></tr>
+<tr><td>TG-21310</td><td>337</td><td>5</td><td>3.058,37</td></tr>
+<tr class="odd"><td>KT-16465</td><td>391</td><td>7</td><td>3.057,1</td></tr>
+<tr><td>SS-20410</td><td>110</td><td>6</td><td>3.056,81</td></tr>
+<tr class="odd"><td>SL-20155</td><td>70</td><td>7</td><td>3.053,01</td></tr>
+<tr><td>AS-10045</td><td>88</td><td>7</td><td>3.050,69</td></tr>
+<tr class="odd"><td>CA-12775</td><td>120</td><td>7</td><td>3.041,57</td></tr>
+<tr><td>CS-11950</td><td>25</td><td>11</td><td>3.036,55</td></tr>
+<tr class="odd"><td>LS-16975</td><td>20</td><td>9</td><td>2.988,67</td></tr>
+<tr><td>MH-18025</td><td>49</td><td>5</td><td>2.984,95</td></tr>
+<tr class="odd"><td>FA-14230</td><td>97</td><td>7</td><td>2.984,05</td></tr>
+<tr><td>DB-13120</td><td>48</td><td>7</td><td>2.973,09</td></tr>
+<tr class="odd"><td>NS-18640</td><td>174</td><td>13</td><td>2.964,82</td></tr>
+<tr><td>TM-21010</td><td>103</td><td>8</td><td>2.955,23</td></tr>
+<tr class="odd"><td>CK-12325</td><td>120</td><td>5</td><td>2.945,32</td></tr>
+<tr><td>TH-21115</td><td>58</td><td>4</td><td>2.942,77</td></tr>
+<tr class="odd"><td>LT-17110</td><td>34</td><td>8</td><td>2.936,25</td></tr>
+<tr><td>BC-11125</td><td>202</td><td>9</td><td>2.933,68</td></tr>
+<tr class="odd"><td>JK-16120</td><td>117</td><td>10</td><td>2.932,48</td></tr>
+<tr><td>SW-20455</td><td>162</td><td>7</td><td>2.921,54</td></tr>
+<tr class="odd"><td>ML-17410</td><td>54</td><td>6</td><td>2.921,5</td></tr>
+<tr><td>RD-19585</td><td>180</td><td>10</td><td>2.912,89</td></tr>
+<tr class="odd"><td>CY-12745</td><td>60</td><td>8</td><td>2.900,03</td></tr>
+<tr><td>ND-18460</td><td>183</td><td>6</td><td>2.893,46</td></tr>
+<tr class="odd"><td>MT-17815</td><td>49</td><td>6</td><td>2.890,14</td></tr>
+<tr><td>BF-11020</td><td>74</td><td>8</td><td>2.888,51</td></tr>
+<tr class="odd"><td>DS-13180</td><td>23</td><td>9</td><td>2.881,81</td></tr>
+<tr><td>PV-18985</td><td>89</td><td>5</td><td>2.876,05</td></tr>
+<tr class="odd"><td>IM-15055</td><td>409</td><td>3</td><td>2.872,63</td></tr>
+<tr><td>CC-12430</td><td>0</td><td>10</td><td>2.870,05</td></tr>
+<tr class="odd"><td>CC-12685</td><td>799</td><td>4</td><td>2.854,12</td></tr>
+<tr><td>AW-10930</td><td>46</td><td>7</td><td>2.852,97</td></tr>
+<tr class="odd"><td>EA-14035</td><td>152</td><td>13</td><td>2.846,71</td></tr>
+<tr><td>LS-16945</td><td>178</td><td>6</td><td>2.845,27</td></tr>
+<tr class="odd"><td>DB-12970</td><td>241</td><td>5</td><td>2.839,23</td></tr>
+<tr><td>JM-16195</td><td>57</td><td>10</td><td>2.833,93</td></tr>
+<tr class="odd"><td>CV-12295</td><td>254</td><td>5</td><td>2.830,63</td></tr>
+<tr><td>TS-21610</td><td>55</td><td>7</td><td>2.820,42</td></tr>
+<tr class="odd"><td>GH-14410</td><td>75</td><td>9</td><td>2.819,47</td></tr>
+<tr><td>BG-11035</td><td>28</td><td>8</td><td>2.798,95</td></tr>
+<tr class="odd"><td>TB-21625</td><td>30</td><td>9</td><td>2.797,67</td></tr>
+<tr><td>RD-19660</td><td>114</td><td>5</td><td>2.786,63</td></tr>
+<tr class="odd"><td>JC-15775</td><td>158</td><td>9</td><td>2.772,06</td></tr>
+<tr><td>PF-19165</td><td>196</td><td>6</td><td>2.770</td></tr>
+<tr class="odd"><td>EB-13870</td><td>100</td><td>10</td><td>2.767,22</td></tr>
+<tr><td>LC-16870</td><td>27</td><td>8</td><td>2.759,79</td></tr>
+<tr class="odd"><td>CS-12250</td><td>26</td><td>12</td><td>2.754,22</td></tr>
+<tr><td>MM-18055</td><td>61</td><td>8</td><td>2.749,88</td></tr>
+<tr class="odd"><td>KB-16585</td><td>230</td><td>12</td><td>2.744,74</td></tr>
+<tr><td>LL-16840</td><td>249</td><td>6</td><td>2.741,2</td></tr>
+<tr class="odd"><td>MC-17275</td><td>76</td><td>8</td><td>2.725,98</td></tr>
+<tr><td>JL-15850</td><td>614</td><td>6</td><td>2.725,26</td></tr>
+<tr class="odd"><td>ML-17395</td><td>69</td><td>9</td><td>2.722,84</td></tr>
+<tr><td>JK-15370</td><td>44</td><td>8</td><td>2.709,63</td></tr>
+<tr class="odd"><td>JE-16165</td><td>20</td><td>3</td><td>2.697,25</td></tr>
+<tr><td>BT-11530</td><td>91</td><td>5</td><td>2.684,49</td></tr>
+<tr class="odd"><td>BO-11350</td><td>137</td><td>5</td><td>2.682,73</td></tr>
+<tr><td>FO-14305</td><td>38</td><td>10</td><td>2.678,44</td></tr>
+<tr class="odd"><td>NH-18610</td><td>189</td><td>7</td><td>2.673,29</td></tr>
+<tr><td>RB-19435</td><td>19</td><td>8</td><td>2.663,09</td></tr>
+<tr class="odd"><td>EJ-14155</td><td>57</td><td>5</td><td>2.656,69</td></tr>
+<tr><td>DK-13090</td><td>42</td><td>7</td><td>2.650,56</td></tr>
+<tr class="odd"><td>CA-12265</td><td>56</td><td>9</td><td>2.648,29</td></tr>
+<tr><td>RA-19285</td><td>5</td><td>9</td><td>2.617,91</td></tr>
+<tr class="odd"><td>KN-16390</td><td>19</td><td>9</td><td>2.617,27</td></tr>
+<tr><td>SO-20335</td><td>29</td><td>6</td><td>2.602,58</td></tr>
+<tr class="odd"><td>SU-20665</td><td>20</td><td>7</td><td>2.595,36</td></tr>
+<tr><td>HA-14920</td><td>20</td><td>8</td><td>2.584,16</td></tr>
+<tr class="odd"><td>AG-10270</td><td>278</td><td>5</td><td>2.582,9</td></tr>
+<tr><td>SC-20695</td><td>89</td><td>10</td><td>2.576,41</td></tr>
+<tr class="odd"><td>NS-18505</td><td>6</td><td>4</td><td>2.575,86</td></tr>
+<tr><td>BT-11305</td><td>336</td><td>5</td><td>2.567,66</td></tr>
+<tr class="odd"><td>EM-13810</td><td>132</td><td>5</td><td>2.567,01</td></tr>
+<tr><td>MZ-17515</td><td>282</td><td>6</td><td>2.564,91</td></tr>
+<tr class="odd"><td>BS-11755</td><td>1</td><td>7</td><td>2.562,38</td></tr>
+<tr><td>DE-13255</td><td>719</td><td>5</td><td>2.550,87</td></tr>
+<tr class="odd"><td>CC-12610</td><td>34</td><td>7</td><td>2.540,63</td></tr>
+<tr><td>AC-10615</td><td>6</td><td>5</td><td>2.537,69</td></tr>
+<tr class="odd"><td>CM-12160</td><td>26</td><td>6</td><td>2.533,31</td></tr>
+<tr><td>HF-14995</td><td>21</td><td>7</td><td>2.533,16</td></tr>
+<tr class="odd"><td>FM-14380</td><td>145</td><td>9</td><td>2.523,27</td></tr>
+<tr><td>JB-16045</td><td>7</td><td>5</td><td>2.518,12</td></tr>
+<tr class="odd"><td>JS-16030</td><td>28</td><td>6</td><td>2.516,49</td></tr>
+<tr><td>DJ-13510</td><td>48</td><td>8</td><td>2.501,69</td></tr>
+<tr class="odd"><td>AH-10465</td><td>230</td><td>5</td><td>2.495,39</td></tr>
+<tr><td>PO-18865</td><td>0</td><td>7</td><td>2.493,21</td></tr>
+<tr class="odd"><td>NZ-18565</td><td>85</td><td>9</td><td>2.488,31</td></tr>
+<tr><td>MN-17935</td><td>34</td><td>6</td><td>2.477,95</td></tr>
+<tr class="odd"><td>BP-11290</td><td>12</td><td>7</td><td>2.475,16</td></tr>
+<tr><td>CC-12145</td><td>106</td><td>7</td><td>2.471,65</td></tr>
+<tr class="odd"><td>NC-18340</td><td>224</td><td>5</td><td>2.461,4</td></tr>
+<tr><td>FM-14215</td><td>7</td><td>10</td><td>2.456,64</td></tr>
+<tr class="odd"><td>MH-17455</td><td>85</td><td>8</td><td>2.456,18</td></tr>
+<tr><td>BS-11590</td><td>35</td><td>6</td><td>2.454,93</td></tr>
+<tr class="odd"><td>VM-21685</td><td>54</td><td>7</td><td>2.454,87</td></tr>
+<tr><td>GZ-14545</td><td>157</td><td>4</td><td>2.454,62</td></tr>
+<tr class="odd"><td>MA-17995</td><td>186</td><td>6</td><td>2.453,28</td></tr>
+<tr><td>BP-11095</td><td>17</td><td>12</td><td>2.442,04</td></tr>
+<tr class="odd"><td>MC-17590</td><td>51</td><td>6</td><td>2.426,07</td></tr>
+<tr><td>TH-21100</td><td>344</td><td>5</td><td>2.422,82</td></tr>
+<tr class="odd"><td>MH-17290</td><td>119</td><td>6</td><td>2.394,03</td></tr>
+<tr><td>DF-13135</td><td>700</td><td>3</td><td>2.390,53</td></tr>
+<tr class="odd"><td>XP-21865</td><td>43</td><td>11</td><td>2.374,66</td></tr>
+<tr><td>CK-12595</td><td>43</td><td>11</td><td>2.372,75</td></tr>
+<tr class="odd"><td>JF-15415</td><td>2</td><td>6</td><td>2.371,45</td></tr>
+<tr><td>CV-12805</td><td>5</td><td>9</td><td>2.370,31</td></tr>
+<tr class="odd"><td>NR-18550</td><td>210</td><td>5</td><td>2.367,28</td></tr>
+<tr><td>JG-15115</td><td>758</td><td>3</td><td>2.358,68</td></tr>
+<tr class="odd"><td>AG-10495</td><td>78</td><td>8</td><td>2.356,86</td></tr>
+<tr><td>CL-12700</td><td>105</td><td>5</td><td>2.353,59</td></tr>
+<tr class="odd"><td>MG-17680</td><td>92</td><td>4</td><td>2.350,19</td></tr>
+<tr><td>RF-19735</td><td>89</td><td>7</td><td>2.341,3</td></tr>
+<tr class="odd"><td>EM-13825</td><td>55</td><td>8</td><td>2.339,6</td></tr>
+<tr><td>DB-13210</td><td>9</td><td>10</td><td>2.332,58</td></tr>
+<tr class="odd"><td>CM-12235</td><td>385</td><td>5</td><td>2.305,71</td></tr>
+<tr><td>MK-17905</td><td>28</td><td>8</td><td>2.302,37</td></tr>
+<tr class="odd"><td>LH-16900</td><td>21</td><td>9</td><td>2.295,33</td></tr>
+<tr><td>KN-16705</td><td>98</td><td>8</td><td>2.280,58</td></tr>
+<tr class="odd"><td>JF-15190</td><td>65</td><td>7</td><td>2.279,59</td></tr>
+<tr><td>FH-14350</td><td>212</td><td>4</td><td>2.271,28</td></tr>
+<tr class="odd"><td>CC-12670</td><td>29</td><td>7</td><td>2.269,7</td></tr>
+<tr><td>BE-11410</td><td>98</td><td>5</td><td>2.261,44</td></tr>
+<tr class="odd"><td>KM-16225</td><td>14</td><td>6</td><td>2.260,96</td></tr>
+<tr><td>MC-17605</td><td>112</td><td>8</td><td>2.258,19</td></tr>
+<tr class="odd"><td>JH-16180</td><td>404</td><td>4</td><td>2.256,39</td></tr>
+<tr><td>MY-17380</td><td>29</td><td>7</td><td>2.254,29</td></tr>
+<tr class="odd"><td>KD-16615</td><td>289</td><td>5</td><td>2.243,51</td></tr>
+<tr><td>TS-21505</td><td>11</td><td>6</td><td>2.243,27</td></tr>
+<tr class="odd"><td>JG-15310</td><td>2</td><td>6</td><td>2.240,58</td></tr>
+<tr><td>LW-16825</td><td>88</td><td>5</td><td>2.238,06</td></tr>
+<tr class="odd"><td>AR-10405</td><td>125</td><td>5</td><td>2.236,13</td></tr>
+<tr><td>GG-14650</td><td>43</td><td>9</td><td>2.224</td></tr>
+<tr class="odd"><td>NC-18415</td><td>41</td><td>6</td><td>2.218,99</td></tr>
+<tr><td>MC-18100</td><td>41</td><td>10</td><td>2.218,98</td></tr>
+<tr class="odd"><td>DP-13105</td><td>6</td><td>8</td><td>2.215</td></tr>
+<tr><td>PF-19225</td><td>114</td><td>5</td><td>2.206,13</td></tr>
+<tr class="odd"><td>MH-17785</td><td>98</td><td>7</td><td>2.203,78</td></tr>
+<tr><td>JL-15235</td><td>119</td><td>5</td><td>2.203,7</td></tr>
+<tr class="odd"><td>JR-16210</td><td>33</td><td>5</td><td>2.201,69</td></tr>
+<tr><td>EN-13780</td><td>287</td><td>4</td><td>2.199,37</td></tr>
+<tr class="odd"><td>TB-21280</td><td>583</td><td>6</td><td>2.198,45</td></tr>
+<tr><td>GW-14605</td><td>28</td><td>7</td><td>2.189,02</td></tr>
+<tr class="odd"><td>BT-11395</td><td>302</td><td>6</td><td>2.186,61</td></tr>
+<tr><td>PS-18760</td><td>107</td><td>6</td><td>2.181,48</td></tr>
+<tr class="odd"><td>SH-20395</td><td>23</td><td>10</td><td>2.180,72</td></tr>
+<tr><td>KN-16450</td><td>52</td><td>5</td><td>2.171,96</td></tr>
+<tr class="odd"><td>DB-12910</td><td>21</td><td>8</td><td>2.171,6</td></tr>
+<tr><td>RP-19855</td><td>28</td><td>8</td><td>2.170,72</td></tr>
+<tr class="odd"><td>TS-21160</td><td>504</td><td>6</td><td>2.163,62</td></tr>
+<tr><td>HA-14905</td><td>69</td><td>7</td><td>2.163,3</td></tr>
+<tr class="odd"><td>EJ-13720</td><td>302</td><td>4</td><td>2.162,17</td></tr>
+<tr><td>NM-18520</td><td>244</td><td>10</td><td>2.161,98</td></tr>
+<tr class="odd"><td>JD-15790</td><td>117</td><td>5</td><td>2.152,35</td></tr>
+<tr><td>CR-12580</td><td>57</td><td>4</td><td>2.148,85</td></tr>
+<tr class="odd"><td>DN-13690</td><td>217</td><td>7</td><td>2.139,79</td></tr>
+<tr><td>KC-16255</td><td>407</td><td>6</td><td>2.120,95</td></tr>
+<tr class="odd"><td>SH-20635</td><td>765</td><td>2</td><td>2.096,39</td></tr>
+<tr><td>LC-17050</td><td>54</td><td>5</td><td>2.095,06</td></tr>
+<tr class="odd"><td>RH-19600</td><td>534</td><td>3</td><td>2.085,74</td></tr>
+<tr><td>TG-21640</td><td>114</td><td>4</td><td>2.074,66</td></tr>
+<tr class="odd"><td>ML-17755</td><td>29</td><td>7</td><td>2.071,91</td></tr>
+<tr><td>RB-19705</td><td>54</td><td>4</td><td>2.067,45</td></tr>
+<tr class="odd"><td>TS-21430</td><td>172</td><td>5</td><td>2.054,14</td></tr>
+<tr><td>AF-10870</td><td>41</td><td>7</td><td>2.052,91</td></tr>
+<tr class="odd"><td>CD-11920</td><td>40</td><td>5</td><td>2.033,97</td></tr>
+<tr><td>NF-18595</td><td>114</td><td>7</td><td>2.031,47</td></tr>
+<tr class="odd"><td>DJ-13420</td><td>637</td><td>4</td><td>2.012,52</td></tr>
+<tr><td>VB-21745</td><td>54</td><td>6</td><td>2.005,6</td></tr>
+<tr class="odd"><td>HP-14815</td><td>30</td><td>7</td><td>1.990,31</td></tr>
+<tr><td>DB-13615</td><td>33</td><td>7</td><td>1.989,05</td></tr>
+<tr class="odd"><td>PG-18895</td><td>57</td><td>9</td><td>1.987,16</td></tr>
+<tr><td>NB-18655</td><td>19</td><td>9</td><td>1.972,6</td></tr>
+<tr class="odd"><td>SW-20275</td><td>30</td><td>6</td><td>1.966,65</td></tr>
+<tr><td>LD-17005</td><td>414</td><td>4</td><td>1.961,93</td></tr>
+<tr class="odd"><td>CB-12415</td><td>26</td><td>8</td><td>1.949,2</td></tr>
+<tr><td>TP-21565</td><td>350</td><td>4</td><td>1.936,64</td></tr>
+<tr class="odd"><td>JO-15280</td><td>92</td><td>6</td><td>1.934,27</td></tr>
+<tr><td>JF-15355</td><td>105</td><td>6</td><td>1.911,84</td></tr>
+<tr class="odd"><td>ME-17725</td><td>28</td><td>8</td><td>1.908,45</td></tr>
+<tr><td>SV-20935</td><td>2</td><td>8</td><td>1.903,49</td></tr>
+<tr class="odd"><td>KD-16345</td><td>41</td><td>6</td><td>1.888,96</td></tr>
+<tr><td>GD-14590</td><td>5</td><td>4</td><td>1.888,07</td></tr>
+<tr class="odd"><td>SG-20470</td><td>183</td><td>8</td><td>1.884,8</td></tr>
+<tr><td>LR-17035</td><td>132</td><td>5</td><td>1.879,31</td></tr>
+<tr class="odd"><td>SC-20440</td><td>36</td><td>7</td><td>1.875</td></tr>
+<tr><td>BG-11695</td><td>36</td><td>6</td><td>1.874,17</td></tr>
+<tr class="odd"><td>SP-20650</td><td>386</td><td>9</td><td>1.872,44</td></tr>
+<tr><td>NG-18355</td><td>48</td><td>5</td><td>1.869,58</td></tr>
+<tr class="odd"><td>CD-12790</td><td>399</td><td>5</td><td>1.860,73</td></tr>
+<tr><td>SN-20560</td><td>111</td><td>6</td><td>1.860,42</td></tr>
+<tr class="odd"><td>PR-18880</td><td>36</td><td>5</td><td>1.840,18</td></tr>
+<tr><td>AJ-10945</td><td>85</td><td>7</td><td>1.839,24</td></tr>
+<tr class="odd"><td>PC-18745</td><td>2</td><td>4</td><td>1.832,06</td></tr>
+<tr><td>EG-13900</td><td>22</td><td>5</td><td>1.832,02</td></tr>
+<tr class="odd"><td>PJ-19015</td><td>134</td><td>7</td><td>1.824,23</td></tr>
+<tr><td>NC-18625</td><td>204</td><td>5</td><td>1.821,74</td></tr>
+<tr class="odd"><td>JM-15265</td><td>37</td><td>5</td><td>1.804,15</td></tr>
+<tr><td>JB-15400</td><td>7</td><td>10</td><td>1.791,61</td></tr>
+<tr class="odd"><td>AA-10480</td><td>259</td><td>4</td><td>1.790,51</td></tr>
+<tr><td>CC-12100</td><td>457</td><td>6</td><td>1.770,95</td></tr>
+<tr class="odd"><td>DS-13030</td><td>93</td><td>4</td><td>1.762,21</td></tr>
+<tr><td>MF-18250</td><td>7</td><td>5</td><td>1.758,3</td></tr>
+<tr class="odd"><td>AH-10030</td><td>12</td><td>7</td><td>1.744,7</td></tr>
+<tr><td>LH-17155</td><td>385</td><td>9</td><td>1.739,69</td></tr>
+<tr class="odd"><td>BW-11200</td><td>203</td><td>6</td><td>1.738,41</td></tr>
+<tr><td>VT-21700</td><td>1.000</td><td>2</td><td>1.736,6</td></tr>
+<tr class="odd"><td>AH-10120</td><td>60</td><td>7</td><td>1.735,51</td></tr>
+<tr><td>MV-18190</td><td>19</td><td>7</td><td>1.734,57</td></tr>
+<tr class="odd"><td>JM-15535</td><td>102</td><td>7</td><td>1.733,44</td></tr>
+<tr><td>BE-11455</td><td>254</td><td>6</td><td>1.727,65</td></tr>
+<tr class="odd"><td>DB-13405</td><td>187</td><td>4</td><td>1.711,69</td></tr>
+<tr><td>JP-16135</td><td>102</td><td>9</td><td>1.707,71</td></tr>
+<tr class="odd"><td>TZ-21580</td><td>35</td><td>4</td><td>1.707,29</td></tr>
+<tr><td>BP-11155</td><td>89</td><td>6</td><td>1.697,86</td></tr>
+<tr class="odd"><td>DK-12985</td><td>7</td><td>5</td><td>1.687,04</td></tr>
+<tr><td>MO-17800</td><td>104</td><td>8</td><td>1.687,03</td></tr>
+<tr class="odd"><td>RA-19945</td><td>61</td><td>5</td><td>1.686,92</td></tr>
+<tr><td>KE-16420</td><td>26</td><td>8</td><td>1.686,73</td></tr>
+<tr class="odd"><td>CA-12055</td><td>401</td><td>5</td><td>1.679,72</td></tr>
+<tr><td>CM-11815</td><td>131</td><td>6</td><td>1.673,89</td></tr>
+<tr class="odd"><td>JP-15460</td><td>37</td><td>7</td><td>1.669,14</td></tr>
+<tr><td>CM-12115</td><td>8</td><td>4</td><td>1.661,61</td></tr>
+<tr class="odd"><td>CC-12475</td><td>39</td><td>9</td><td>1.659,44</td></tr>
+<tr><td>EB-13975</td><td>0</td><td>4</td><td>1.643,26</td></tr>
+<tr class="odd"><td>AP-10720</td><td>41</td><td>8</td><td>1.638,55</td></tr>
+<tr><td>AZ-10750</td><td>160</td><td>6</td><td>1.622,02</td></tr>
+<tr class="odd"><td>MS-17710</td><td>413</td><td>6</td><td>1.613,4</td></tr>
+<tr><td>TB-21250</td><td>349</td><td>7</td><td>1.602,38</td></tr>
+<tr class="odd"><td>CR-12730</td><td>78</td><td>4</td><td>1.600,55</td></tr>
+<tr><td>AH-10195</td><td>55</td><td>4</td><td>1.587,45</td></tr>
+<tr class="odd"><td>BF-11215</td><td>65</td><td>4</td><td>1.585,16</td></tr>
+<tr><td>CK-12760</td><td>82</td><td>9</td><td>1.582,11</td></tr>
+<tr class="odd"><td>MC-18130</td><td>369</td><td>5</td><td>1.582</td></tr>
+<tr><td>JL-15175</td><td>6</td><td>5</td><td>1.571,52</td></tr>
+<tr class="odd"><td>KB-16315</td><td>296</td><td>9</td><td>1.569,46</td></tr>
+<tr><td>GB-14530</td><td>62</td><td>11</td><td>1.568,44</td></tr>
+<tr class="odd"><td>ON-18715</td><td>410</td><td>9</td><td>1.567,52</td></tr>
+<tr><td>MV-17485</td><td>27</td><td>9</td><td>1.560,05</td></tr>
+<tr class="odd"><td>MB-17305</td><td>48</td><td>10</td><td>1.548,7</td></tr>
+<tr><td>BD-11620</td><td>69</td><td>6</td><td>1.538,11</td></tr>
+<tr class="odd"><td>CH-12070</td><td>691</td><td>3</td><td>1.537,24</td></tr>
+<tr><td>BD-11725</td><td>93</td><td>6</td><td>1.526,5</td></tr>
+<tr class="odd"><td>BV-11245</td><td>334</td><td>5</td><td>1.523,27</td></tr>
+<tr><td>KA-16525</td><td>36</td><td>7</td><td>1.519,51</td></tr>
+<tr class="odd"><td>AB-10600</td><td>50</td><td>4</td><td>1.515,86</td></tr>
+<tr><td>JG-15805</td><td>223</td><td>6</td><td>1.507,02</td></tr>
+<tr class="odd"><td>DL-12865</td><td>100</td><td>8</td><td>1.503,11</td></tr>
+<tr><td>ZD-21925</td><td>202</td><td>5</td><td>1.493,94</td></tr>
+<tr class="odd"><td>CM-12190</td><td>8</td><td>6</td><td>1.475,14</td></tr>
+<tr><td>LE-16810</td><td>21</td><td>6</td><td>1.469,45</td></tr>
+<tr class="odd"><td>TB-21055</td><td>119</td><td>5</td><td>1.467,88</td></tr>
+<tr><td>PN-18775</td><td>30</td><td>8</td><td>1.467,15</td></tr>
+<tr class="odd"><td>RK-19300</td><td>119</td><td>3</td><td>1.460,19</td></tr>
+<tr><td>BN-11515</td><td>9</td><td>5</td><td>1.459,34</td></tr>
+<tr class="odd"><td>DL-13315</td><td>22</td><td>8</td><td>1.458,26</td></tr>
+<tr><td>PB-19150</td><td>97</td><td>8</td><td>1.456,95</td></tr>
+<tr class="odd"><td>AG-10525</td><td>845</td><td>4</td><td>1.455,04</td></tr>
+<tr><td>RM-19375</td><td>345</td><td>6</td><td>1.453,47</td></tr>
+<tr class="odd"><td>PK-18910</td><td>483</td><td>2</td><td>1.441,15</td></tr>
+<tr><td>TD-20995</td><td>37</td><td>9</td><td>1.434,55</td></tr>
+<tr class="odd"><td>JW-16075</td><td>461</td><td>4</td><td>1.428,73</td></tr>
+<tr><td>MB-18085</td><td>44</td><td>7</td><td>1.428,23</td></tr>
+<tr class="odd"><td>TT-21220</td><td>183</td><td>8</td><td>1.427,04</td></tr>
+<tr><td>CA-12310</td><td>13</td><td>4</td><td>1.421,95</td></tr>
+<tr class="odd"><td>RD-19720</td><td>21</td><td>10</td><td>1.419,74</td></tr>
+<tr><td>NL-18310</td><td>58</td><td>4</td><td>1.418,09</td></tr>
+<tr class="odd"><td>JS-15595</td><td>119</td><td>4</td><td>1.417,65</td></tr>
+<tr><td>PM-18940</td><td>386</td><td>3</td><td>1.405,4</td></tr>
+<tr class="odd"><td>GA-14725</td><td>5</td><td>11</td><td>1.398,38</td></tr>
+<tr><td>CR-12820</td><td>85</td><td>3</td><td>1.397,87</td></tr>
+<tr class="odd"><td>NG-18430</td><td>48</td><td>5</td><td>1.395,94</td></tr>
+<tr><td>JE-15475</td><td>193</td><td>6</td><td>1.388,68</td></tr>
+<tr class="odd"><td>TB-21595</td><td>285</td><td>5</td><td>1.387,56</td></tr>
+<tr><td>FG-14260</td><td>34</td><td>7</td><td>1.383,14</td></tr>
+<tr class="odd"><td>DM-13525</td><td>481</td><td>3</td><td>1.376,79</td></tr>
+<tr><td>GH-14485</td><td>387</td><td>2</td><td>1.361,24</td></tr>
+<tr class="odd"><td>SB-20170</td><td>201</td><td>3</td><td>1.348,02</td></tr>
+<tr><td>LM-17065</td><td>391</td><td>5</td><td>1.346,77</td></tr>
+<tr class="odd"><td>MG-17695</td><td>555</td><td>3</td><td>1.342,28</td></tr>
+<tr><td>SJ-20215</td><td>29</td><td>6</td><td>1.341,04</td></tr>
+<tr class="odd"><td>BM-11785</td><td>218</td><td>10</td><td>1.338,84</td></tr>
+<tr><td>BF-11005</td><td>39</td><td>4</td><td>1.333,88</td></tr>
+<tr class="odd"><td>SS-20140</td><td>15</td><td>8</td><td>1.324,03</td></tr>
+<tr><td>DM-12955</td><td>114</td><td>7</td><td>1.322,03</td></tr>
+<tr class="odd"><td>MT-18070</td><td>203</td><td>4</td><td>1.319,45</td></tr>
+<tr><td>SJ-20500</td><td>253</td><td>5</td><td>1.318,78</td></tr>
+<tr class="odd"><td>MM-17260</td><td>168</td><td>4</td><td>1.314,02</td></tr>
+<tr><td>SP-20545</td><td>327</td><td>6</td><td>1.306,09</td></tr>
+<tr class="odd"><td>MC-17575</td><td>27</td><td>8</td><td>1.303,89</td></tr>
+<tr><td>EK-13795</td><td>44</td><td>4</td><td>1.303,48</td></tr>
+<tr class="odd"><td>Co-12640</td><td>549</td><td>5</td><td>1.300,08</td></tr>
+<tr><td>DO-13435</td><td>133</td><td>9</td><td>1.300,03</td></tr>
+<tr class="odd"><td>HR-14770</td><td>13</td><td>5</td><td>1.299,29</td></tr>
+<tr><td>GR-14560</td><td>1.135</td><td>2</td><td>1.284,38</td></tr>
+<tr class="odd"><td>CS-11845</td><td>91</td><td>5</td><td>1.278,95</td></tr>
+<tr><td>PS-18970</td><td>69</td><td>8</td><td>1.278,64</td></tr>
+<tr class="odd"><td>SV-20815</td><td>76</td><td>4</td><td>1.271,09</td></tr>
+<tr><td>DO-13645</td><td>26</td><td>7</td><td>1.267,32</td></tr>
+<tr class="odd"><td>CL-11890</td><td>106</td><td>4</td><td>1.262,01</td></tr>
+<tr><td>LW-17125</td><td>205</td><td>3</td><td>1.259,04</td></tr>
+<tr class="odd"><td>ME-18010</td><td>92</td><td>4</td><td>1.256,94</td></tr>
+<tr><td>GM-14500</td><td>106</td><td>10</td><td>1.255,68</td></tr>
+<tr class="odd"><td>SC-20680</td><td>126</td><td>6</td><td>1.254,64</td></tr>
+<tr><td>MH-17620</td><td>155</td><td>4</td><td>1.252,8</td></tr>
+<tr class="odd"><td>ER-13855</td><td>421</td><td>3</td><td>1.245,79</td></tr>
+<tr><td>TC-21475</td><td>153</td><td>9</td><td>1.244,98</td></tr>
+<tr class="odd"><td>JW-15955</td><td>5</td><td>7</td><td>1.244,09</td></tr>
+<tr><td>MG-17875</td><td>116</td><td>5</td><td>1.242,83</td></tr>
+<tr class="odd"><td>NP-18685</td><td>406</td><td>6</td><td>1.228,7</td></tr>
+<tr><td>PJ-18835</td><td>39</td><td>8</td><td>1.220,09</td></tr>
+<tr class="odd"><td>EH-14005</td><td>2</td><td>7</td><td>1.219,53</td></tr>
+<tr><td>JL-15130</td><td>8</td><td>6</td><td>1.214,96</td></tr>
+<tr class="odd"><td>CD-12280</td><td>42</td><td>2</td><td>1.205,58</td></tr>
+<tr><td>MD-17860</td><td>36</td><td>5</td><td>1.204,91</td></tr>
+<tr class="odd"><td>DW-13585</td><td>242</td><td>7</td><td>1.204,85</td></tr>
+<tr><td>EB-14170</td><td>82</td><td>6</td><td>1.186,33</td></tr>
+<tr class="odd"><td>BP-11230</td><td>39</td><td>5</td><td>1.181,49</td></tr>
+<tr><td>DC-13285</td><td>23</td><td>5</td><td>1.174,62</td></tr>
+<tr class="odd"><td>AT-10435</td><td>21</td><td>6</td><td>1.171,81</td></tr>
+<tr><td>JR-15670</td><td>593</td><td>2</td><td>1.156,66</td></tr>
+<tr class="odd"><td>DB-13660</td><td>12</td><td>7</td><td>1.155,2</td></tr>
+<tr><td>CG-12520</td><td>338</td><td>3</td><td>1.148,78</td></tr>
+<tr class="odd"><td>KC-16675</td><td>57</td><td>4</td><td>1.146,05</td></tr>
+<tr><td>RD-19810</td><td>14</td><td>8</td><td>1.137,62</td></tr>
+<tr class="odd"><td>CW-11905</td><td>22</td><td>6</td><td>1.136,59</td></tr>
+<tr><td>JS-15685</td><td>42</td><td>4</td><td>1.131,06</td></tr>
+<tr class="odd"><td>DV-13045</td><td>19</td><td>5</td><td>1.119,48</td></tr>
+<tr><td>AB-10165</td><td>25</td><td>8</td><td>1.113,84</td></tr>
+<tr class="odd"><td>TM-21490</td><td>130</td><td>3</td><td>1.094,68</td></tr>
+<tr><td>JO-15550</td><td>215</td><td>5</td><td>1.090,84</td></tr>
+<tr class="odd"><td>SW-20245</td><td>81</td><td>7</td><td>1.085,08</td></tr>
+<tr><td>JF-15490</td><td>121</td><td>11</td><td>1.082,92</td></tr>
+<tr class="odd"><td>DB-13360</td><td>264</td><td>5</td><td>1.081,47</td></tr>
+<tr><td>DW-13195</td><td>69</td><td>6</td><td>1.080,75</td></tr>
+<tr class="odd"><td>CS-12490</td><td>424</td><td>4</td><td>1.077,23</td></tr>
+<tr><td>PC-19000</td><td>882</td><td>2</td><td>1.061,49</td></tr>
+<tr class="odd"><td>DP-13165</td><td>812</td><td>2</td><td>1.058,62</td></tr>
+<tr><td>JC-15385</td><td>175</td><td>1</td><td>1.058,11</td></tr>
+<tr class="odd"><td>PO-19195</td><td>86</td><td>5</td><td>1.056,86</td></tr>
+<tr><td>AA-10375</td><td>19</td><td>9</td><td>1.056,39</td></tr>
+<tr class="odd"><td>VS-21820</td><td>221</td><td>4</td><td>1.055,98</td></tr>
+<tr><td>AR-10345</td><td>111</td><td>4</td><td>1.055,69</td></tr>
+<tr class="odd"><td>DP-13000</td><td>126</td><td>9</td><td>1.050,64</td></tr>
+<tr><td>DH-13675</td><td>776</td><td>4</td><td>1.043,1</td></tr>
+<tr class="odd"><td>SM-20905</td><td>606</td><td>1</td><td>1.043,04</td></tr>
+<tr><td>EM-14095</td><td>113</td><td>4</td><td>1.041,04</td></tr>
+<tr class="odd"><td>TC-21145</td><td>106</td><td>1</td><td>1.038,26</td></tr>
+<tr><td>MK-18160</td><td>240</td><td>4</td><td>1.031,6</td></tr>
+<tr class="odd"><td>TH-21235</td><td>117</td><td>8</td><td>1.022,2</td></tr>
+<tr><td>SW-20350</td><td>162</td><td>3</td><td>1.019,04</td></tr>
+<tr class="odd"><td>LS-17200</td><td>96</td><td>6</td><td>1.010,26</td></tr>
+<tr><td>RB-19330</td><td>68</td><td>2</td><td>1.008,2</td></tr>
+<tr class="odd"><td>LS-17245</td><td>34</td><td>6</td><td>1.008,14</td></tr>
+<tr><td>BG-11740</td><td>57</td><td>6</td><td>1.006,36</td></tr>
+<tr class="odd"><td>VP-21730</td><td>30</td><td>3</td><td>993,9</td></tr>
+<tr><td>KB-16600</td><td>1</td><td>7</td><td>983,92</td></tr>
+<tr class="odd"><td>BP-11050</td><td>83</td><td>5</td><td>983,42</td></tr>
+<tr><td>TS-21340</td><td>226</td><td>5</td><td>974,78</td></tr>
+<tr class="odd"><td>RD-19930</td><td>42</td><td>4</td><td>970,94</td></tr>
+<tr><td>AB-10150</td><td>41</td><td>5</td><td>966,71</td></tr>
+<tr class="odd"><td>RC-19825</td><td>369</td><td>6</td><td>966,41</td></tr>
+<tr><td>SS-20875</td><td>120</td><td>5</td><td>964,64</td></tr>
+<tr class="odd"><td>JH-15910</td><td>41</td><td>7</td><td>959,48</td></tr>
+<tr><td>JF-15295</td><td>225</td><td>5</td><td>955,12</td></tr>
+<tr class="odd"><td>RP-19270</td><td>496</td><td>4</td><td>954,65</td></tr>
+<tr><td>BS-11800</td><td>265</td><td>2</td><td>949,43</td></tr>
+<tr class="odd"><td>RF-19840</td><td>6</td><td>8</td><td>945,22</td></tr>
+<tr><td>EB-13930</td><td>161</td><td>5</td><td>944,6</td></tr>
+<tr class="odd"><td>MF-17665</td><td>421</td><td>5</td><td>937,04</td></tr>
+<tr><td>EM-13960</td><td>151</td><td>5</td><td>933,7</td></tr>
+<tr class="odd"><td>AC-10420</td><td>232</td><td>3</td><td>925,8</td></tr>
+<tr><td>EH-14185</td><td>105</td><td>6</td><td>923,88</td></tr>
+<tr class="odd"><td>MO-17500</td><td>72</td><td>4</td><td>922,49</td></tr>
+<tr><td>AB-10255</td><td>166</td><td>9</td><td>914,53</td></tr>
+<tr class="odd"><td>KB-16405</td><td>117</td><td>3</td><td>908,82</td></tr>
+<tr><td>CG-12040</td><td>49</td><td>6</td><td>904,47</td></tr>
+<tr class="odd"><td>SC-20575</td><td>92</td><td>5</td><td>902,73</td></tr>
+<tr><td>JB-15925</td><td>737</td><td>3</td><td>900,55</td></tr>
+<tr class="odd"><td>HZ-14950</td><td>35</td><td>5</td><td>886,52</td></tr>
+<tr><td>AB-10015</td><td>415</td><td>3</td><td>886,16</td></tr>
+<tr class="odd"><td>RC-19960</td><td>110</td><td>6</td><td>885,75</td></tr>
+<tr><td>CS-12130</td><td>489</td><td>4</td><td>884,64</td></tr>
+<tr class="odd"><td>HE-14800</td><td>12</td><td>4</td><td>883,53</td></tr>
+<tr><td>SK-19990</td><td>8</td><td>3</td><td>883,41</td></tr>
+<tr class="odd"><td>RE-19450</td><td>302</td><td>5</td><td>876,7</td></tr>
+<tr><td>JM-15655</td><td>8</td><td>5</td><td>864,95</td></tr>
+<tr class="odd"><td>JR-15700</td><td>68</td><td>1</td><td>863,88</td></tr>
+<tr><td>AF-10885</td><td>415</td><td>4</td><td>861,57</td></tr>
+<tr class="odd"><td>JC-16105</td><td>57</td><td>5</td><td>858,58</td></tr>
+<tr><td>MS-17980</td><td>26</td><td>6</td><td>855,12</td></tr>
+<tr class="odd"><td>VF-21715</td><td>13</td><td>5</td><td>847,94</td></tr>
+<tr><td>VG-21790</td><td>154</td><td>6</td><td>846,01</td></tr>
+<tr class="odd"><td>CS-12175</td><td>232</td><td>5</td><td>844,46</td></tr>
+<tr><td>SS-20515</td><td>491</td><td>3</td><td>838,55</td></tr>
+<tr class="odd"><td>TB-21355</td><td>146</td><td>5</td><td>834,33</td></tr>
+<tr><td>AS-10630</td><td>92</td><td>7</td><td>833,4</td></tr>
+<tr class="odd"><td>EH-13990</td><td>405</td><td>6</td><td>825,95</td></tr>
+<tr><td>TB-21190</td><td>49</td><td>4</td><td>816,17</td></tr>
+<tr class="odd"><td>AM-10360</td><td>28</td><td>5</td><td>814,01</td></tr>
+<tr><td>BM-11575</td><td>100</td><td>6</td><td>808,16</td></tr>
+<tr class="odd"><td>DK-13150</td><td>10</td><td>2</td><td>797,83</td></tr>
+<tr><td>MC-17635</td><td>189</td><td>4</td><td>795,15</td></tr>
+<tr class="odd"><td>BF-11275</td><td>57</td><td>3</td><td>791,99</td></tr>
+<tr><td>HG-14845</td><td>54</td><td>5</td><td>785,63</td></tr>
+<tr class="odd"><td>MG-17890</td><td>99</td><td>9</td><td>776,38</td></tr>
+<tr><td>MM-18280</td><td>85</td><td>9</td><td>775,41</td></tr>
+<tr class="odd"><td>SF-20065</td><td>59</td><td>7</td><td>763,55</td></tr>
+<tr><td>SW-20755</td><td>534</td><td>2</td><td>758,7</td></tr>
+<tr class="odd"><td>LP-17080</td><td>40</td><td>4</td><td>756,61</td></tr>
+<tr><td>Dl-13600</td><td>119</td><td>5</td><td>755,6</td></tr>
+<tr class="odd"><td>IG-15085</td><td>71</td><td>4</td><td>744,57</td></tr>
+<tr><td>BB-10990</td><td>105</td><td>5</td><td>744,34</td></tr>
+<tr class="odd"><td>TC-21535</td><td>4</td><td>7</td><td>742,56</td></tr>
+<tr><td>ML-18040</td><td>79</td><td>3</td><td>742,08</td></tr>
+<tr class="odd"><td>RH-19555</td><td>519</td><td>2</td><td>740,38</td></tr>
+<tr><td>PB-18805</td><td>25</td><td>3</td><td>740,36</td></tr>
+<tr class="odd"><td>AH-10585</td><td>21</td><td>4</td><td>738,5</td></tr>
+<tr><td>HM-14980</td><td>247</td><td>4</td><td>736,28</td></tr>
+<tr class="odd"><td>PH-18790</td><td>70</td><td>1</td><td>729,65</td></tr>
+<tr><td>PA-19060</td><td>103</td><td>6</td><td>729,41</td></tr>
+<tr class="odd"><td>JJ-15445</td><td>483</td><td>5</td><td>709,18</td></tr>
+<tr><td>JD-16060</td><td>300</td><td>3</td><td>695,44</td></tr>
+<tr class="odd"><td>PB-19105</td><td>57</td><td>4</td><td>688,32</td></tr>
+<tr><td>EH-13945</td><td>217</td><td>8</td><td>684,17</td></tr>
+<tr class="odd"><td>TR-21325</td><td>193</td><td>5</td><td>675,94</td></tr>
+<tr><td>AG-10330</td><td>8</td><td>5</td><td>660,97</td></tr>
+<tr class="odd"><td>BK-11260</td><td>77</td><td>6</td><td>659,14</td></tr>
+<tr><td>BD-11770</td><td>327</td><td>6</td><td>658,47</td></tr>
+<tr class="odd"><td>AC-10660</td><td>282</td><td>5</td><td>657,32</td></tr>
+<tr><td>AW-10840</td><td>20</td><td>4</td><td>649,38</td></tr>
+<tr class="odd"><td>LO-17170</td><td>2</td><td>5</td><td>644,35</td></tr>
+<tr><td>JB-16000</td><td>43</td><td>7</td><td>644,12</td></tr>
+<tr class="odd"><td>CD-11980</td><td>54</td><td>3</td><td>639,77</td></tr>
+<tr><td>MR-17545</td><td>125</td><td>4</td><td>639,18</td></tr>
+<tr class="odd"><td>AJ-10960</td><td>74</td><td>3</td><td>629,25</td></tr>
+<tr><td>RR-19315</td><td>19</td><td>2</td><td>615,93</td></tr>
+<tr class="odd"><td>BT-11440</td><td>560</td><td>4</td><td>603,88</td></tr>
+<tr><td>BF-10975</td><td>91</td><td>7</td><td>599,8</td></tr>
+<tr class="odd"><td>MZ-17335</td><td>30</td><td>4</td><td>593,61</td></tr>
+<tr><td>DL-13330</td><td>57</td><td>4</td><td>585,02</td></tr>
+<tr class="odd"><td>AS-10240</td><td>192</td><td>7</td><td>584,61</td></tr>
+<tr><td>BD-11635</td><td>9</td><td>3</td><td>582,65</td></tr>
+<tr class="odd"><td>NK-18490</td><td>70</td><td>7</td><td>572,05</td></tr>
+<tr><td>CM-11935</td><td>708</td><td>2</td><td>565,39</td></tr>
+<tr class="odd"><td>CS-12460</td><td>27</td><td>2</td><td>550,64</td></tr>
+<tr><td>CS-11860</td><td>162</td><td>6</td><td>537,63</td></tr>
+<tr class="odd"><td>JH-15820</td><td>174</td><td>6</td><td>528,91</td></tr>
+<tr><td>RB-19570</td><td>25</td><td>5</td><td>528,55</td></tr>
+<tr class="odd"><td>AY-10555</td><td>14</td><td>4</td><td>497,01</td></tr>
+<tr><td>CR-12625</td><td>470</td><td>3</td><td>475,9</td></tr>
+<tr class="odd"><td>MS-17530</td><td>434</td><td>4</td><td>475,66</td></tr>
+<tr><td>JS-15940</td><td>463</td><td>5</td><td>469,17</td></tr>
+<tr class="odd"><td>EC-14050</td><td>53</td><td>5</td><td>461,91</td></tr>
+<tr><td>KM-16660</td><td>15</td><td>5</td><td>453,54</td></tr>
+<tr class="odd"><td>KW-16570</td><td>771</td><td>4</td><td>449,1</td></tr>
+<tr><td>TT-21265</td><td>406</td><td>3</td><td>439,5</td></tr>
+<tr class="odd"><td>ST-20530</td><td>125</td><td>7</td><td>433,34</td></tr>
+<tr><td>VG-21805</td><td>286</td><td>5</td><td>427,37</td></tr>
+<tr class="odd"><td>SS-20590</td><td>432</td><td>6</td><td>418,49</td></tr>
+<tr><td>BT-11485</td><td>659</td><td>2</td><td>415,2</td></tr>
+<tr class="odd"><td>MH-17440</td><td>376</td><td>4</td><td>400,02</td></tr>
+<tr><td>BW-11065</td><td>212</td><td>3</td><td>385,52</td></tr>
+<tr class="odd"><td>JD-16015</td><td>112</td><td>6</td><td>385,43</td></tr>
+<tr><td>JK-15325</td><td>287</td><td>3</td><td>383,81</td></tr>
+<tr class="odd"><td>VM-21835</td><td>117</td><td>5</td><td>380,69</td></tr>
+<tr><td>NF-18475</td><td>525</td><td>4</td><td>377,16</td></tr>
+<tr class="odd"><td>MS-17830</td><td>452</td><td>4</td><td>370,35</td></tr>
+<tr><td>LS-17230</td><td>777</td><td>3</td><td>368,88</td></tr>
+<tr class="odd"><td>AG-10300</td><td>118</td><td>4</td><td>367,55</td></tr>
+<tr><td>EM-14200</td><td>158</td><td>3</td><td>366,82</td></tr>
+<tr class="odd"><td>HJ-14875</td><td>126</td><td>5</td><td>358,1</td></tr>
+<tr><td>DW-13540</td><td>98</td><td>5</td><td>344,08</td></tr>
+<tr class="odd"><td>LT-16765</td><td>26</td><td>3</td><td>329,88</td></tr>
+<tr><td>BD-11560</td><td>278</td><td>2</td><td>320,54</td></tr>
+<tr class="odd"><td>LH-17020</td><td>239</td><td>4</td><td>318,24</td></tr>
+<tr><td>JH-15430</td><td>5</td><td>4</td><td>309,28</td></tr>
+<tr class="odd"><td>JM-15580</td><td>0</td><td>5</td><td>303,95</td></tr>
+<tr><td>CM-12445</td><td>436</td><td>3</td><td>287,99</td></tr>
+<tr class="odd"><td>LH-16750</td><td>151</td><td>3</td><td>287,43</td></tr>
+<tr><td>SC-20845</td><td>131</td><td>2</td><td>280,63</td></tr>
+<tr class="odd"><td>SC-20800</td><td>30</td><td>4</td><td>279,26</td></tr>
+<tr><td>NB-18580</td><td>1.165</td><td>2</td><td>273,87</td></tr>
+<tr class="odd"><td>BF-11080</td><td>25</td><td>3</td><td>272,95</td></tr>
+<tr><td>DD-13570</td><td>41</td><td>6</td><td>269,54</td></tr>
+<tr class="odd"><td>BN-11470</td><td>24</td><td>4</td><td>265,3</td></tr>
+<tr><td>AR-10510</td><td>14</td><td>5</td><td>264,86</td></tr>
+<tr class="odd"><td>HD-14785</td><td>769</td><td>3</td><td>251,36</td></tr>
+<tr><td>SM-20005</td><td>421</td><td>4</td><td>244,49</td></tr>
+<tr class="odd"><td>PL-18925</td><td>15</td><td>5</td><td>239,48</td></tr>
+<tr><td>GP-14740</td><td>765</td><td>2</td><td>236,53</td></tr>
+<tr class="odd"><td>EM-14065</td><td>47</td><td>4</td><td>228,99</td></tr>
+<tr><td>GT-14755</td><td>34</td><td>4</td><td>226,44</td></tr>
+<tr class="odd"><td>RB-19645</td><td>648</td><td>5</td><td>221,08</td></tr>
+<tr><td>HH-15010</td><td>72</td><td>2</td><td>218,67</td></tr>
+<tr class="odd"><td>AG-10390</td><td>114</td><td>5</td><td>200,95</td></tr>
+<tr><td>JJ-15760</td><td>753</td><td>2</td><td>195</td></tr>
+<tr class="odd"><td>AG-10765</td><td>77</td><td>4</td><td>170,58</td></tr>
+<tr><td>ML-18265</td><td>100</td><td>2</td><td>162,23</td></tr>
+<tr class="odd"><td>AO-10810</td><td>501</td><td>1</td><td>161,28</td></tr>
+<tr><td>PT-19090</td><td>71</td><td>4</td><td>160,57</td></tr>
+<tr class="odd"><td>DA-13450</td><td>352</td><td>4</td><td>156,76</td></tr>
+<tr><td>MO-17950</td><td>180</td><td>2</td><td>154,29</td></tr>
+<tr class="odd"><td>GH-14665</td><td>2</td><td>2</td><td>146,94</td></tr>
+<tr><td>PB-19210</td><td>688</td><td>2</td><td>132,74</td></tr>
+<tr class="odd"><td>BO-11425</td><td>75</td><td>2</td><td>130,83</td></tr>
+<tr><td>EL-13735</td><td>77</td><td>2</td><td>124,28</td></tr>
+<tr class="odd"><td>CC-12550</td><td>27</td><td>3</td><td>113,83</td></tr>
+<tr><td>RM-19750</td><td>299</td><td>1</td><td>98,35</td></tr>
+<tr class="odd"><td>KS-16300</td><td>295</td><td>3</td><td>88,47</td></tr>
+<tr><td>AR-10570</td><td>534</td><td>1</td><td>88,15</td></tr>
+<tr class="odd"><td>FW-14395</td><td>362</td><td>3</td><td>79,75</td></tr>
+<tr><td>JC-15340</td><td>114</td><td>4</td><td>71,26</td></tr>
+<tr class="odd"><td>AS-10135</td><td>41</td><td>2</td><td>58,82</td></tr>
+<tr><td>LB-16735</td><td>48</td><td>3</td><td>50,19</td></tr>
+<tr class="odd"><td>RE-19405</td><td>1.097</td><td>1</td><td>48,36</td></tr>
+<tr><td>SG-20890</td><td>226</td><td>3</td><td>47,95</td></tr>
+<tr class="odd"><td>RS-19870</td><td>19</td><td>2</td><td>22,33</td></tr>
+<tr><td>MG-18205</td><td>264</td><td>1</td><td>16,74</td></tr>
+<tr class="odd"><td>CJ-11875</td><td>365</td><td>1</td><td>16,52</td></tr>
+<tr><td>LD-16855</td><td>552</td><td>1</td><td>5,3</td></tr>
+<tr class="odd"><td>TS-21085</td><td>357</td><td>2</td><td>4,83</td></tr>
+</table></body></html>

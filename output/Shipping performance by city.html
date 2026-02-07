@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8"/><style>
+table {border: medium solid #6495ed;border-collapse: collapse;width: 100%;} th{font-family: monospace;border: thin solid #6495ed;padding: 5px;background-color: #D0E3FA;}th{text-align: left;}td{font-family: sans-serif;border: thin solid #6495ed;padding: 5px;text-align: center;}.odd{background:#e8edff;}img{padding:5px; border:solid; border-color: #dddddd #aaaaaa #aaaaaa #dddddd; border-width: 1px 2px 2px 1px; background-color:white;}</style>
+</head>
+<body>
+<table><tr><th colspan="2"><pre><code>/* Shipping performance: computation of the average shipping time for each city<br> * From the worst to the best performance */<br>select s.city City, avg(datediff(o.ship_date, o.order_date)) `Average shipping days`<br>		from sales s <br>		join orders o on s.order_id = o.order_id<br>		group by City<br>		order by 2 desc</code></pre></th></tr><tr><th>City</th><th>Average shipping days</th></tr><tr class="odd"><td>Waukesha</td><td>7</td></tr>
+<tr><td>Yucaipa</td><td>7</td></tr>
+<tr class="odd"><td>Conway</td><td>7</td></tr>
+<tr><td>Citrus Heights</td><td>7</td></tr>
+<tr class="odd"><td>Norfolk</td><td>7</td></tr>
+<tr><td>Danbury</td><td>7</td></tr>
+<tr class="odd"><td>Oswego</td><td>7</td></tr>
+<tr><td>Olathe</td><td>6,8824</td></tr>
+<tr class="odd"><td>Hot Springs</td><td>6,8</td></tr>
+<tr><td>Pharr</td><td>6,7</td></tr>
+<tr class="odd"><td>Pembroke Pines</td><td>6,6316</td></tr>
+<tr><td>Urbandale</td><td>6,6</td></tr>
+<tr class="odd"><td>Visalia</td><td>6,5</td></tr>
+<tr><td>Lodi</td><td>6,5</td></tr>
+<tr class="odd"><td>Sierra Vista</td><td>6,4</td></tr>
+<tr><td>Park Ridge</td><td>6,3333</td></tr>
+<tr class="odd"><td>Highland Park</td><td>6,2857</td></tr>
+<tr><td>Pasco</td><td>6,2</td></tr>
+<tr class="odd"><td>Medina</td><td>6,1429</td></tr>
+<tr><td>Rome</td><td>6,1429</td></tr>
+<tr class="odd"><td>Gilbert</td><td>6,0984</td></tr>
+<tr><td>Lakeville</td><td>6,0984</td></tr>
+<tr class="odd"><td>Plantation</td><td>6,0612</td></tr>
+<tr><td>Independence</td><td>6</td></tr>
+<tr class="odd"><td>Saginaw</td><td>6</td></tr>
+<tr><td>Brentwood</td><td>6</td></tr>
+<tr class="odd"><td>Gastonia</td><td>6</td></tr>
+<tr><td>Lake Elsinore</td><td>6</td></tr>
+<tr class="odd"><td>Ormond Beach</td><td>6</td></tr>
+<tr><td>Malden</td><td>6</td></tr>
+<tr class="odd"><td>Redding</td><td>6</td></tr>
+<tr><td>East Point</td><td>6</td></tr>
+<tr class="odd"><td>Davis</td><td>6</td></tr>
+<tr><td>Redwood City</td><td>6</td></tr>
+<tr class="odd"><td>Buffalo Grove</td><td>6</td></tr>
+<tr><td>Bartlett</td><td>6</td></tr>
+<tr class="odd"><td>Waterloo</td><td>6</td></tr>
+<tr><td>Sheboygan</td><td>6</td></tr>
+<tr class="odd"><td>Burbank</td><td>6</td></tr>
+<tr><td>Belleville</td><td>5,9412</td></tr>
+<tr class="odd"><td>Hattiesburg</td><td>5,9024</td></tr>
+<tr><td>Lewiston</td><td>5,9</td></tr>
+<tr class="odd"><td>New Rochelle</td><td>5,8947</td></tr>
+<tr><td>Washington</td><td>5,8333</td></tr>
+<tr class="odd"><td>Woodbury</td><td>5,8</td></tr>
+<tr><td>West Jordan</td><td>5,7647</td></tr>
+<tr class="odd"><td>Great Falls</td><td>5,6923</td></tr>
+<tr><td>Medford</td><td>5,6667</td></tr>
+<tr class="odd"><td>Grand Rapids</td><td>5,6667</td></tr>
+<tr><td>Hempstead</td><td>5,6286</td></tr>
+<tr class="odd"><td>Redmond</td><td>5,6</td></tr>
+<tr><td>Salt Lake City</td><td>5,6</td></tr>
+<tr class="odd"><td>Holland</td><td>5,6</td></tr>
+<tr><td>Westland</td><td>5,5926</td></tr>
+<tr class="odd"><td>Torrance</td><td>5,5</td></tr>
+<tr><td>Tuscaloosa</td><td>5,5</td></tr>
+<tr class="odd"><td>El Cajon</td><td>5,5</td></tr>
+<tr><td>Midland</td><td>5,4783</td></tr>
+<tr class="odd"><td>Oklahoma City</td><td>5,4533</td></tr>
+<tr><td>Gresham</td><td>5,4286</td></tr>
+<tr class="odd"><td>Niagara Falls</td><td>5,4</td></tr>
+<tr><td>Lincoln Park</td><td>5,4</td></tr>
+<tr class="odd"><td>Jonesboro</td><td>5,3721</td></tr>
+<tr><td>Fort Lauderdale</td><td>5,3333</td></tr>
+<tr class="odd"><td>Sparks</td><td>5,3333</td></tr>
+<tr><td>Lebanon</td><td>5,3333</td></tr>
+<tr class="odd"><td>Port Arthur</td><td>5,2857</td></tr>
+<tr><td>Eagan</td><td>5,2727</td></tr>
+<tr class="odd"><td>Costa Mesa</td><td>5,2581</td></tr>
+<tr><td>Phoenix</td><td>5,2275</td></tr>
+<tr class="odd"><td>Broken Arrow</td><td>5,2222</td></tr>
+<tr><td>Chandler</td><td>5,2222</td></tr>
+<tr class="odd"><td>Pompano Beach</td><td>5,2</td></tr>
+<tr><td>Morristown</td><td>5,1818</td></tr>
+<tr class="odd"><td>Pomona</td><td>5,1818</td></tr>
+<tr><td>North Las Vegas</td><td>5,1522</td></tr>
+<tr class="odd"><td>Avondale</td><td>5,1429</td></tr>
+<tr><td>Des Moines</td><td>5,1228</td></tr>
+<tr class="odd"><td>Noblesville</td><td>5,1</td></tr>
+<tr><td>Meridian</td><td>5,1</td></tr>
+<tr class="odd"><td>Mount Vernon</td><td>5,0625</td></tr>
+<tr><td>Murfreesboro</td><td>5,0465</td></tr>
+<tr class="odd"><td>Orland Park</td><td>5</td></tr>
+<tr><td>Whittier</td><td>5</td></tr>
+<tr class="odd"><td>Warner Robins</td><td>5</td></tr>
+<tr><td>Rochester Hills</td><td>5</td></tr>
+<tr class="odd"><td>Tyler</td><td>5</td></tr>
+<tr><td>Linden</td><td>5</td></tr>
+<tr class="odd"><td>New Brunswick</td><td>5</td></tr>
+<tr><td>Norwich</td><td>5</td></tr>
+<tr class="odd"><td>Kent</td><td>5</td></tr>
+<tr><td>South Bend</td><td>5</td></tr>
+<tr class="odd"><td>Charlottesville</td><td>5</td></tr>
+<tr><td>Ontario</td><td>5</td></tr>
+<tr class="odd"><td>Holyoke</td><td>5</td></tr>
+<tr><td>Coachella</td><td>5</td></tr>
+<tr class="odd"><td>Passaic</td><td>5</td></tr>
+<tr><td>Mishawaka</td><td>5</td></tr>
+<tr class="odd"><td>Englewood</td><td>5</td></tr>
+<tr><td>Santa Fe</td><td>5</td></tr>
+<tr class="odd"><td>West Allis</td><td>5</td></tr>
+<tr><td>Champaign</td><td>5</td></tr>
+<tr class="odd"><td>Baytown</td><td>5</td></tr>
+<tr><td>Superior</td><td>5</td></tr>
+<tr class="odd"><td>Iowa City</td><td>5</td></tr>
+<tr><td>Grand Island</td><td>5</td></tr>
+<tr class="odd"><td>La Mesa</td><td>5</td></tr>
+<tr><td>Coon Rapids</td><td>5</td></tr>
+<tr class="odd"><td>Wausau</td><td>5</td></tr>
+<tr><td>Rogers</td><td>5</td></tr>
+<tr class="odd"><td>Daytona Beach</td><td>5</td></tr>
+<tr><td>Margate</td><td>5</td></tr>
+<tr class="odd"><td>Rio Rancho</td><td>5</td></tr>
+<tr><td>Gaithersburg</td><td>5</td></tr>
+<tr class="odd"><td>Marlborough</td><td>5</td></tr>
+<tr><td>San Luis Obispo</td><td>5</td></tr>
+<tr class="odd"><td>Logan</td><td>5</td></tr>
+<tr><td>Twin Falls</td><td>5</td></tr>
+<tr class="odd"><td>Jupiter</td><td>5</td></tr>
+<tr><td>San Gabriel</td><td>5</td></tr>
+<tr class="odd"><td>Cheyenne</td><td>5</td></tr>
+<tr><td>Tulsa</td><td>4,9744</td></tr>
+<tr class="odd"><td>Miramar</td><td>4,9667</td></tr>
+<tr><td>Memphis</td><td>4,9592</td></tr>
+<tr class="odd"><td>Revere</td><td>4,9412</td></tr>
+<tr><td>Camarillo</td><td>4,9412</td></tr>
+<tr class="odd"><td>Sioux Falls</td><td>4,9268</td></tr>
+<tr><td>Pleasant Grove</td><td>4,9189</td></tr>
+<tr class="odd"><td>Hampton</td><td>4,8919</td></tr>
+<tr><td>Plainfield</td><td>4,8889</td></tr>
+<tr class="odd"><td>La Crosse</td><td>4,8824</td></tr>
+<tr><td>Bloomington</td><td>4,8788</td></tr>
+<tr class="odd"><td>Albuquerque</td><td>4,875</td></tr>
+<tr><td>Vancouver</td><td>4,8182</td></tr>
+<tr class="odd"><td>Tigard</td><td>4,8182</td></tr>
+<tr><td>Chico</td><td>4,8163</td></tr>
+<tr class="odd"><td>Round Rock</td><td>4,8095</td></tr>
+<tr><td>Thomasville</td><td>4,8</td></tr>
+<tr class="odd"><td>Decatur</td><td>4,7576</td></tr>
+<tr><td>Jackson</td><td>4,7541</td></tr>
+<tr class="odd"><td>Parker</td><td>4,7353</td></tr>
+<tr><td>Nashville</td><td>4,7241</td></tr>
+<tr class="odd"><td>Cary</td><td>4,7143</td></tr>
+<tr><td>Deltona</td><td>4,7143</td></tr>
+<tr class="odd"><td>Roseville</td><td>4,7083</td></tr>
+<tr><td>Grand Prairie</td><td>4,7037</td></tr>
+<tr class="odd"><td>Alexandria</td><td>4,6923</td></tr>
+<tr><td>Irving</td><td>4,6875</td></tr>
+<tr class="odd"><td>Athens</td><td>4,6875</td></tr>
+<tr><td>Orem</td><td>4,6842</td></tr>
+<tr class="odd"><td>Roswell</td><td>4,6739</td></tr>
+<tr><td>Hamilton</td><td>4,6667</td></tr>
+<tr class="odd"><td>Vallejo</td><td>4,6667</td></tr>
+<tr><td>Reno</td><td>4,6667</td></tr>
+<tr class="odd"><td>Gulfport</td><td>4,6667</td></tr>
+<tr><td>Monroe</td><td>4,6604</td></tr>
+<tr class="odd"><td>Hollywood</td><td>4,6471</td></tr>
+<tr><td>Wilson</td><td>4,6429</td></tr>
+<tr class="odd"><td>Paterson</td><td>4,641</td></tr>
+<tr><td>Franklin</td><td>4,6139</td></tr>
+<tr class="odd"><td>Texas City</td><td>4,6</td></tr>
+<tr><td>Long Beach</td><td>4,5828</td></tr>
+<tr class="odd"><td>Carlsbad</td><td>4,5806</td></tr>
+<tr><td>Greenville</td><td>4,5789</td></tr>
+<tr class="odd"><td>Quincy</td><td>4,5333</td></tr>
+<tr><td>Las Vegas</td><td>4,52</td></tr>
+<tr class="odd"><td>Akron</td><td>4,5079</td></tr>
+<tr><td>Saint Paul</td><td>4,5</td></tr>
+<tr class="odd"><td>Bellevue</td><td>4,5</td></tr>
+<tr><td>Lubbock</td><td>4,5</td></tr>
+<tr class="odd"><td>Elmhurst</td><td>4,5</td></tr>
+<tr><td>Jamestown</td><td>4,5</td></tr>
+<tr class="odd"><td>Frankfort</td><td>4,5</td></tr>
+<tr><td>Cedar Hill</td><td>4,5</td></tr>
+<tr class="odd"><td>Nashua</td><td>4,5</td></tr>
+<tr><td>Atlanta</td><td>4,4962</td></tr>
+<tr class="odd"><td>Bristol</td><td>4,4839</td></tr>
+<tr><td>Portland</td><td>4,4773</td></tr>
+<tr class="odd"><td>Baltimore</td><td>4,4745</td></tr>
+<tr><td>Clinton</td><td>4,4626</td></tr>
+<tr class="odd"><td>Salem</td><td>4,46</td></tr>
+<tr><td>Saint Petersburg</td><td>4,45</td></tr>
+<tr class="odd"><td>Austin</td><td>4,4348</td></tr>
+<tr><td>New Bedford</td><td>4,4286</td></tr>
+<tr class="odd"><td>Westfield</td><td>4,4167</td></tr>
+<tr><td>Orlando</td><td>4,4138</td></tr>
+<tr class="odd"><td>Encinitas</td><td>4,3846</td></tr>
+<tr><td>Middletown</td><td>4,3846</td></tr>
+<tr class="odd"><td>Minneapolis</td><td>4,3774</td></tr>
+<tr><td>Sacramento</td><td>4,3704</td></tr>
+<tr class="odd"><td>Providence</td><td>4,3579</td></tr>
+<tr><td>Springfield</td><td>4,3394</td></tr>
+<tr class="odd"><td>Taylor</td><td>4,3333</td></tr>
+<tr><td>Escondido</td><td>4,3333</td></tr>
+<tr class="odd"><td>Laguna Niguel</td><td>4,3333</td></tr>
+<tr><td>Wheeling</td><td>4,3333</td></tr>
+<tr class="odd"><td>West Palm Beach</td><td>4,3333</td></tr>
+<tr><td>Modesto</td><td>4,3333</td></tr>
+<tr class="odd"><td>San Diego</td><td>4,3312</td></tr>
+<tr><td>Mesa</td><td>4,3191</td></tr>
+<tr class="odd"><td>Omaha</td><td>4,3182</td></tr>
+<tr><td>York</td><td>4,3077</td></tr>
+<tr class="odd"><td>Bangor</td><td>4,3077</td></tr>
+<tr><td>Hendersonville</td><td>4,3077</td></tr>
+<tr class="odd"><td>Oceanside</td><td>4,2935</td></tr>
+<tr><td>Thousand Oaks</td><td>4,2857</td></tr>
+<tr class="odd"><td>Mcallen</td><td>4,2857</td></tr>
+<tr><td>Colorado Springs</td><td>4,2756</td></tr>
+<tr class="odd"><td>Trenton</td><td>4,2745</td></tr>
+<tr><td>Greensboro</td><td>4,2609</td></tr>
+<tr class="odd"><td>Rancho Cucamonga</td><td>4,25</td></tr>
+<tr><td>Lafayette</td><td>4,2469</td></tr>
+<tr class="odd"><td>Chesapeake</td><td>4,2368</td></tr>
+<tr><td>Lakewood</td><td>4,2018</td></tr>
+<tr class="odd"><td>Pearland</td><td>4,2</td></tr>
+<tr><td>Dallas</td><td>4,1986</td></tr>
+<tr class="odd"><td>Miami</td><td>4,1915</td></tr>
+<tr><td>Virginia Beach</td><td>4,1786</td></tr>
+<tr class="odd"><td>Arlington</td><td>4,1778</td></tr>
+<tr><td>Dearborn</td><td>4,1765</td></tr>
+<tr class="odd"><td>Denver</td><td>4,1667</td></tr>
+<tr><td>Hesperia</td><td>4,1667</td></tr>
+<tr class="odd"><td>Perth Amboy</td><td>4,1667</td></tr>
+<tr><td>Concord</td><td>4,1636</td></tr>
+<tr class="odd"><td>Toledo</td><td>4,1569</td></tr>
+<tr><td>Moreno Valley</td><td>4,1538</td></tr>
+<tr class="odd"><td>Jacksonville</td><td>4,1527</td></tr>
+<tr><td>Plano</td><td>4,1525</td></tr>
+<tr class="odd"><td>San Antonio</td><td>4,1497</td></tr>
+<tr><td>Chicago</td><td>4,1394</td></tr>
+<tr class="odd"><td>Hialeah</td><td>4,1389</td></tr>
+<tr><td>Allentown</td><td>4,1379</td></tr>
+<tr class="odd"><td>New York City</td><td>4,1365</td></tr>
+<tr><td>Watertown</td><td>4,125</td></tr>
+<tr class="odd"><td>Santa Barbara</td><td>4,125</td></tr>
+<tr><td>Los Angeles</td><td>4,1242</td></tr>
+<tr class="odd"><td>Madison</td><td>4,1176</td></tr>
+<tr><td>Huntsville</td><td>4,1167</td></tr>
+<tr class="odd"><td>Asheville</td><td>4,1111</td></tr>
+<tr><td>Louisville</td><td>4,1097</td></tr>
+<tr class="odd"><td>Durham</td><td>4,1053</td></tr>
+<tr><td>Auburn</td><td>4,0957</td></tr>
+<tr class="odd"><td>Hackensack</td><td>4,0769</td></tr>
+<tr><td>San Bernardino</td><td>4,0741</td></tr>
+<tr class="odd"><td>Santa Clara</td><td>4,0714</td></tr>
+<tr><td>Tallahassee</td><td>4,0638</td></tr>
+<tr class="odd"><td>Parma</td><td>4,0588</td></tr>
+<tr><td>Broomfield</td><td>4,0588</td></tr>
+<tr class="odd"><td>Richmond</td><td>4,0463</td></tr>
+<tr><td>Salinas</td><td>4,0455</td></tr>
+<tr class="odd"><td>Bakersfield</td><td>4,0435</td></tr>
+<tr><td>Florence</td><td>4,0392</td></tr>
+<tr class="odd"><td>Provo</td><td>4,0385</td></tr>
+<tr><td>Houston</td><td>4</td></tr>
+<tr class="odd"><td>Melbourne</td><td>4</td></tr>
+<tr><td>New Albany</td><td>4</td></tr>
+<tr class="odd"><td>Edmond</td><td>4</td></tr>
+<tr><td>Chapel Hill</td><td>4</td></tr>
+<tr class="odd"><td>Layton</td><td>4</td></tr>
+<tr><td>Lindenhurst</td><td>4</td></tr>
+<tr class="odd"><td>Marysville</td><td>4</td></tr>
+<tr><td>Cottage Grove</td><td>4</td></tr>
+<tr class="odd"><td>Murrieta</td><td>4</td></tr>
+<tr><td>Jefferson City</td><td>4</td></tr>
+<tr class="odd"><td>Saint Peters</td><td>4</td></tr>
+<tr><td>Homestead</td><td>4</td></tr>
+<tr class="odd"><td>Cuyahoga Falls</td><td>4</td></tr>
+<tr><td>Royal Oak</td><td>4</td></tr>
+<tr class="odd"><td>Bridgeton</td><td>4</td></tr>
+<tr><td>Grapevine</td><td>4</td></tr>
+<tr class="odd"><td>Carrollton</td><td>4</td></tr>
+<tr><td>Keller</td><td>4</td></tr>
+<tr class="odd"><td>Missoula</td><td>4</td></tr>
+<tr><td>Leominster</td><td>4</td></tr>
+<tr class="odd"><td>Bozeman</td><td>4</td></tr>
+<tr><td>Moorhead</td><td>4</td></tr>
+<tr class="odd"><td>New Castle</td><td>4</td></tr>
+<tr><td>North Charleston</td><td>4</td></tr>
+<tr class="odd"><td>Las Cruces</td><td>4</td></tr>
+<tr><td>Sterling Heights</td><td>4</td></tr>
+<tr class="odd"><td>Chattanooga</td><td>4</td></tr>
+<tr><td>Missouri City</td><td>4</td></tr>
+<tr class="odd"><td>Dubuque</td><td>4</td></tr>
+<tr><td>Carol Stream</td><td>4</td></tr>
+<tr class="odd"><td>Saint Cloud</td><td>4</td></tr>
+<tr><td>Odessa</td><td>4</td></tr>
+<tr class="odd"><td>Manhattan</td><td>4</td></tr>
+<tr><td>Texarkana</td><td>4</td></tr>
+<tr class="odd"><td>Lehi</td><td>4</td></tr>
+<tr><td>Oak Park</td><td>4</td></tr>
+<tr class="odd"><td>Arlington Heights</td><td>4</td></tr>
+<tr><td>Beverly</td><td>4</td></tr>
+<tr class="odd"><td>Normal</td><td>4</td></tr>
+<tr><td>Sanford</td><td>4</td></tr>
+<tr class="odd"><td>Montebello</td><td>4</td></tr>
+<tr><td>Atlantic City</td><td>4</td></tr>
+<tr class="odd"><td>Coral Gables</td><td>4</td></tr>
+<tr><td>Laurel</td><td>4</td></tr>
+<tr class="odd"><td>Clovis</td><td>4</td></tr>
+<tr><td>Kissimmee</td><td>4</td></tr>
+<tr class="odd"><td>Elyria</td><td>4</td></tr>
+<tr><td>San Clemente</td><td>4</td></tr>
+<tr class="odd"><td>Glenview</td><td>4</td></tr>
+<tr><td>Caldwell</td><td>4</td></tr>
+<tr class="odd"><td>Morgan Hill</td><td>4</td></tr>
+<tr><td>Hagerstown</td><td>4</td></tr>
+<tr class="odd"><td>Bullhead City</td><td>4</td></tr>
+<tr><td>Renton</td><td>4</td></tr>
+<tr class="odd"><td>Romeoville</td><td>4</td></tr>
+<tr><td>Springdale</td><td>4</td></tr>
+<tr class="odd"><td>Seattle</td><td>3,9914</td></tr>
+<tr><td>Westminster</td><td>3,9826</td></tr>
+<tr class="odd"><td>Tampa</td><td>3,9677</td></tr>
+<tr><td>Fayetteville</td><td>3,9633</td></tr>
+<tr class="odd"><td>Newport News</td><td>3,9412</td></tr>
+<tr><td>Lancaster</td><td>3,9375</td></tr>
+<tr class="odd"><td>Columbia</td><td>3,9353</td></tr>
+<tr><td>Laredo</td><td>3,9273</td></tr>
+<tr class="odd"><td>Harlingen</td><td>3,9231</td></tr>
+<tr><td>Sunnyvale</td><td>3,9231</td></tr>
+<tr class="odd"><td>Corpus Christi</td><td>3,9231</td></tr>
+<tr><td>Kenosha</td><td>3,9143</td></tr>
+<tr class="odd"><td>Covington</td><td>3,9</td></tr>
+<tr><td>Santa Ana</td><td>3,8947</td></tr>
+<tr class="odd"><td>Saint Charles</td><td>3,875</td></tr>
+<tr><td>Charlotte</td><td>3,8625</td></tr>
+<tr class="odd"><td>Philadelphia</td><td>3,8394</td></tr>
+<tr><td>Evanston</td><td>3,8333</td></tr>
+<tr class="odd"><td>Boise</td><td>3,8333</td></tr>
+<tr><td>Detroit</td><td>3,831</td></tr>
+<tr class="odd"><td>Clarksville</td><td>3,8095</td></tr>
+<tr><td>Lake Forest</td><td>3,8</td></tr>
+<tr class="odd"><td>Waco</td><td>3,8</td></tr>
+<tr><td>Helena</td><td>3,8</td></tr>
+<tr class="odd"><td>Longview</td><td>3,8</td></tr>
+<tr><td>Dover</td><td>3,7949</td></tr>
+<tr class="odd"><td>San Jose</td><td>3,7909</td></tr>
+<tr><td>Yonkers</td><td>3,7843</td></tr>
+<tr class="odd"><td>Mission Viejo</td><td>3,7778</td></tr>
+<tr><td>Rockville</td><td>3,7778</td></tr>
+<tr class="odd"><td>Rochester</td><td>3,7591</td></tr>
+<tr><td>Lawrence</td><td>3,7576</td></tr>
+<tr class="odd"><td>Green Bay</td><td>3,75</td></tr>
+<tr><td>Aurora</td><td>3,733</td></tr>
+<tr class="odd"><td>Mesquite</td><td>3,7273</td></tr>
+<tr><td>Johnson City</td><td>3,72</td></tr>
+<tr class="odd"><td>Reading</td><td>3,7143</td></tr>
+<tr><td>Saint Louis</td><td>3,7143</td></tr>
+<tr class="odd"><td>Fort Worth</td><td>3,7123</td></tr>
+<tr><td>Newark</td><td>3,7106</td></tr>
+<tr class="odd"><td>Raleigh</td><td>3,7083</td></tr>
+<tr><td>Waterbury</td><td>3,7037</td></tr>
+<tr class="odd"><td>Coppell</td><td>3,7</td></tr>
+<tr><td>Bowling Green</td><td>3,6818</td></tr>
+<tr class="odd"><td>Henderson</td><td>3,6791</td></tr>
+<tr><td>Overland Park</td><td>3,6667</td></tr>
+<tr class="odd"><td>San Francisco</td><td>3,6581</td></tr>
+<tr><td>Burlington</td><td>3,6415</td></tr>
+<tr class="odd"><td>Buffalo</td><td>3,625</td></tr>
+<tr><td>Meriden</td><td>3,6207</td></tr>
+<tr class="odd"><td>Eau Claire</td><td>3,6</td></tr>
+<tr><td>League City</td><td>3,6</td></tr>
+<tr class="odd"><td>Redondo Beach</td><td>3,5769</td></tr>
+<tr><td>Naperville</td><td>3,5625</td></tr>
+<tr class="odd"><td>Peoria</td><td>3,5556</td></tr>
+<tr><td>Indianapolis</td><td>3,541</td></tr>
+<tr class="odd"><td>Mobile</td><td>3,5143</td></tr>
+<tr><td>Columbus</td><td>3,5016</td></tr>
+<tr class="odd"><td>Huntington Beach</td><td>3,5</td></tr>
+<tr><td>Macon</td><td>3,5</td></tr>
+<tr class="odd"><td>Appleton</td><td>3,5</td></tr>
+<tr><td>Hoover</td><td>3,5</td></tr>
+<tr class="odd"><td>Frisco</td><td>3,5</td></tr>
+<tr><td>North Miami</td><td>3,5</td></tr>
+<tr class="odd"><td>Lawton</td><td>3,5</td></tr>
+<tr><td>Owensboro</td><td>3,5</td></tr>
+<tr class="odd"><td>Wilmington</td><td>3,4722</td></tr>
+<tr><td>Fort Collins</td><td>3,4545</td></tr>
+<tr class="odd"><td>Chester</td><td>3,4359</td></tr>
+<tr><td>Rockford</td><td>3,4211</td></tr>
+<tr class="odd"><td>Haltom City</td><td>3,4</td></tr>
+<tr><td>Knoxville</td><td>3,3977</td></tr>
+<tr class="odd"><td>Orange</td><td>3,375</td></tr>
+<tr><td>Fairfield</td><td>3,352</td></tr>
+<tr class="odd"><td>Pasadena</td><td>3,3333</td></tr>
+<tr><td>Farmington</td><td>3,3333</td></tr>
+<tr class="odd"><td>Port Saint Lucie</td><td>3,3333</td></tr>
+<tr><td>Cambridge</td><td>3,3333</td></tr>
+<tr class="odd"><td>Georgetown</td><td>3,3333</td></tr>
+<tr><td>Manchester</td><td>3,2973</td></tr>
+<tr class="odd"><td>Palm Coast</td><td>3,2727</td></tr>
+<tr><td>Marion</td><td>3,2708</td></tr>
+<tr class="odd"><td>Tucson</td><td>3,2281</td></tr>
+<tr><td>Beaumont</td><td>3,2222</td></tr>
+<tr class="odd"><td>Vineland</td><td>3,1818</td></tr>
+<tr><td>Wichita</td><td>3,1818</td></tr>
+<tr class="odd"><td>Milwaukee</td><td>3,1811</td></tr>
+<tr><td>Loveland</td><td>3,1667</td></tr>
+<tr class="odd"><td>El Paso</td><td>3,1429</td></tr>
+<tr><td>Tempe</td><td>3,1404</td></tr>
+<tr class="odd"><td>Stockton</td><td>3,125</td></tr>
+<tr><td>Edmonds</td><td>3,1087</td></tr>
+<tr class="odd"><td>Little Rock</td><td>3,1071</td></tr>
+<tr><td>Lorain</td><td>3,1053</td></tr>
+<tr class="odd"><td>Fremont</td><td>3,1</td></tr>
+<tr><td>Montgomery</td><td>3,1</td></tr>
+<tr class="odd"><td>Maple Grove</td><td>3,1</td></tr>
+<tr><td>East Orange</td><td>3,0588</td></tr>
+<tr class="odd"><td>Des Plaines</td><td>3,0385</td></tr>
+<tr><td>Suffolk</td><td>3,0333</td></tr>
+<tr class="odd"><td>Grove City</td><td>3</td></tr>
+<tr><td>Pico Rivera</td><td>3</td></tr>
+<tr class="odd"><td>Allen</td><td>3</td></tr>
+<tr><td>Bayonne</td><td>3</td></tr>
+<tr class="odd"><td>College Station</td><td>3</td></tr>
+<tr><td>Vacaville</td><td>3</td></tr>
+<tr class="odd"><td>Conroe</td><td>3</td></tr>
+<tr><td>Dearborn Heights</td><td>3</td></tr>
+<tr class="odd"><td>Hickory</td><td>3</td></tr>
+<tr><td>Chula Vista</td><td>3</td></tr>
+<tr class="odd"><td>Woonsocket</td><td>3</td></tr>
+<tr><td>Hillsboro</td><td>3</td></tr>
+<tr class="odd"><td>Delray Beach</td><td>3</td></tr>
+<tr><td>Goldsboro</td><td>3</td></tr>
+<tr class="odd"><td>Commerce City</td><td>3</td></tr>
+<tr><td>Andover</td><td>3</td></tr>
+<tr class="odd"><td>Greeley</td><td>3</td></tr>
+<tr><td>Clifton</td><td>3</td></tr>
+<tr class="odd"><td>Rapid City</td><td>3</td></tr>
+<tr><td>Aberdeen</td><td>3</td></tr>
+<tr class="odd"><td>Fresno</td><td>2,9881</td></tr>
+<tr><td>Thornton</td><td>2,9848</td></tr>
+<tr class="odd"><td>Cincinnati</td><td>2,9655</td></tr>
+<tr><td>Dublin</td><td>2,9038</td></tr>
+<tr class="odd"><td>Olympia</td><td>2,8889</td></tr>
+<tr><td>Ann Arbor</td><td>2,8824</td></tr>
+<tr class="odd"><td>Garden City</td><td>2,8182</td></tr>
+<tr><td>Lowell</td><td>2,8043</td></tr>
+<tr class="odd"><td>Canton</td><td>2,8</td></tr>
+<tr><td>Riverside</td><td>2,8</td></tr>
+<tr class="odd"><td>Boca Raton</td><td>2,8</td></tr>
+<tr><td>Freeport</td><td>2,8</td></tr>
+<tr class="odd"><td>Longmont</td><td>2,8</td></tr>
+<tr><td>Waynesboro</td><td>2,7941</td></tr>
+<tr class="odd"><td>Sandy Springs</td><td>2,7759</td></tr>
+<tr><td>La Porte</td><td>2,7059</td></tr>
+<tr class="odd"><td>Cleveland</td><td>2,6226</td></tr>
+<tr><td>Bellingham</td><td>2,6</td></tr>
+<tr class="odd"><td>Muskogee</td><td>2,5</td></tr>
+<tr><td>Mansfield</td><td>2,5</td></tr>
+<tr class="odd"><td>Marietta</td><td>2,4762</td></tr>
+<tr><td>Warwick</td><td>2,4286</td></tr>
+<tr class="odd"><td>Woodstock</td><td>2,4286</td></tr>
+<tr><td>Fargo</td><td>2,4138</td></tr>
+<tr class="odd"><td>San Angelo</td><td>2,4</td></tr>
+<tr><td>Woodland</td><td>2,4</td></tr>
+<tr class="odd"><td>Edinburg</td><td>2,4</td></tr>
+<tr><td>Apple Valley</td><td>2,3913</td></tr>
+<tr class="odd"><td>Everett</td><td>2,3837</td></tr>
+<tr><td>Troy</td><td>2,3398</td></tr>
+<tr class="odd"><td>Garland</td><td>2,3333</td></tr>
+<tr><td>Brownsville</td><td>2,2667</td></tr>
+<tr class="odd"><td>Oakland</td><td>2,2326</td></tr>
+<tr><td>Milford</td><td>2,2143</td></tr>
+<tr class="odd"><td>Boynton Beach</td><td>2,2</td></tr>
+<tr><td>Bedford</td><td>2,1765</td></tr>
+<tr class="odd"><td>Amarillo</td><td>2,125</td></tr>
+<tr><td>Danville</td><td>2,0811</td></tr>
+<tr class="odd"><td>Bossier City</td><td>2,0769</td></tr>
+<tr><td>Inglewood</td><td>2,0581</td></tr>
+<tr class="odd"><td>Richardson</td><td>2</td></tr>
+<tr><td>Scottsdale</td><td>2</td></tr>
+<tr class="odd"><td>Tamarac</td><td>2</td></tr>
+<tr><td>Arvada</td><td>2</td></tr>
+<tr class="odd"><td>Norman</td><td>2</td></tr>
+<tr><td>Spokane</td><td>2</td></tr>
+<tr class="odd"><td>Port Orange</td><td>2</td></tr>
+<tr><td>Littleton</td><td>2</td></tr>
+<tr class="odd"><td>La Quinta</td><td>2</td></tr>
+<tr><td>Summerville</td><td>2</td></tr>
+<tr class="odd"><td>Lake Charles</td><td>2</td></tr>
+<tr><td>San Mateo</td><td>2</td></tr>
+<tr class="odd"><td>Temecula</td><td>2</td></tr>
+<tr><td>Deer Park</td><td>2</td></tr>
+<tr class="odd"><td>Draper</td><td>2</td></tr>
+<tr><td>Pocatello</td><td>2</td></tr>
+<tr class="odd"><td>Pine Bluff</td><td>2</td></tr>
+<tr><td>Oxnard</td><td>2</td></tr>
+<tr class="odd"><td>Pensacola</td><td>2</td></tr>
+<tr><td>Eugene</td><td>2</td></tr>
+<tr class="odd"><td>Abilene</td><td>2</td></tr>
+<tr><td>Mason</td><td>2</td></tr>
+<tr class="odd"><td>Santa Maria</td><td>2</td></tr>
+<tr><td>San Marcos</td><td>2</td></tr>
+<tr class="odd"><td>Elkhart</td><td>2</td></tr>
+<tr><td>Yuma</td><td>2</td></tr>
+<tr class="odd"><td>Shelton</td><td>2</td></tr>
+<tr><td>Glendale</td><td>1,9846</td></tr>
+<tr class="odd"><td>Apopka</td><td>1,8824</td></tr>
+<tr><td>Greenwood</td><td>1,8</td></tr>
+<tr class="odd"><td>Skokie</td><td>1,7097</td></tr>
+<tr><td>Cranston</td><td>1,625</td></tr>
+<tr class="odd"><td>Mount Pleasant</td><td>1,5</td></tr>
+<tr><td>Lakeland</td><td>1,4688</td></tr>
+<tr class="odd"><td>Southaven</td><td>1,44</td></tr>
+<tr><td>Harrisonburg</td><td>1,3684</td></tr>
+<tr class="odd"><td>Bethlehem</td><td>1,3077</td></tr>
+<tr><td>Murray</td><td>1,2857</td></tr>
+<tr class="odd"><td>Manteca</td><td>1,2</td></tr>
+<tr><td>Gladstone</td><td>1</td></tr>
+<tr class="odd"><td>Antioch</td><td>1</td></tr>
+<tr><td>Cedar Rapids</td><td>1</td></tr>
+<tr class="odd"><td>Pueblo</td><td>1</td></tr>
+<tr><td>Tinley Park</td><td>1</td></tr>
+<tr class="odd"><td>Altoona</td><td>1</td></tr>
+<tr><td>Kirkwood</td><td>1</td></tr>
+<tr class="odd"><td>Palatine</td><td>1</td></tr>
+<tr><td>Anaheim</td><td>0,9017</td></tr>
+<tr class="odd"><td>The Colony</td><td>0,8</td></tr>
+<tr><td>Bryan</td><td>0,8</td></tr>
+<tr class="odd"><td>Smyrna</td><td>0,726</td></tr>
+<tr><td>Bolingbrook</td><td>0,6667</td></tr>
+<tr class="odd"><td>Coral Springs</td><td>0,6364</td></tr>
+<tr><td>Lansing</td><td>0,3333</td></tr>
+<tr class="odd"><td>Utica</td><td>0,2857</td></tr>
+<tr><td>Redlands</td><td>0,2157</td></tr>
+<tr class="odd"><td>Billings</td><td>0</td></tr>
+<tr><td>Rock Hill</td><td>0</td></tr>
+<tr class="odd"><td>Mentor</td><td>0</td></tr>
+<tr><td>Portage</td><td>0</td></tr>
+<tr class="odd"><td>Kenner</td><td>0</td></tr>
+</table></body></html>

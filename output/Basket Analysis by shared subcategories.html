@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8"/><style>
+table {border: medium solid #6495ed;border-collapse: collapse;width: 100%;} th{font-family: monospace;border: thin solid #6495ed;padding: 5px;background-color: #D0E3FA;}th{text-align: left;}td{font-family: sans-serif;border: thin solid #6495ed;padding: 5px;text-align: center;}.odd{background:#e8edff;}img{padding:5px; border:solid; border-color: #dddddd #aaaaaa #aaaaaa #dddddd; border-width: 1px 2px 2px 1px; background-color:white;}</style>
+</head>
+<body>
+<table><tr><th colspan="3"><pre><code>/* Basket analysis for shared sub-categories in the same orders */<br>select s1.sub_category `Product (a)`, s2.sub_category `Product (b)`,<br>		count(distinct s1.order_id) `Times bought together` <br>		from (select  <br>			s.order_id, p.sub_category <br>			from sales s <br>			join products p<br>			on p.product_id = s.product_id) s1<br>			join (select  <br>			s.order_id, p.sub_category <br>			from sales s  <br>			join products p <br>			on p.product_id = s.product_id) s2 <br>			on s1.order_id = s2.order_id  <br>			and s1.sub_category &lt; s2.sub_category <br>	group by 1,2 <br>	order by 3 desc </code></pre></th></tr><tr><th>Product (a)</th><th>Product (b)</th><th>Times bought together</th></tr><tr class="odd"><td>Binders</td><td>Paper</td><td>275</td></tr>
+<tr><td>Binders</td><td>Phones</td><td>199</td></tr>
+<tr class="odd"><td>Binders</td><td>Storage</td><td>199</td></tr>
+<tr><td>Binders</td><td>Furnishings</td><td>198</td></tr>
+<tr class="odd"><td>Paper</td><td>Storage</td><td>178</td></tr>
+<tr><td>Furnishings</td><td>Paper</td><td>177</td></tr>
+<tr class="odd"><td>Paper</td><td>Phones</td><td>175</td></tr>
+<tr><td>Accessories</td><td>Binders</td><td>161</td></tr>
+<tr class="odd"><td>Accessories</td><td>Paper</td><td>153</td></tr>
+<tr><td>Art</td><td>Binders</td><td>150</td></tr>
+<tr class="odd"><td>Art</td><td>Paper</td><td>150</td></tr>
+<tr><td>Furnishings</td><td>Phones</td><td>148</td></tr>
+<tr class="odd"><td>Furnishings</td><td>Storage</td><td>138</td></tr>
+<tr><td>Chairs</td><td>Paper</td><td>133</td></tr>
+<tr class="odd"><td>Appliances</td><td>Binders</td><td>130</td></tr>
+<tr><td>Art</td><td>Phones</td><td>124</td></tr>
+<tr class="odd"><td>Binders</td><td>Chairs</td><td>119</td></tr>
+<tr><td>Phones</td><td>Storage</td><td>117</td></tr>
+<tr class="odd"><td>Accessories</td><td>Phones</td><td>116</td></tr>
+<tr><td>Accessories</td><td>Furnishings</td><td>115</td></tr>
+<tr class="odd"><td>Appliances</td><td>Paper</td><td>109</td></tr>
+<tr><td>Accessories</td><td>Storage</td><td>103</td></tr>
+<tr class="odd"><td>Art</td><td>Furnishings</td><td>100</td></tr>
+<tr><td>Art</td><td>Storage</td><td>100</td></tr>
+<tr class="odd"><td>Chairs</td><td>Furnishings</td><td>99</td></tr>
+<tr><td>Accessories</td><td>Art</td><td>89</td></tr>
+<tr class="odd"><td>Chairs</td><td>Phones</td><td>89</td></tr>
+<tr><td>Chairs</td><td>Storage</td><td>83</td></tr>
+<tr class="odd"><td>Art</td><td>Chairs</td><td>82</td></tr>
+<tr><td>Binders</td><td>Labels</td><td>82</td></tr>
+<tr class="odd"><td>Appliances</td><td>Furnishings</td><td>80</td></tr>
+<tr><td>Labels</td><td>Paper</td><td>80</td></tr>
+<tr class="odd"><td>Appliances</td><td>Phones</td><td>76</td></tr>
+<tr><td>Binders</td><td>Tables</td><td>71</td></tr>
+<tr class="odd"><td>Accessories</td><td>Chairs</td><td>64</td></tr>
+<tr><td>Binders</td><td>Fasteners</td><td>62</td></tr>
+<tr class="odd"><td>Labels</td><td>Storage</td><td>61</td></tr>
+<tr><td>Accessories</td><td>Appliances</td><td>60</td></tr>
+<tr class="odd"><td>Appliances</td><td>Art</td><td>59</td></tr>
+<tr><td>Fasteners</td><td>Paper</td><td>59</td></tr>
+<tr class="odd"><td>Labels</td><td>Phones</td><td>58</td></tr>
+<tr><td>Envelopes</td><td>Paper</td><td>57</td></tr>
+<tr class="odd"><td>Furnishings</td><td>Labels</td><td>57</td></tr>
+<tr><td>Appliances</td><td>Storage</td><td>56</td></tr>
+<tr class="odd"><td>Binders</td><td>Bookcases</td><td>56</td></tr>
+<tr><td>Binders</td><td>Envelopes</td><td>54</td></tr>
+<tr class="odd"><td>Paper</td><td>Tables</td><td>54</td></tr>
+<tr><td>Phones</td><td>Tables</td><td>52</td></tr>
+<tr class="odd"><td>Bookcases</td><td>Paper</td><td>48</td></tr>
+<tr><td>Storage</td><td>Tables</td><td>48</td></tr>
+<tr class="odd"><td>Accessories</td><td>Labels</td><td>47</td></tr>
+<tr><td>Appliances</td><td>Chairs</td><td>47</td></tr>
+<tr class="odd"><td>Art</td><td>Labels</td><td>47</td></tr>
+<tr><td>Paper</td><td>Supplies</td><td>45</td></tr>
+<tr class="odd"><td>Accessories</td><td>Tables</td><td>44</td></tr>
+<tr><td>Furnishings</td><td>Tables</td><td>44</td></tr>
+<tr class="odd"><td>Binders</td><td>Supplies</td><td>43</td></tr>
+<tr><td>Bookcases</td><td>Phones</td><td>42</td></tr>
+<tr class="odd"><td>Envelopes</td><td>Phones</td><td>41</td></tr>
+<tr><td>Fasteners</td><td>Furnishings</td><td>41</td></tr>
+<tr class="odd"><td>Art</td><td>Tables</td><td>38</td></tr>
+<tr><td>Envelopes</td><td>Storage</td><td>38</td></tr>
+<tr class="odd"><td>Bookcases</td><td>Storage</td><td>37</td></tr>
+<tr><td>Fasteners</td><td>Phones</td><td>37</td></tr>
+<tr class="odd"><td>Fasteners</td><td>Storage</td><td>37</td></tr>
+<tr><td>Chairs</td><td>Labels</td><td>36</td></tr>
+<tr class="odd"><td>Art</td><td>Bookcases</td><td>34</td></tr>
+<tr><td>Accessories</td><td>Envelopes</td><td>32</td></tr>
+<tr class="odd"><td>Envelopes</td><td>Furnishings</td><td>32</td></tr>
+<tr><td>Chairs</td><td>Tables</td><td>31</td></tr>
+<tr class="odd"><td>Furnishings</td><td>Supplies</td><td>31</td></tr>
+<tr><td>Storage</td><td>Supplies</td><td>31</td></tr>
+<tr class="odd"><td>Appliances</td><td>Tables</td><td>30</td></tr>
+<tr><td>Art</td><td>Fasteners</td><td>30</td></tr>
+<tr class="odd"><td>Binders</td><td>Machines</td><td>30</td></tr>
+<tr><td>Bookcases</td><td>Furnishings</td><td>30</td></tr>
+<tr class="odd"><td>Accessories</td><td>Bookcases</td><td>29</td></tr>
+<tr><td>Art</td><td>Supplies</td><td>29</td></tr>
+<tr class="odd"><td>Chairs</td><td>Envelopes</td><td>29</td></tr>
+<tr><td>Machines</td><td>Paper</td><td>28</td></tr>
+<tr class="odd"><td>Accessories</td><td>Fasteners</td><td>27</td></tr>
+<tr><td>Art</td><td>Envelopes</td><td>27</td></tr>
+<tr class="odd"><td>Furnishings</td><td>Machines</td><td>27</td></tr>
+<tr><td>Chairs</td><td>Fasteners</td><td>26</td></tr>
+<tr class="odd"><td>Accessories</td><td>Supplies</td><td>25</td></tr>
+<tr><td>Appliances</td><td>Supplies</td><td>24</td></tr>
+<tr class="odd"><td>Accessories</td><td>Machines</td><td>22</td></tr>
+<tr><td>Machines</td><td>Phones</td><td>22</td></tr>
+<tr class="odd"><td>Phones</td><td>Supplies</td><td>22</td></tr>
+<tr><td>Appliances</td><td>Envelopes</td><td>21</td></tr>
+<tr class="odd"><td>Appliances</td><td>Fasteners</td><td>21</td></tr>
+<tr><td>Appliances</td><td>Labels</td><td>21</td></tr>
+<tr class="odd"><td>Bookcases</td><td>Chairs</td><td>21</td></tr>
+<tr><td>Bookcases</td><td>Labels</td><td>21</td></tr>
+<tr class="odd"><td>Machines</td><td>Storage</td><td>21</td></tr>
+<tr><td>Copiers</td><td>Paper</td><td>20</td></tr>
+<tr class="odd"><td>Binders</td><td>Copiers</td><td>19</td></tr>
+<tr><td>Chairs</td><td>Supplies</td><td>19</td></tr>
+<tr class="odd"><td>Labels</td><td>Supplies</td><td>18</td></tr>
+<tr><td>Chairs</td><td>Machines</td><td>17</td></tr>
+<tr class="odd"><td>Labels</td><td>Tables</td><td>17</td></tr>
+<tr><td>Fasteners</td><td>Labels</td><td>15</td></tr>
+<tr class="odd"><td>Appliances</td><td>Bookcases</td><td>13</td></tr>
+<tr><td>Art</td><td>Machines</td><td>12</td></tr>
+<tr class="odd"><td>Copiers</td><td>Furnishings</td><td>12</td></tr>
+<tr><td>Copiers</td><td>Storage</td><td>12</td></tr>
+<tr class="odd"><td>Envelopes</td><td>Tables</td><td>12</td></tr>
+<tr><td>Bookcases</td><td>Envelopes</td><td>11</td></tr>
+<tr class="odd"><td>Copiers</td><td>Phones</td><td>11</td></tr>
+<tr><td>Envelopes</td><td>Fasteners</td><td>11</td></tr>
+<tr class="odd"><td>Envelopes</td><td>Labels</td><td>11</td></tr>
+<tr><td>Fasteners</td><td>Supplies</td><td>11</td></tr>
+<tr class="odd"><td>Supplies</td><td>Tables</td><td>11</td></tr>
+<tr><td>Bookcases</td><td>Supplies</td><td>10</td></tr>
+<tr class="odd"><td>Chairs</td><td>Copiers</td><td>10</td></tr>
+<tr><td>Fasteners</td><td>Tables</td><td>10</td></tr>
+<tr class="odd"><td>Appliances</td><td>Copiers</td><td>9</td></tr>
+<tr><td>Appliances</td><td>Machines</td><td>9</td></tr>
+<tr class="odd"><td>Bookcases</td><td>Tables</td><td>9</td></tr>
+<tr><td>Fasteners</td><td>Machines</td><td>8</td></tr>
+<tr class="odd"><td>Labels</td><td>Machines</td><td>8</td></tr>
+<tr><td>Art</td><td>Copiers</td><td>7</td></tr>
+<tr class="odd"><td>Bookcases</td><td>Fasteners</td><td>7</td></tr>
+<tr><td>Accessories</td><td>Copiers</td><td>6</td></tr>
+<tr class="odd"><td>Bookcases</td><td>Machines</td><td>6</td></tr>
+<tr><td>Copiers</td><td>Labels</td><td>6</td></tr>
+<tr class="odd"><td>Envelopes</td><td>Machines</td><td>6</td></tr>
+<tr><td>Machines</td><td>Tables</td><td>6</td></tr>
+<tr class="odd"><td>Envelopes</td><td>Supplies</td><td>5</td></tr>
+<tr><td>Copiers</td><td>Envelopes</td><td>4</td></tr>
+<tr class="odd"><td>Copiers</td><td>Supplies</td><td>4</td></tr>
+<tr><td>Copiers</td><td>Fasteners</td><td>3</td></tr>
+<tr class="odd"><td>Bookcases</td><td>Copiers</td><td>2</td></tr>
+<tr><td>Copiers</td><td>Machines</td><td>2</td></tr>
+<tr class="odd"><td>Copiers</td><td>Tables</td><td>2</td></tr>
+<tr><td>Machines</td><td>Supplies</td><td>1</td></tr>
+</table></body></html>
