@@ -152,7 +152,7 @@ category, sub_category from raw_supermarket_sales;
 I proceeded to carry out the first introductory analysis, using simple SQL queries to analyze:
 - **Sales and profit by city**: some cities could demostrate a peak in sales, indicating that an investment in those cities may result in a further increase in sales
 - **Sales and profit by State**: same reasoning for the previous analysis, but it completes the city analysis with more macroscopic data about the sales on a State level 
-- **Profit ratio by State and by sub-category**: the Profit Ratio formula is given by $$\text{Profit Ratio} = \frac{\text{Total Profit}}{\text{Total Sales}} \times 100$$ and it helps to understand how much profit the current sales are generating. 
+- **Profit ratio by State and by sub-category**: the Profit Ratio formula is given by $$\text{Profit Ratio} = \frac{\text{Total Profit}}{\text{Total Sales}} \times 100$$ and it helps to understand how much profit the current sales are generating.
 - **Total profit by sub-category**
 
 ```sql
@@ -223,7 +223,7 @@ ORDER BY 2 desc;
 
 ### 3. Intermediate-level business analysis
 Here, I carried out a more in-depth business analysis, using more complex SQL queries to investigate the following:
-- **Profit analysis by subcategory and segment**: , and this effect could be in turn attribuited to a specific customer segment (e.g., a Consumer segment customer could behave differently than a Corporate customer)
+- **Profit analysis by subcategory and segment**: some subcategories and segment customers can generate a higher profit. In this analysis, each sub-category profit computation is divided for customer segment, to highlight the different customer behaviour per sub-category (e.g., a customer in the Corporate segment could buy more Chair item with respect to a Consumer customer, or vice versa.
 - **Basket Analysis for shared sub-categories in the same orders**: Basket analysis analyze which product are brought togheter and in what percentage. Product of two or more subcategories could result to be bought toghether more often, resulting in a mutual profit spike.
 - **Shipping performance by city**: calculated as the mean difference between the order date and the shipping date, indicating the average shipping performance by city.
 
