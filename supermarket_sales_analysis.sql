@@ -1,3 +1,5 @@
+
+-- Database and landing table creation 
 create database supermarket_sales;
 
 use supermarket_sales;
@@ -34,6 +36,43 @@ enclosed by '"'
 lines terminated by '\n'
 ignore 1 rows;
 
+-- Data cleaning from null values
+SELECT * FROM raw_supermarket_sales
+WHERE 
+    row_id IS NULL 
+    OR order_id IS null
+    or order_date is null 
+    OR ship_date IS null
+    or ship_mode is null
+    OR customer_id IS null
+    or customer_name is null
+    or segment is null 
+    or country is null  
+    or city is null 
+    or state is null 
+    or postal_code is null  
+    or region is null  
+    or product_id is null 
+    OR category IS null
+    OR sub_category IS null
+    or product_name is null 
+    or sales is null  
+    or quantity is null 
+    or discount is null 
+    or profit is null;
+
+-- Data cleaning from duplicate values
+SELECT 
+    row_id, 
+    COUNT(row_id) AS numero_ripetizioni
+FROM 
+    raw_supermarket_sales
+GROUP BY 
+    row_id
+HAVING 
+    COUNT(row_id) > 1;
+
+-- Star Schema setup
 create table sales
 (row_id INT PRIMARY KEY,
     order_id VARCHAR(50),
@@ -48,16 +87,12 @@ create table sales
 select row_id, order_id, customer_id, city, product_id,
 sales, quantity, discount, profit from raw_supermarket_sales;
 
-select * from sales limit 50;
-
 create table customer
 (customer_id VARCHAR(50),
 customer_name VARCHAR(100),
 segment VARCHAR(50))
 select customer_id, customer_name, segment
 from raw_supermarket_sales;
-
-
 
 create table orders
 (order_id VARCHAR(50),
@@ -74,8 +109,6 @@ region VARCHAR(50)
 select order_id, product_id, order_date, ship_date,
 		ship_mode, country, city, state, postal_code, region
 		from raw_supermarket_sales;
-
-select * from orders limit 50;
 
 create table products 
 (product_id varchar(50),
@@ -407,6 +440,7 @@ SELECT
     ROUND((customer_rank / total_customer_count) * 100, 2) AS customer_percentage
 FROM Cumulative_Analysis
 ORDER BY total_customer_profit DESC;
+
 
 
 
