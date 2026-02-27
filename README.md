@@ -223,12 +223,12 @@ ORDER BY 2 desc;
 
 ### 3. Intermediate-level business analysis
 Here, I carried out a more in-depth business analysis, using more complex SQL queries to investigate the following:
-- **Basket Analysis by subcategory and segment**
-- **Basket Analysis for shared sub-categories in the same orders**
-- **Shipping performance**
+- **Profit analysis by subcategory and segment**: , and this effect could be in turn attribuited to a specific customer segment (e.g., a Consumer segment customer could behave differently than a Corporate customer)
+- **Basket Analysis for shared sub-categories in the same orders**: Basket analysis analyze which product are brought togheter and in what percentage. Product of two or more subcategories could result to be bought toghether more often, resulting in a mutual profit spike.
+- **Shipping performance by city**: calculated as the mean difference between the order date and the shipping date, indicating the average shipping performance by city.
 
 ```sql
--- Basket Analysis by sub-category
+-- Profit quantification by sub-category
 SELECT p.sub_category 'Sub-Category', SUM(s.quantity) 'Total Quantity', round(sum(s.profit),0) 'Profit ($)'
 FROM sales s
 INNER JOIN (
@@ -238,7 +238,7 @@ INNER JOIN (
 GROUP BY 1
 ORDER BY 2 DESC;
 
--- Basket Analysis by sub-category and by segments
+-- Profit quantification by sub-category and by segments
 SELECT c.segment, p.sub_category 'Sub-Category', SUM(s.quantity) 'Total Quantity', round(sum(s.profit),0) 'Profit ($)'
 FROM sales s
 INNER JOIN (
