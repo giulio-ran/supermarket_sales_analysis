@@ -17,9 +17,10 @@ This project aims to analyze a dataset of retail sales, with the usage of a seri
 ### 1. Database setup 
 - **Database Creation**: The project starts by creating a database named 'supermarket_sales'.
 - **Landing table creation**: A table named `raw_supermarket_sales` is created to store the sales data.
-- **Star Schema setup**: different tables have been created, each one describinig a different dimension of the data; each of these 'descriptive' table can be linked to the principal 'fact' table through a single join.
 
 ```sql
+
+-- Database and landing table creation 
 create database supermarket_sales;
 
 use supermarket_sales;
@@ -49,13 +50,57 @@ CREATE TABLE raw_supermarket_sales (
 );
 
 
-load data infile "C:/Your_Path/supermarket_sales.csv"
+load data infile "C:/ProgramData/MySQL/MySQL Server 9.5/Uploads/supermarket_sales_converted.csv"
 into table raw_supermarket_sales 
 fields terminated by ','
 enclosed by '"'
 lines terminated by '\n'
 ignore 1 rows;
 
+-- Data cleaning from null values
+SELECT * FROM raw_supermarket_sales
+WHERE 
+    row_id IS NULL 
+    OR order_id IS null
+    or order_date is null 
+    OR ship_date IS null
+    or ship_mode is null
+    OR customer_id IS null
+    or customer_name is null
+    or segment is null 
+    or country is null  
+    or city is null 
+    or state is null 
+    or postal_code is null  
+    or region is null  
+    or product_id is null 
+    OR category IS null
+    OR sub_category IS null
+    or product_name is null 
+    or sales is null  
+    or quantity is null 
+    or discount is null 
+    or profit is null;
+
+-- Data cleaning from duplicate values
+SELECT 
+    row_id, 
+    COUNT(row_id) AS numero_ripetizioni
+FROM 
+    raw_supermarket_sales
+GROUP BY 
+    row_id
+HAVING 
+    COUNT(row_id) > 1;
+
+```
+
+In this case, both null values and duplicate values were absent in the raw data. For this reason, I didn't write any DELETE query.
+
+- **Star Schema setup**: different tables have been created, each one describinig a different dimension of the data; each of these 'descriptive' table can be linked to the principal 'fact' table through a single join.
+
+```sql
+-- Star Schema setup
 create table sales
 (row_id INT PRIMARY KEY,
     order_id VARCHAR(50),
@@ -69,8 +114,6 @@ create table sales
 )
 select row_id, order_id, customer_id, city, product_id,
 sales, quantity, discount, profit from raw_supermarket_sales;
-
-select * from sales limit 50;
 
 create table customer
 (customer_id VARCHAR(50),
@@ -104,10 +147,6 @@ sub_category varchar(50)
 select product_id, product_name,
 category, sub_category from raw_supermarket_sales;
 ```
-
-
-
-
 
 
 
