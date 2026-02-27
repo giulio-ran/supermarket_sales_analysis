@@ -148,6 +148,13 @@ select product_id, product_name,
 category, sub_category from raw_supermarket_sales;
 ```
 
+### 2. Basic business analysis
+I proceeded to carry out the first introductory analysis, using simple SQL queries to analyze:
+- **Sales and profit by city**: some cities could demostrate a peak in sales, indicating that an investment in those cities may result in a further increase in sales
+- **Sales and profit by State**: same reasoning for the previous analysis, but it completes the city analysis with more macroscopic data about the sales on a State level 
+- **Profit ratio by State and by sub-category**: the Profit Ratio formula is given by $$\text{Profit Ratio} = \frac{\text{Total Profit}}{\text{Total Sales}} \times 100$$  
+- **Total profit by sub-category**: 
+
 
 
 
