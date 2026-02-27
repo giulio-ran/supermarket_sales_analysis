@@ -148,14 +148,132 @@ select product_id, product_name,
 category, sub_category from raw_supermarket_sales;
 ```
 
-### 2. Basic business analysis
+### 2. Basic-level business analysis
 I proceeded to carry out the first introductory analysis, using simple SQL queries to analyze:
 - **Sales and profit by city**: some cities could demostrate a peak in sales, indicating that an investment in those cities may result in a further increase in sales
 - **Sales and profit by State**: same reasoning for the previous analysis, but it completes the city analysis with more macroscopic data about the sales on a State level 
-- **Profit ratio by State and by sub-category**: the Profit Ratio formula is given by $$\text{Profit Ratio} = \frac{\text{Total Profit}}{\text{Total Sales}} \times 100$$  
-- **Total profit by sub-category**: 
+- **Profit ratio by State and by sub-category**: the Profit Ratio formula is given by $$\text{Profit Ratio} = \frac{\text{Total Profit}}{\text{Total Sales}} \times 100$$ and it helps to understand how much profit the current sales are generating. 
+- **Total profit by sub-category**
+
+```sql
+-- Sales and profit by city
+-- 1. Sales
+
+select city 'City', sum(sales) 'Total Sales ($)'
+from sales
+group by 1 order by 2
+limit 30;
 
 
 
+-- 2. Profit
+select city 'City', sum(profit) 'Total Profit ($)' 
+from sales 
+group by 1 order by 2 desc;
 
 
+-- Sales and Profit by State
+
+-- Sales by state
+
+select o.state 'State', sum(s.sales) 'Total Sales ($)'
+from sales s 
+inner join orders o on o.city = s.city
+group by 1 order by 2;
+
+-- Profit by State
+select o.state 'State', sum(s.profit) 'Total Profit ($)'
+from sales s 
+inner join orders o on o.city = s.city
+group by 1 order by 2;
+
+-- Profit ratio (Sum(profit)/sum(sales)) by State
+select o.state 'State', round(sum(s.profit)/sum(s.sales),2)*100 'Profit Ratio (Profit/Sales) %'
+from sales s 
+inner join orders o on o.city = s.city
+group by 1 order by 2;
+
+SELECT product_id, COUNT(*) 
+FROM products 
+GROUP BY product_id 
+HAVING COUNT(*) > 1;
+
+
+
+-- Total Profit by Sub-Category
+SELECT p.sub_category 'Sub-Category', SUM(s.profit) 'Total Profit ($)'
+FROM sales s
+INNER JOIN (
+    SELECT DISTINCT product_id, sub_category 
+    FROM products
+) p ON s.product_id = p.product_id
+GROUP BY 1
+ORDER BY 2 DESC;
+
+-- Profit Ratio by Sub-Category
+SELECT p.sub_category 'Sub-Category', round(SUM(s.profit)/SUM(s.sales)*100,2) 'Profit Ratio'
+FROM sales s
+INNER JOIN (
+    SELECT DISTINCT product_id, sub_category 
+    FROM products
+) p ON s.product_id = p.product_id
+GROUP BY 1
+ORDER BY 2 desc;
+```
+
+### 3. Intermediate-level business analysis
+Here, I carried out a more in-depth business analysis, using more complex SQL queries to investigate the following:
+- **Basket Analysis by subcategory and segment**
+- **Basket Analysis for shared sub-categories in the same orders**
+- **Shipping performance**
+
+```sql
+-- Basket Analysis by sub-category
+SELECT p.sub_category 'Sub-Category', SUM(s.quantity) 'Total Quantity', round(sum(s.profit),0) 'Profit ($)'
+FROM sales s
+INNER JOIN (
+    SELECT DISTINCT product_id, sub_category 
+    FROM products
+) p ON s.product_id = p.product_id
+GROUP BY 1
+ORDER BY 2 DESC;
+
+-- Basket Analysis by sub-category and by segments
+SELECT c.segment, p.sub_category 'Sub-Category', SUM(s.quantity) 'Total Quantity', round(sum(s.profit),0) 'Profit ($)'
+FROM sales s
+INNER JOIN (
+    SELECT DISTINCT product_id, sub_category 
+    FROM products
+) p ON s.product_id = p.product_id
+inner join customer c on c.customer_id = s.customer_id
+GROUP BY 1,2
+ORDER BY 1,3 DESC;
+
+
+-- Basket analysis for shared sub-categories in the same orders
+select s1.sub_category `Product (a)`, s2.sub_category `Product (b)`,
+		count(distinct s1.order_id) `Times bought together` 
+		from (select  
+			s.order_id, p.sub_category 
+			from sales s 
+			join products p
+			on p.product_id = s.product_id) s1
+			join (select  
+			s.order_id, p.sub_category 
+			from sales s  
+			join products p 
+			on p.product_id = s.product_id) s2 
+			on s1.order_id = s2.order_id  
+			and s1.sub_category < s2.sub_category 
+	group by 1,2 
+	order by 3 desc ;
+			
+		
+-- Shipping performance: computation of the average shipping time for each city
+ * From the worst to the best performance */
+select s.city City, avg(datediff(o.ship_date, o.order_date)) `Average shipping days`
+		from sales s 
+		join orders o on s.order_id = o.order_id
+		group by City
+		order by 2 desc;
+```
