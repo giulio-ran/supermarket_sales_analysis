@@ -119,8 +119,8 @@ sub_category varchar(50)
 select product_id, product_name,
 category, sub_category from raw_supermarket_sales;
 
-/* Sales and profit by city */
-/*1. Sales */
+-- Sales and profit by city
+-- 1. Sales
 
 select city 'City', sum(sales) 'Total Sales ($)'
 from sales
@@ -129,15 +129,15 @@ limit 30;
 
 
 
-/*2. Profit */
+-- 2. Profit
 select city 'City', sum(profit) 'Total Profit ($)' 
 from sales 
 group by 1 order by 2 desc limit 30;
 
 
-/* Sales and Profit by State */
+-- Sales and Profit by State 
 
-/* Sales by state */
+-- Sales by state
 
 select o.state 'State', sum(s.sales) 'Total Sales ($)'
 from sales s 
@@ -145,14 +145,14 @@ inner join orders o on o.city = s.city
 group by 1 order by 2 limit 30;
 
 
-/* Profit by State */
+-- Profit by State
 select o.state 'State', sum(s.profit) 'Total Profit ($)'
 from sales s 
 inner join orders o on o.city = s.city
 group by 1 order by 2 limit 30;
 
 
-/* Profit ratio (Sum(profit)/sum(sales)) by State */
+-- Profit ratio (Sum(profit)/sum(sales)) by State
 select o.state 'State', round(sum(s.profit)/sum(s.sales),2)*100 'Profit Ratio (Profit/Sales) %'
 from sales s 
 inner join orders o on o.city = s.city
@@ -165,7 +165,7 @@ HAVING COUNT(*) > 1;
 
 
 
-/* Total Profit by Sub-Category */
+-- Total Profit by Sub-Category
 SELECT p.sub_category 'Sub-Category', SUM(s.profit) 'Total Profit ($)'
 FROM sales s
 INNER JOIN (
@@ -175,7 +175,7 @@ INNER JOIN (
 GROUP BY 1
 ORDER BY 2 DESC;
 
-/* Profit Ratio by Sub-Category */
+-- Profit Ratio by Sub-Category
 SELECT p.sub_category 'Sub-Category', round(SUM(s.profit)/SUM(s.sales)*100,2) 'Profit Ratio'
 FROM sales s
 INNER JOIN (
@@ -185,7 +185,7 @@ INNER JOIN (
 GROUP BY 1
 ORDER BY 2 desc;
 
-/* Basket Analysis by sub-category*/
+-- Basket Analysis by sub-category
 SELECT p.sub_category 'Sub-Category', SUM(s.quantity) 'Total Quantity', round(sum(s.profit),0) 'Profit ($)'
 FROM sales s
 INNER JOIN (
@@ -195,7 +195,7 @@ INNER JOIN (
 GROUP BY 1
 ORDER BY 2 DESC;
 
-/* Basket Analysis by sub-category and by segments */
+-- Basket Analysis by sub-category and by segments
 SELECT c.segment, p.sub_category 'Sub-Category', SUM(s.quantity) 'Total Quantity', round(sum(s.profit),0) 'Profit ($)'
 FROM sales s
 INNER JOIN (
@@ -207,7 +207,7 @@ GROUP BY 1,2
 ORDER BY 1,3 DESC;
 
 
-/* Basket analysis for shared sub-categories in the same orders */
+-- Basket analysis for shared sub-categories in the same orders
 select s1.sub_category `Product (a)`, s2.sub_category `Product (b)`,
 		count(distinct s1.order_id) `Times bought together` 
 		from (select  
@@ -226,7 +226,7 @@ select s1.sub_category `Product (a)`, s2.sub_category `Product (b)`,
 	order by 3 desc ;
 			
 		
-/* Shipping performance: computation of the average shipping time for each city
+-- Shipping performance: computation of the average shipping time for each city
  * From the worst to the best performance */
 select s.city City, avg(datediff(o.ship_date, o.order_date)) `Average shipping days`
 		from sales s 
@@ -234,7 +234,7 @@ select s.city City, avg(datediff(o.ship_date, o.order_date)) `Average shipping d
 		group by City
 		order by 2 desc;
 
-/* Customer Retention analysis */
+-- Customer Retention analysis
 WITH FirstOrders AS (
     SELECT 
         s.customer_id, 
@@ -368,23 +368,21 @@ FROM RFM_Scores;
 
 
 
-/* Discount vs Profit analysis */
-
-/* Average profit by discount percentage */
+-- Discount vs Profit analysis
+-- Average profit by discount percentage
 SELECT 
     discount AS 'Discount (%)',
     COUNT(*) AS 'Number of sales',
     ROUND(AVG(sales), 2) AS 'Average sale amount ($)',
     ROUND(AVG(profit), 2) AS 'Average profit ($)',
     ROUND(SUM(profit), 2) AS 'Total profit ($)',
-    -- Calcoliamo il margine percentuale medio
     ROUND((SUM(profit) / SUM(sales)) * 100, 2) AS 'Margin (%)'
 FROM sales
 GROUP BY discount
 ORDER BY discount ASC;
 
 
-/* Discount and profit by category */
+-- Discount and profit by category
 SELECT 
     p.category AS 'Category',
     s.discount AS 'Discount',
@@ -398,7 +396,7 @@ JOIN products p ON s.product_id = p.product_id
 GROUP BY 1,2
 order by 3 desc;
 
-/* Discount and profit by sub-category */
+-- Discount and profit by sub-category
 SELECT 
     p.sub_category AS 'Category',
     s.discount AS 'Discount',
@@ -415,7 +413,7 @@ ORDER BY 3 desc;
 
 
 
-/* Pareto Analysis */
+-- Pareto Analysis
 WITH Customer_Profit AS (
     SELECT 
         customer_id,
@@ -440,6 +438,7 @@ SELECT
     ROUND((customer_rank / total_customer_count) * 100, 2) AS customer_percentage
 FROM Cumulative_Analysis
 ORDER BY total_customer_profit DESC;
+
 
 
 
