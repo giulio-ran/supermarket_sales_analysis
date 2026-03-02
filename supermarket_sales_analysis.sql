@@ -269,54 +269,6 @@ GROUP BY 1
 order by 1;
 
 
-
-with first_orders as 
-	(select s.customer_id,
-	min(o.order_date) first_orders_date,
-	year(min(o.order_date)) cohort_year
-	from sales s 
-	join orders o on o.order_id = s.order_id
-	group by 1),
-	second_orders as 
-	(select s.customer_id,
-	min(o.order_date) second_orders_date
-	from sales s
-	join orders o on o.order_id = s.order_id
-	join first_orders f on f.customer_id = s.customer_id
-	where o.order_date > f.first_orders_date
-	group by 1)
-select f.cohort_year, 
-	count(*) 'Number of aquired customers',
-	avg(datediff(s.second_orders_date - f.first_orders_date)) 'Average days to 2nd order'
-	from first_orders f 
-	join second_orders s on s.customer_id = f.customer_id
-	group by 1;
-	
-	
-
-with first_orders as 
-	(select s.order_id,
-	min(o.order_date) first_order_date,
-	year(min(o.order_date)) cohort_year 
-	from sales s
-	join orders o on o.order_id = s.order_id
-	group by 1),
-	second_orders as 
-	(select s.order_id,
-	min(o.order_date) second_order_date
-	from sales s 
-	join orders o on o.order_id = s.order_id 
-	join first_orders f on f.customer_id = s.customer_id
-	where o.order_date > f.first_order_date 
-	group by 1) 
-	select f.cohort_year, 
-			count(f.customer_id) 'Total acquired customers',
-			datediff(s.second_order_date, f.first_year_date)
-			from first_orders f 
-			join second_orders s on f.order_id = s.order_id
-			group by 1;
-
-
 /* RFM analysis (Recency, Frequency, Monetary)
 *
 * Recency value = last order within the dataset - last order of the customer
@@ -438,6 +390,7 @@ SELECT
     ROUND((customer_rank / total_customer_count) * 100, 2) AS customer_percentage
 FROM Cumulative_Analysis
 ORDER BY total_customer_profit DESC;
+
 
 
 
