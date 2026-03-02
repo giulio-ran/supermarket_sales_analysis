@@ -1,11 +1,14 @@
 # # Supermarket Sales Analysis SQL Project
 
-## Project Overview
+## Abstract
 
-**Level**: Intermediate-Advanced
+**Level**: Basic
 **Dataset**: Supermarket_sales
+**Language**: SQL
 
-This project aims to analyze a dataset of retail sales, with the usage of a series of intermediate-to-advanced SQL queries. The endpoint results aim to determine factors such as the relationship between discount and profit, which are the areas more profitable in terms of categories, geographical regions, and others (Pareto analysis) and which customers bring the highest profit in different modalities (RFM analysis)
+This study is the first of a series of 3 studies which aim to analyze, using the programming language SQL, a dataset of retail sales, each with a different level of analysis depth. In particular, the dataset describes the sales parameters of an online supermarket which sells across all the US. In this first study, I investigated whether the top-ranked cities with respect to sales mantained the same rank when the total profit is analyzed. I performed the same comparison for the States. For both these anaylises, I end up with a positive answer to the question: the cities and the States with higher sales volumes generate also the highest profit. In contrast, when analyzing the top-ranked States for profit ratio, i.e. the ration between the profit and sales revenue, a radically different list of top-ranked States was generated. This highlight the possibility that targeted advertising campaigns could improve the profit performance of specific geogrific areas which display a higher profit/sales ratio.
+
+The endpoint results aim to determine factors such as the relationship between discount and profit, which are the areas more profitable in terms of categories, geographical regions, and others (Pareto analysis) and which customers bring the highest profit in different modalities (RFM analysis)
 
 ## Objectives
 1. **Data exploration and cleaning**: loading the raw data into a landing table, conduct a visual inspection and delete null and duplicated rows, performing an exploratory data analysis
