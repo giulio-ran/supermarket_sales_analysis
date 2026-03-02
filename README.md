@@ -5,7 +5,7 @@
 **Level**: Intermediate-Advanced
 **Dataset**: Supermarket_sales
 
-This project aims to analyze a dataset of retail sales, with the usage of a series of intermediate-to-advanced SQL queries. The endpoint results aim to determine factors such as the relationship between discount and profit, which are the areas more prifitable in terms of categories, geographical regions, andh others (Pareto analysis) and which customers bring the highest profit in different modalities (RFM analysis)
+This project aims to analyze a dataset of retail sales, with the usage of a series of intermediate-to-advanced SQL queries. The endpoint results aim to determine factors such as the relationship between discount and profit, which are the areas more profitable in terms of categories, geographical regions, and others (Pareto analysis) and which customers bring the highest profit in different modalities (RFM analysis)
 
 ## Objectives
 1. **Data exploration and cleaning**: loading the raw data into a landing table, conduct a visual inspection and delete null and duplicated rows, performing an exploratory data analysis
@@ -452,6 +452,9 @@ SELECT
 FROM Cumulative_Analysis
 ORDER BY total_customer_profit DESC;
 ```
+## Results
+
+The introductory analysis highlighted that the highest sales and profit concentration are found 
 
 
 
