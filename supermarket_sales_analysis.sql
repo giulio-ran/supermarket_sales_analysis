@@ -185,7 +185,7 @@ INNER JOIN (
 GROUP BY 1
 ORDER BY 2 desc;
 
--- Basket Analysis by sub-category
+-- Profit and quantity analysis by sub-category
 SELECT p.sub_category 'Sub-Category', SUM(s.quantity) 'Total Quantity', round(sum(s.profit),0) 'Profit ($)'
 FROM sales s
 INNER JOIN (
@@ -195,7 +195,7 @@ INNER JOIN (
 GROUP BY 1
 ORDER BY 2 DESC;
 
--- Basket Analysis by sub-category and by segments
+-- Profit and quantity analysis by sub-category and by segments
 SELECT c.segment, p.sub_category 'Sub-Category', SUM(s.quantity) 'Total Quantity', round(sum(s.profit),0) 'Profit ($)'
 FROM sales s
 INNER JOIN (
@@ -388,6 +388,7 @@ SELECT
     ROUND((customer_rank / total_customer_count) * 100, 2) AS customer_percentage
 FROM Cumulative_Analysis
 ORDER BY total_customer_profit DESC;
+
 
 
 
