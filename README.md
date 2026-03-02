@@ -452,10 +452,11 @@ SELECT
 FROM Cumulative_Analysis
 ORDER BY total_customer_profit DESC;
 ```
-## Results
+## Results and Discussion
 
 The introductory analysis highlighted that the cities which dispays the highest sales numbers, also tend to display the highest profit numbers; indeed, we can observe that, within the top-10 cities in the ranked list, by sales and profit, we find, e.g., New York City, Los Angeles, Seattle, San Francisco, San Diego. (See in the output folder, tables "Top-30 cities by sales" and "Top-30 cities by profit"). The same holds for the State-level analysis, with States as New York, California and Washingnton in the top-5 rank for both sales and profit.
-The profit ratio computation state-wise gave an unexpected result, with the top-5 States Louisiana, Distrinct of Columbia, Maine, Minnesota and Montana, meaning that the relative profit, with respect to sales, is higher for States with lower sales volumes. This highlight the possibility of intensifying the advertisement campaign in these 'high-relative profit' States. (Table 'Top-30 states by Profit Ratio').
-The same discrepancy appears from the comparison between the total profit by subcategory and the profit ratio by subcategory. For the former, we see Copiers, Phones and Accessories as the top-3 profit generating, whereas Labels, Paper and Envelops contitute the top-3 in the Profit Ratio ranking. This scenario highlight that, even if higher sales volumes generate higher profit, an active advertisement campaign on high-profit ratio subcategories could generate a significant spike in profit with just a modest relative spike in sales. 
+The State-wise profit ratio computation gave an unexpected result, with the top-5 States Louisiana, Distrinct of Columbia, Maine, Minnesota and Montana, meaning that the relative profit, with respect to sales, is higher for States with lower sales volumes. This highlight the possibility of intensifying the advertisement campaign in these 'high-relative profit' States. (Table 'Top-30 states by Profit Ratio').
+The same discrepancy appears from the comparison between the total profit by subcategory and the profit ratio by subcategory. For the former, we see Copiers, Phones and Accessories as the top-3 profit generating, whereas Labels, Paper and Envelops contitute the top-3 in the Profit Ratio ranking. This scenario highlight that, even if higher sales volumes generate higher profit, an active advertisement campaign on high-profit ratio subcategories could generate a significant spike in profit with just a modest relative spike in sales.
+
 
 
