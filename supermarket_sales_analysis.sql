@@ -227,7 +227,7 @@ select s1.sub_category `Product (a)`, s2.sub_category `Product (b)`,
 			
 		
 -- Shipping performance: computation of the average shipping time for each city
- * From the worst to the best performance */
+ -- From the worst to the best performance
 select s.city City, avg(datediff(o.ship_date, o.order_date)) `Average shipping days`
 		from sales s 
 		join orders o on s.order_id = o.order_id
@@ -388,6 +388,7 @@ SELECT
     ROUND((customer_rank / total_customer_count) * 100, 2) AS customer_percentage
 FROM Cumulative_Analysis
 ORDER BY total_customer_profit DESC;
+
 
 
 
