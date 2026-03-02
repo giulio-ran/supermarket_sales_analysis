@@ -280,9 +280,7 @@ select s.city City, avg(datediff(o.ship_date, o.order_date)) `Average shipping d
 
 ### 3. Advanced-level business analysis
 In the following section, I carried out a more advanced analysis, taking into consideration the following metrics:
-- **Customer Retention analysis**: It's a complex analysis that investigates how much a customer is 'loyal' to the company. It includes the calculation of the following metrics: 1) 'Total acquired customers by year': it describes how many customers were acquired for each year. It helps understand if, for example, the current sales volume is due to a good amount of 'loyal' customers, or just to a flow of new customers, maybe acquired by advertising campaigns. 2) 'Average days to second order': it measures how many days, on average, a customer waits for a second order; it describe the risk of the customers to switch to a competitor, and it could give interesting insights about the timing for promotional email sending. 3) 'Retention rate': it is computed by the formula $$
-\text{Retention Rate (\%)} = \frac{\text{Returned Customers}}{\text{Total Customers}} \times 100
-$$
+- **Customer Retention analysis**: It's a complex analysis that investigates how much a customer is 'loyal' to the company. It includes the calculation of the following metrics: 1) 'Total acquired customers by year': it describes how many customers were acquired for each year. It helps understand if, for example, the current sales volume is due to a good amount of 'loyal' customers, or just to a flow of new customers, maybe acquired by advertising campaigns. 2) 'Average days to second order': it measures how many days, on average, a customer waits for a second order; it describe the risk of the customers to switch to a competitor, and it could give interesting insights about the timing for promotional email sending. 3) 'Retention rate': it is computed by the formula $$\text{Retention Rate (\%)} = \frac{\text{Returned Customers}}{\text{Total Customers}} \times 100$$
 
 - 
 
