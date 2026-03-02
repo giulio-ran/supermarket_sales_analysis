@@ -234,6 +234,48 @@ select s.city City, avg(datediff(o.ship_date, o.order_date)) `Average shipping d
 		group by City
 		order by 2 desc;
 
+-- Discount vs Profit analysis
+-- Average profit by discount percentage
+SELECT 
+    discount AS 'Discount (%)',
+    COUNT(*) AS 'Number of sales',
+    ROUND(AVG(sales), 2) AS 'Average sale amount ($)',
+    ROUND(AVG(profit), 2) AS 'Average profit ($)',
+    ROUND(SUM(profit), 2) AS 'Total profit ($)',
+    ROUND((SUM(profit) / SUM(sales)) * 100, 2) AS 'Margin (%)'
+FROM sales
+GROUP BY discount
+ORDER BY discount ASC;
+
+
+-- Discount and profit by category
+SELECT 
+    p.category AS 'Category',
+    s.discount AS 'Discount',
+    ROUND(AVG(s.profit), 2) AS 'Average profit',
+    CASE 
+        WHEN AVG(s.profit) > 0 THEN 'Positive'
+        ELSE 'Negative'
+    END AS 'Profitability status'
+FROM sales s
+JOIN products p ON s.product_id = p.product_id
+GROUP BY 1,2
+order by 3 desc;
+
+-- Discount and profit by sub-category
+SELECT 
+    p.sub_category AS 'Category',
+    s.discount AS 'Discount',
+    ROUND(AVG(s.profit), 2) AS 'Average profit',
+    CASE 
+        WHEN AVG(s.profit) > 0 THEN 'Positive'
+        ELSE 'Negative'
+    END AS 'Profitability status'
+FROM sales s
+JOIN products p ON s.product_id = p.product_id
+GROUP BY 1,2
+ORDER BY 3 desc;
+
 -- Customer Retention analysis
 WITH FirstOrders AS (
     SELECT 
@@ -320,50 +362,6 @@ FROM RFM_Scores;
 
 
 
--- Discount vs Profit analysis
--- Average profit by discount percentage
-SELECT 
-    discount AS 'Discount (%)',
-    COUNT(*) AS 'Number of sales',
-    ROUND(AVG(sales), 2) AS 'Average sale amount ($)',
-    ROUND(AVG(profit), 2) AS 'Average profit ($)',
-    ROUND(SUM(profit), 2) AS 'Total profit ($)',
-    ROUND((SUM(profit) / SUM(sales)) * 100, 2) AS 'Margin (%)'
-FROM sales
-GROUP BY discount
-ORDER BY discount ASC;
-
-
--- Discount and profit by category
-SELECT 
-    p.category AS 'Category',
-    s.discount AS 'Discount',
-    ROUND(AVG(s.profit), 2) AS 'Average profit',
-    CASE 
-        WHEN AVG(s.profit) > 0 THEN 'Positive'
-        ELSE 'Negative'
-    END AS 'Profitability status'
-FROM sales s
-JOIN products p ON s.product_id = p.product_id
-GROUP BY 1,2
-order by 3 desc;
-
--- Discount and profit by sub-category
-SELECT 
-    p.sub_category AS 'Category',
-    s.discount AS 'Discount',
-    ROUND(AVG(s.profit), 2) AS 'Average profit',
-    CASE 
-        WHEN AVG(s.profit) > 0 THEN 'Positive'
-        ELSE 'Negative'
-    END AS 'Profitability status'
-FROM sales s
-JOIN products p ON s.product_id = p.product_id
-GROUP BY 1,2
-ORDER BY 3 desc;
-
-
-
 
 -- Pareto Analysis
 WITH Customer_Profit AS (
@@ -390,6 +388,7 @@ SELECT
     ROUND((customer_rank / total_customer_count) * 100, 2) AS customer_percentage
 FROM Cumulative_Analysis
 ORDER BY total_customer_profit DESC;
+
 
 
 
