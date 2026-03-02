@@ -454,7 +454,6 @@ ORDER BY total_customer_profit DESC;
 ```
 ## Results
 
-The introductory analysis highlighted that the highest sales and profit concentration are found 
-
+The introductory analysis highlighted that the cities which dispays the highest sales numbers, also tend to display the highest profit numbers; indeed, we can observe that, within the top-10 cities in the ranked list, by sales and profit, we find, e.g., New York City, Los Angeles, Seattle, San Francisco, San Diego. (See in the output folder, tables "Top-30 cities by sales" and "Top-30 cities by profit"). The same holds for the State-level analysis, with States as New York, California and Washingnton in the top-5 rank for both sales and profit.
 
 
