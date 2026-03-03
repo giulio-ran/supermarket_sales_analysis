@@ -1,19 +1,14 @@
 # # Supermarket Sales Analysis SQL Project
 
-## Abstract
-
 **Level**: Basic
 **Dataset**: Supermarket_sales
 **Language**: SQL
 
-This study is the first of a series of 3 studies which aim to analyze, using the programming language SQL, a dataset of retail sales, each with a different level of analysis depth. In particular, the dataset describes the sales parameters of an online supermarket which sells across all the US. In this first study, I investigated whether the top-ranked cities with respect to sales mantained the same rank when the total profit is analyzed. I performed the same comparison for the States. For both these anaylises, I end up with a positive answer to the question: the cities and the States with higher sales volumes generate also the highest profit. In contrast, when analyzing the top-ranked States for profit ratio, i.e. the ration between the profit and sales revenue, a radically different list of top-ranked States was generated. This highlight the possibility that targeted advertising campaigns could improve the profit performance of specific geogrific areas which display a higher profit/sales ratio.
+## Abstract and research questions
 
-The endpoint results aim to determine factors such as the relationship between discount and profit, which are the areas more profitable in terms of categories, geographical regions, and others (Pareto analysis) and which customers bring the highest profit in different modalities (RFM analysis)
-
-## Objectives
-1. **Data exploration and cleaning**: loading the raw data into a landing table, conduct a visual inspection and delete null and duplicated rows, performing an exploratory data analysis
-2. **Setting up a supermarket_sales database**: building a database following a Star Schema, which is part of the superfamily of OLTP (Online Transactional Processing) database settings.
-3. **Business Analysis**: conducting an in-depth business analysis using intermediate-to-advanced techniques, such as profit ratio analysis, basket analysis, shipping perfomance, customer retention analysis, RFM, and others
+This study is the first in a series of three aimed at analyzing a retail sales dataset using SQL, with each study providing a different level of depth. The dataset tracks the sales parameters of an online supermarket operating across the United States.
+In this first study, I investigated whether the top-ranked cities by sales volume maintained their positions when analyzed by total profit. I performed a similar comparison at the state level. For both analyses, the results were consistent: the cities and states with the highest sales volumes also generated the highest profits.
+In contrast, when analyzing the top states by profit ratio (the ratio of profit to sales revenue), a radically different list emerged. This highlights the possibility that targeted advertising campaigns could improve profit performance in specific geographic areas that display a higher profit-to-sales ratio.
 
 ## Project structure
 
