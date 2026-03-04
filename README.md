@@ -1,14 +1,15 @@
 # # Supermarket Sales Analysis SQL Project
 
-**Level**: Basic
-**Dataset**: Supermarket_sales
-**Language**: SQL
-
 ## Abstract and research questions
 
 This study is the first in a series of three aimed at analyzing a retail sales dataset using SQL, with each study providing a different level of depth. The dataset tracks the sales parameters of an online supermarket operating across the United States.
 In this first study, I investigated whether the top-ranked cities by sales volume maintained their positions when analyzed by total profit. I performed a similar comparison at the state level. For both analyses, the results were consistent: the cities and states with the highest sales volumes also generated the highest profits.
 In contrast, when analyzing the top states by profit ratio (the ratio of profit to sales revenue), a radically different list emerged. This highlights the possibility that targeted advertising campaigns could improve profit performance in specific geographic areas that display a higher profit-to-sales ratio.
+In the second part of the study, I investigated which subcategories generated a higher profit and I further elaborated this analysis for the segment variable (i.e., if different segments of customers spent more on different subcategories). The top-3 sub-categories by profit remained the same for all the three segments - Binder, Paper, Furnishing, in order - 
+
+**Level**: Basic-Intermediate
+**Dataset**: Supermarket_sales
+**Language**: SQL
 
 ## Project structure
 
