@@ -200,9 +200,11 @@ SELECT product_id, COUNT(*)
 FROM products 
 GROUP BY product_id 
 HAVING COUNT(*) > 1;
+```
+In both State and City rankings, the top three performers remained remarkably consistent across sales and profit. Specifically, the cities of New York, Los Angeles, and Seattle mirrored the dominance of their respective states: New York, California, and Washington. The only notable variance occurs in the State sales ranking, where Pennsylvania holds the third position while Washington follows in fourth. This trend indicates that profitability for these high-volume regions remains robust, showing no major disruptions. Furthermore, it suggests that the highest sales volumes are heavily concentrated within major metropolitan hubs, effectively mitigating the impact of smaller centers on the overall total profit.
+<br>Something different happened when considering the Profit Ratio: the top three states are no longer the sales leaders. This divergence highlights the need to further investigate the possible reason why States with medium sales volumes are highly profitable.
 
-
-
+```sql
 -- Total Profit by Sub-Category
 SELECT p.sub_category 'Sub-Category', SUM(s.profit) 'Total Profit ($)'
 FROM sales s
@@ -223,6 +225,15 @@ INNER JOIN (
 GROUP BY 1
 ORDER BY 2 desc;
 ```
+
+
+
+
+
+
+
+
+
 
 ### 3. Intermediate-level business analysis
 Here, I carried out a more in-depth business analysis, using more complex SQL queries to investigate the following:
