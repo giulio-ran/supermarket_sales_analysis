@@ -226,10 +226,10 @@ ORDER BY 2 desc;
 
 ### 3. Intermediate-level business analysis
 Here, I carried out a more in-depth business analysis, using more complex SQL queries to investigate the following:
-- **Profit analysis by subcategory and segment**: some subcategories and segment customers can generate a higher profit. In this analysis, each sub-category profit computation is divided for customer segment, to highlight the different customer behaviour per sub-category (e.g., a customer in the Corporate segment could buy more Chair item with respect to a Consumer customer, or vice versa.
-- **Basket Analysis for shared sub-categories in the same orders**: Basket analysis analyze which product are brought togheter and in what percentage. Product of two or more subcategories could result to be bought toghether more often, resulting in a mutual profit spike.
+- **Profit analysis by subcategory and segment**: some subcategories and segment customers can generate a higher profit. In this analysis, each sub-category profit computation is divided by customer segment, to highlight the different customer behaviour per subcategory (e.g., a customer in the Corporate segment could buy more Chair items with respect to a Consumer customer, or vice versa).
+- **Basket Analysis for shared sub-categories in the same orders**: this analysis identifies which products are bought together and in what percentage. Products from two or more subcategories may be purchased together more frequently, resulting in a mutual profit spike.
 - **Shipping performance by city**: calculated as the mean difference between the order date and the shipping date, indicating the average shipping performance by city.
-- **Discount vs Profit analysis**: with this analysis I investigated the profit-discount relationship, isolating the 'category' and 'sub-category' variables. Indeed, certain types of product possono giovare di certe percentuali di sconti, while other types may not. This piece of information is important for a company, to individuate the best discount for each category/sub-category, in order to maximaze profit.
+- **Discount vs Profit analysis**: I investigated the profit-discount relationship, isolating the 'category' and 'subcategory' variables. Indeed, certain types of products can benefit from specific discount percentages, while others may not. This information is crucial for a company to identify the optimal discount for each category/subcategory, to maximize profit.
 
 ```sql
 -- Profit quantification by sub-category
