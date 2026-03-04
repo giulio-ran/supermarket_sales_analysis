@@ -97,9 +97,9 @@ HAVING
 
 ```
 
-In this case, both null values and duplicate values were absent in the raw data. For this reason, I didn't write any DELETE query.
+In this case, both null and duplicate values were absent in the raw data. For this reason, I didn't write any DELETE query.
 
-- **Star Schema setup**: different tables have been created, each one describinig a different dimension of the data; each of these 'descriptive' table can be linked to the principal 'fact' table through a single join.
+- **Star Schema setup**: different tables have been created, each one describinig a different dimension of the data; each of these 'descriptive' tables can be linked to the principal 'fact' table through a single join.
 
 ```sql
 -- Star Schema setup
