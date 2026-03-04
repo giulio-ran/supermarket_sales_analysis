@@ -246,7 +246,7 @@ inner join customer c on c.customer_id = s.customer_id
 GROUP BY 1,2
 ORDER BY 1,3 DESC;
 ```
-
+For all three segments - Consumer, Corporate, Home Office - the subcategories Phone, Copiers, Accessories were cprese in the top-4 ranking by profit. However, the total profit of these subcategories was higher for the Consumer segment, following Corporate, and Home Office. This data could give insights in the population-scale proportion of customers: even if a company (Corporate segment) buy more than each individual customer (Consumer), the higher numerosity of the latters generate the overall higher profit. The same reasoning could be applied for the Home Office segment, which spend on average more than a single Consumer customer but less than a company, it's found at the last position for its minor individual numerosity. It culd be interesting a future analysis taking in consideration the average expense per segment customer.
 
 
 
