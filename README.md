@@ -1,15 +1,16 @@
 # # Supermarket Sales Analysis SQL Project
 
+- **Level**: Basic-Intermediate
+- **Dataset**: Supermarket_sales
+- **Language**: SQL
+
+
 ## Abstract and research questions
 
 This study is the first in a series of three aimed at analyzing a retail sales dataset using SQL, with each study providing a different level of depth. The dataset tracks the sales parameters of an online supermarket operating across the United States.
 In this first study, I investigated whether the top-ranked cities by sales volume maintained their positions when analyzed by total profit. I performed a similar comparison at the state level. For both analyses, the results were consistent: the cities and states with the highest sales volumes also generated the highest profits.
 In contrast, when analyzing the top states by profit ratio (the ratio of profit to sales revenue), a radically different list emerged. This highlights the possibility that targeted advertising campaigns could improve profit performance in specific geographic areas that display a higher profit-to-sales ratio.
 In the second part of the study, I investigated which subcategories generated a higher profit and I further elaborated this analysis for the segment variable (i.e., if different segments of customers spent more on different subcategories). The top-3 sub-categories by profit remained the same for all the three segments - Binder, Paper, Furnishing, in order - while ranked the subcategories changed throughout the segments, meaning that, if for the top-3 subcategories the domanda is ampia e stabile, for the ramaining subcategories un fattore importante è anche la tipologia di cliente. I then investigated whih cities dimostrano the best overall shipping performance, ottenendo Kenner, Portage and Mentor as the ones with an average of shippinig the same day of the order receiving. Un fattore determinante could be la relativa piccola dimensione di questi centri abitati, cosa che, data il possibile basso vuolume di ordini, potrebbe promuovere un'alta efficienza di spedizione. Da ultimo, I investigated if different discount percentages were linked to higher profit values, and divided this analysis for the category and subcategory variables. The findings indicated that, for discount percentage higher than 30%, the profit was negative for all the categories and subcategories.
-
-**Level**: Basic-Intermediate
-**Dataset**: Supermarket_sales
-**Language**: SQL
 
 ## Project structure
 
