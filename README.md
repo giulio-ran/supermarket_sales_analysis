@@ -225,15 +225,7 @@ INNER JOIN (
 GROUP BY 1
 ORDER BY 2 desc;
 ```
-
-
-
-
-
-
-
-
-
+We observe that the top three sub-categories by total profit (Copiers, Phones, Accessories) differ significantly from those with the highest profit ratio (Labels, Paper, Envelopes). This discrepancy highlights a fundamental difference in product types: while Copiers generate high absolute profit due to their high unit cost, low-cost items like Labels yield a much higher profit margin. These insights make it easier to break down the sources of annual profit and understand their relative proportions.
 
 ### 3. Intermediate-level business analysis
 Here, I carried out a more in-depth business analysis, using more complex SQL queries to investigate the following:
