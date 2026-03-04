@@ -270,13 +270,17 @@ The top four most frequently purchased subcategory pairs all included Binders, c
 
 ```sql
 -- Shipping performance: computation of the average shipping time for each city
- * From the worst to the best performance */
+-- From the worst to the best performance
 select s.city City, avg(datediff(o.ship_date, o.order_date)) `Average shipping days`
 		from sales s 
 		join orders o on s.order_id = o.order_id
 		group by City
 		order by 2 desc;
+```
 
+Kenner, Portage, Mentor, Rock Hill, and Billings are the cities with the best shipping performance, averaging zero days between order receipt and shipping. This result could be due to the smaller size of these urban centers compared to larger cities - and therefore the lower sales volume -, but it could also stem from a highly efficient shipping logistics.
+
+```sql
 -- Discount vs Profit analysis
 -- Average profit by discount percentage
 SELECT 
@@ -319,6 +323,7 @@ JOIN products p ON s.product_id = p.product_id
 GROUP BY 1,2
 ORDER BY 3 desc;
 ```
+The 'Profit by Discount' table clearly shows that, for discount percentages exceeding 20% (0.2), profit becomes negative across all considered indicators: total profit, average profit per sale, and profit margin (%). A higher level of granularity may be required for future studies. This trend also persists across almost every category and subcategory. The only exceptions are subcategories Storage and Supplies, which yielded negative profits even at a 20% discount. These findings suggest that the company should always chose discounts equal or lower to 20% to maintain profitability.
 
 ### 3. Advanced-level business analysis
 In the following section, I carried out a more advanced analysis, emploing the following techniques:
