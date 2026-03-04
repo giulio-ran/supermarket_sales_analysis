@@ -229,23 +229,13 @@ We observe that the top three sub-categories by total profit (Copiers, Phones, A
 
 ### 3. Intermediate-level business analysis
 Here, I carried out a more in-depth business analysis, using more complex SQL queries to investigate the following:
-- **Profit analysis by subcategory and segment**: some subcategories and segment customers can generate a higher profit. In this analysis, each sub-category profit computation is divided by customer segment, to highlight the different customer behaviour per subcategory (e.g., a customer in the Corporate segment could buy more Chair items with respect to a Consumer customer, or vice versa).
+- **Profit analysis by subcategory and segment**: some subcategories and segment customers can generate a higher profit. In this analysis, each subcategory profit computation is divided by customer segment, to highlight the different customer behaviour per subcategory (e.g., a customer in the Corporate segment could buy more Chair items with respect to a Consumer customer, or vice versa).
 - **Basket Analysis for shared sub-categories in the same orders**: this analysis identifies which products are bought together and in what percentage. Products from two or more subcategories may be purchased together more frequently, resulting in a mutual profit spike.
 - **Shipping performance by city**: calculated as the mean difference between the order date and the shipping date, indicating the average shipping performance by city.
 - **Discount vs Profit analysis**: I investigated the profit-discount relationship, isolating the 'category' and 'subcategory' variables. Indeed, certain types of products can benefit from specific discount percentages, while others may not. This information is crucial for a company to identify the optimal discount for each category/subcategory, to maximize profit.
 
 ```sql
--- Profit quantification by sub-category
-SELECT p.sub_category 'Sub-Category', SUM(s.quantity) 'Total Quantity', round(sum(s.profit),0) 'Profit ($)'
-FROM sales s
-INNER JOIN (
-    SELECT DISTINCT product_id, sub_category 
-    FROM products
-) p ON s.product_id = p.product_id
-GROUP BY 1
-ORDER BY 2 DESC;
-
--- Profit quantification by sub-category and by segments
+-- Profit quantification by subcategory and by segments
 SELECT c.segment, p.sub_category 'Sub-Category', SUM(s.quantity) 'Total Quantity', round(sum(s.profit),0) 'Profit ($)'
 FROM sales s
 INNER JOIN (
@@ -255,8 +245,12 @@ INNER JOIN (
 inner join customer c on c.customer_id = s.customer_id
 GROUP BY 1,2
 ORDER BY 1,3 DESC;
+```
 
 
+
+
+```sql
 -- Basket analysis for shared sub-categories in the same orders
 select s1.sub_category `Product (a)`, s2.sub_category `Product (b)`,
 		count(distinct s1.order_id) `Times bought together` 
@@ -274,8 +268,11 @@ select s1.sub_category `Product (a)`, s2.sub_category `Product (b)`,
 			and s1.sub_category < s2.sub_category 
 	group by 1,2 
 	order by 3 desc ;
-			
-		
+```		
+
+
+
+```sql
 -- Shipping performance: computation of the average shipping time for each city
  * From the worst to the best performance */
 select s.city City, avg(datediff(o.ship_date, o.order_date)) `Average shipping days`
