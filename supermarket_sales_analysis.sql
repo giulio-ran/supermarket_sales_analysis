@@ -29,7 +29,7 @@ CREATE TABLE raw_supermarket_sales (
 );
 
 
-load data infile "C:/ProgramData/MySQL/MySQL Server 9.5/Uploads/supermarket_sales_converted.csv"
+load data infile "your_path/supermarket_sales.csv"
 into table raw_supermarket_sales 
 fields terminated by ','
 enclosed by '"'
@@ -334,60 +334,8 @@ SELECT
 FROM RFM_Base
 ORDER BY 4 DESC;
 
-/* Assigning a score to each raw RFM value 
- * Each score represents a quintile */
-WITH RFM_Calculated AS (
-    SELECT 
-        s.customer_id,
-        DATEDIFF((SELECT MAX(order_date) FROM orders), MAX(o.order_date)) AS recency,
-        COUNT(DISTINCT s.order_id) AS frequency,
-        SUM(s.sales) AS monetary
-    FROM sales s
-    JOIN orders o ON s.order_id = o.order_id AND s.product_id = o.product_id
-    GROUP BY s.customer_id
-),
-RFM_Scores AS (
-    SELECT *,
-        NTILE(5) OVER (ORDER BY recency DESC) AS r_score,
-        NTILE(5) OVER (ORDER BY frequency ASC) AS f_score,
-        NTILE(5) OVER (ORDER BY monetary ASC) AS m_score
-    FROM RFM_Calculated
-)
-SELECT 
-    customer_id,
-    recency 'Recency value', frequency 'Frequency value', monetary 'Monetary value',
-    r_score 'Recency score', f_score 'Frequency score', m_score 'Monetary score',
-    (r_score + f_score + m_score) AS 'RFM total score'
-FROM RFM_Scores;
 
 
-
-
--- Pareto Analysis
-WITH Customer_Profit AS (
-    SELECT 
-        customer_id,
-        SUM(profit) AS total_customer_profit
-    FROM sales
-    GROUP BY customer_id
-),
-Cumulative_Analysis AS (
-    SELECT 
-        customer_id,
-        total_customer_profit,
-        SUM(total_customer_profit) OVER (ORDER BY total_customer_profit DESC) AS cumulative_profit,
-        SUM(total_customer_profit) OVER () AS global_total_profit,
-        ROW_NUMBER() OVER (ORDER BY total_customer_profit DESC) AS customer_rank,
-        COUNT(*) OVER () AS total_customer_count
-    FROM Customer_Profit
-)
-SELECT 
-    customer_id,
-    ROUND(total_customer_profit, 2) AS profit,
-    ROUND((cumulative_profit / global_total_profit) * 100, 2) AS cumulative_percentage,
-    ROUND((customer_rank / total_customer_count) * 100, 2) AS customer_percentage
-FROM Cumulative_Analysis
-ORDER BY total_customer_profit DESC;
 
 
 
